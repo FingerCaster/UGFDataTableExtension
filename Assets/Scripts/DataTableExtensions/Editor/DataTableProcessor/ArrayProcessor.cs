@@ -25,15 +25,8 @@ namespace DE.Editor
         }
 
         public override bool IsId => false;
-
+        
         public override string LanguageKeyword
-        {
-            get
-            {
-                return "string";
-            }
-        }
-        public string RealLanguageKeyword
         {
             get
             {

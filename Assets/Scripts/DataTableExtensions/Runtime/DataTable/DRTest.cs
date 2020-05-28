@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-05-28 15:36:22.933
+// 生成时间：2020-05-28 21:25:06.148
 //------------------------------------------------------------
 
 using GameFramework;
@@ -234,6 +234,402 @@ namespace DE
             private set;
         }
 
+        /// <summary>
+        /// 获取Bool列表。
+        /// </summary>
+        public List<bool> BoolList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Byte列表。
+        /// </summary>
+        public List<byte> ByteList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Char列表。
+        /// </summary>
+        public List<char> CharList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Color32列表。
+        /// </summary>
+        public List<Color32> Color32List
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Color列表。
+        /// </summary>
+        public List<Color> ColorList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取DateTime列表。
+        /// </summary>
+        public List<DateTime> DateTimeList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Decimal列表。
+        /// </summary>
+        public List<decimal> DecimalList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Double列表。
+        /// </summary>
+        public List<double> DoubleList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Float列表。
+        /// </summary>
+        public List<float> FloatList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Int列表。
+        /// </summary>
+        public List<int> IntList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Long列表。
+        /// </summary>
+        public List<long> LongList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Quaternion列表。
+        /// </summary>
+        public List<Quaternion> QuaternionList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Rect列表。
+        /// </summary>
+        public List<Rect> RectList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取SByte列表。
+        /// </summary>
+        public List<sbyte> SByteList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Short列表。
+        /// </summary>
+        public List<short> ShortList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取String列表。
+        /// </summary>
+        public List<string> StringList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取UInt列表。
+        /// </summary>
+        public List<uint> UIntList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取ULong列表。
+        /// </summary>
+        public List<ulong> ULongList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取UShort列表。
+        /// </summary>
+        public List<ushort> UShortList
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector2列表。
+        /// </summary>
+        public List<Vector2> Vector2List
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector3列表。
+        /// </summary>
+        public List<Vector3> Vector3List
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector4列表。
+        /// </summary>
+        public List<Vector4> Vector4List
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Bool数组。
+        /// </summary>
+        public bool[] BoolArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Byte数组。
+        /// </summary>
+        public byte[] ByteArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Char数组。
+        /// </summary>
+        public char[] CharArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Color32数组。
+        /// </summary>
+        public Color32[] Color32Array
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Color数组。
+        /// </summary>
+        public Color[] ColorArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取DateTime数组。
+        /// </summary>
+        public DateTime[] DateTimeArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Decimal数组。
+        /// </summary>
+        public decimal[] DecimalArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Double数组。
+        /// </summary>
+        public double[] DoubleArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Float数组。
+        /// </summary>
+        public float[] FloatArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Int数组。
+        /// </summary>
+        public int[] IntArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Long数组。
+        /// </summary>
+        public long[] LongArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Quaternion数组。
+        /// </summary>
+        public Quaternion[] QuaternionArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Rect数组。
+        /// </summary>
+        public Rect[] RectArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取SByte数组。
+        /// </summary>
+        public sbyte[] SByteArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Short数组。
+        /// </summary>
+        public short[] ShortArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取String数组。
+        /// </summary>
+        public string[] StringArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取UInt数组。
+        /// </summary>
+        public uint[] UIntArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取ULong数组。
+        /// </summary>
+        public ulong[] ULongArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取UShort数组。
+        /// </summary>
+        public ushort[] UShortArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector2数组。
+        /// </summary>
+        public Vector2[] Vector2Array
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector3数组。
+        /// </summary>
+        public Vector3[] Vector3Array
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Vector4数组。
+        /// </summary>
+        public Vector4[] Vector4Array
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(GameFrameworkDataSegment dataRowSegment, object dataTableUserData)
         {
             Type dataType = dataRowSegment.DataType;
@@ -272,6 +668,50 @@ namespace DE
             Vector2Value = DataTableExtension.ParseVector2(columnTexts[index++]);
             Vector3Value = DataTableExtension.ParseVector3(columnTexts[index++]);
             Vector4Value = DataTableExtension.ParseVector4(columnTexts[index++]);
+				BoolList = DataTableExtension.ParseList<bool>(columnTexts[index++]);
+				ByteList = DataTableExtension.ParseList<byte>(columnTexts[index++]);
+				CharList = DataTableExtension.ParseList<char>(columnTexts[index++]);
+				Color32List = DataTableExtension.ParseColor32List(columnTexts[index++]);
+				ColorList = DataTableExtension.ParseColorList(columnTexts[index++]);
+				DateTimeList = DataTableExtension.ParseList<DateTime>(columnTexts[index++]);
+				DecimalList = DataTableExtension.ParseList<decimal>(columnTexts[index++]);
+				DoubleList = DataTableExtension.ParseList<double>(columnTexts[index++]);
+				FloatList = DataTableExtension.ParseList<float>(columnTexts[index++]);
+				IntList = DataTableExtension.ParseList<int>(columnTexts[index++]);
+				LongList = DataTableExtension.ParseList<long>(columnTexts[index++]);
+				QuaternionList = DataTableExtension.ParseQuaternionList(columnTexts[index++]);
+				RectList = DataTableExtension.ParseRectList(columnTexts[index++]);
+				SByteList = DataTableExtension.ParseList<sbyte>(columnTexts[index++]);
+				ShortList = DataTableExtension.ParseList<short>(columnTexts[index++]);
+				StringList = DataTableExtension.ParseList<string>(columnTexts[index++]);
+				UIntList = DataTableExtension.ParseList<uint>(columnTexts[index++]);
+				ULongList = DataTableExtension.ParseList<ulong>(columnTexts[index++]);
+				UShortList = DataTableExtension.ParseList<ushort>(columnTexts[index++]);
+				Vector2List = DataTableExtension.ParseVector2List(columnTexts[index++]);
+				Vector3List = DataTableExtension.ParseVector3List(columnTexts[index++]);
+				Vector4List = DataTableExtension.ParseVector4List(columnTexts[index++]);
+				BoolArray = DataTableExtension.ParseArray<bool>(columnTexts[index++]);
+				ByteArray = DataTableExtension.ParseArray<byte>(columnTexts[index++]);
+				CharArray = DataTableExtension.ParseArray<char>(columnTexts[index++]);
+				Color32Array = DataTableExtension.ParseColor32Array(columnTexts[index++]);
+				ColorArray = DataTableExtension.ParseColorArray(columnTexts[index++]);
+				DateTimeArray = DataTableExtension.ParseArray<DateTime>(columnTexts[index++]);
+				DecimalArray = DataTableExtension.ParseArray<decimal>(columnTexts[index++]);
+				DoubleArray = DataTableExtension.ParseArray<double>(columnTexts[index++]);
+				FloatArray = DataTableExtension.ParseArray<float>(columnTexts[index++]);
+				IntArray = DataTableExtension.ParseArray<int>(columnTexts[index++]);
+				LongArray = DataTableExtension.ParseArray<long>(columnTexts[index++]);
+				QuaternionArray = DataTableExtension.ParseQuaternionArray(columnTexts[index++]);
+				RectArray = DataTableExtension.ParseRectArray(columnTexts[index++]);
+				SByteArray = DataTableExtension.ParseArray<sbyte>(columnTexts[index++]);
+				ShortArray = DataTableExtension.ParseArray<short>(columnTexts[index++]);
+				StringArray = DataTableExtension.ParseArray<string>(columnTexts[index++]);
+				UIntArray = DataTableExtension.ParseArray<uint>(columnTexts[index++]);
+				ULongArray = DataTableExtension.ParseArray<ulong>(columnTexts[index++]);
+				UShortArray = DataTableExtension.ParseArray<ushort>(columnTexts[index++]);
+				Vector2Array = DataTableExtension.ParseVector2Array(columnTexts[index++]);
+				Vector3Array = DataTableExtension.ParseVector3Array(columnTexts[index++]);
+				Vector4Array = DataTableExtension.ParseVector4Array(columnTexts[index++]);
             }
             else if (dataType == typeof(byte[]))
             {
@@ -303,6 +743,50 @@ namespace DE
                         Vector2Value = binaryReader.ReadVector2();
                         Vector3Value = binaryReader.ReadVector3();
                         Vector4Value = binaryReader.ReadVector4();
+				BoolList = binaryReader.ReadList<bool>();
+				ByteList = binaryReader.ReadList<byte>();
+				CharList = binaryReader.ReadList<char>();
+				Color32List = binaryReader.ReadColor32List();
+				ColorList = binaryReader.ReadColorList();
+				DateTimeList = binaryReader.ReadList<DateTime>();
+				DecimalList = binaryReader.ReadList<decimal>();
+				DoubleList = binaryReader.ReadList<double>();
+				FloatList = binaryReader.ReadList<float>();
+				IntList = binaryReader.ReadList<int>();
+				LongList = binaryReader.ReadList<long>();
+				QuaternionList = binaryReader.ReadQuaternionList();
+				RectList = binaryReader.ReadRectList();
+				SByteList = binaryReader.ReadList<sbyte>();
+				ShortList = binaryReader.ReadList<short>();
+				StringList = binaryReader.ReadList<string>();
+				UIntList = binaryReader.ReadList<uint>();
+				ULongList = binaryReader.ReadList<ulong>();
+				UShortList = binaryReader.ReadList<ushort>();
+				Vector2List = binaryReader.ReadVector2List();
+				Vector3List = binaryReader.ReadVector3List();
+				Vector4List = binaryReader.ReadVector4List();
+				BoolArray = binaryReader.ReadArray<bool>();
+				ByteArray = binaryReader.ReadArray<byte>();
+				CharArray = binaryReader.ReadArray<char>();
+				Color32Array = binaryReader.ReadColor32Array();
+				ColorArray = binaryReader.ReadColorArray();
+				DateTimeArray = binaryReader.ReadArray<DateTime>();
+				DecimalArray = binaryReader.ReadArray<decimal>();
+				DoubleArray = binaryReader.ReadArray<double>();
+				FloatArray = binaryReader.ReadArray<float>();
+				IntArray = binaryReader.ReadArray<int>();
+				LongArray = binaryReader.ReadArray<long>();
+				QuaternionArray = binaryReader.ReadQuaternionArray();
+				RectArray = binaryReader.ReadRectArray();
+				SByteArray = binaryReader.ReadArray<sbyte>();
+				ShortArray = binaryReader.ReadArray<short>();
+				StringArray = binaryReader.ReadArray<string>();
+				UIntArray = binaryReader.ReadArray<uint>();
+				ULongArray = binaryReader.ReadArray<ulong>();
+				UShortArray = binaryReader.ReadArray<ushort>();
+				Vector2Array = binaryReader.ReadVector2Array();
+				Vector3Array = binaryReader.ReadVector3Array();
+				Vector4Array = binaryReader.ReadVector4Array();
                     }
                 }
             }

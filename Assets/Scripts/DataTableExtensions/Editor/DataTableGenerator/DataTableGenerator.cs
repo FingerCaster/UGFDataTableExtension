@@ -19,10 +19,11 @@ namespace DE.Editor
 
         public static UGFDataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
-            UGFDataTableProcessor dataTableProcessor = new UGFDataTableProcessor(
-                Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2,
-                null, 3, 4, 1);
-            DataTableProcessorHelper.SetDataTableProcessor(dataTableProcessor);
+            UGFDataTableProcessor dataTableProcessor =
+                DataTableProcessorHelper.CreateDataTableProcessor(
+                    Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1,
+                    2,
+                    null, 3, 4, 1);
             return dataTableProcessor;
         }
 
