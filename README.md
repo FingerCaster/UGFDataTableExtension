@@ -1,2 +1,2 @@
 # UGFDataTableExtension
-对<link="https://github.com/EllanJiang/UnityGameFramework">UnityGameFramework</link>中DataTable模块的扩展  支持List和数组
+对[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework)中DataTable模块的扩展  支持List和数组
