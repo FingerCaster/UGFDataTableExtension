@@ -169,6 +169,7 @@ namespace DE.Editor
                 if (UGFDataTableProcessor.IsSystem(i))
                 {
                     string languageKeyword = UGFDataTableProcessor.GetLanguageKeyword(i);
+                    
                     if (languageKeyword == "string")
                     {
                         stringBuilder
@@ -177,7 +178,7 @@ namespace DE.Editor
                     }
                     else
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t{0} = {1}.Parse(columnTexts[index++]);",
+                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = {1}.Parse(columnTexts[index++]);",
                             UGFDataTableProcessor.GetName(i), languageKeyword).AppendLine();
                     }
                 }
@@ -189,41 +190,19 @@ namespace DE.Editor
                             .GetGenericArguments();
                         UGFDataTableProcessor.DataProcessor dataProcessor =
                             Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
-                        if (dataProcessor.IsSystem)
-                        {
-                            stringBuilder
-                                .AppendFormat("\t\t\t\t{0} = DataTableExtension.ParseList<{1}>(columnTexts[index++]);",
-                                    UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
-                        }
-                        else
-                        {
-                            stringBuilder
+                        stringBuilder
                                 .AppendFormat("\t\t\t\t{0} = DataTableExtension.Parse{1}List(columnTexts[index++]);",
-                                    UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
-                        }
-
+                                    UGFDataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                         continue;
                     }
 
                     if (DataTableProcessorHelper.IsArrayColumn(i))
                     {
-                        System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType()
-                            .GetGenericArguments();
-                        UGFDataTableProcessor.DataProcessor dataProcessor =
-                            Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
-                        if (dataProcessor.IsSystem)
-                        {
-                            stringBuilder
-                                .AppendFormat("\t\t\t\t{0} = DataTableExtension.ParseArray<{1}>(columnTexts[index++]);",
-                                    UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
-                        }
-                        else
-                        {
-                            stringBuilder
+                        System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType().GetGenericArguments();
+                        UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
+                        stringBuilder
                                 .AppendFormat("\t\t\t\t{0} = DataTableExtension.Parse{1}Array(columnTexts[index++]);",
-                                    UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
-                        }
-
+                                    UGFDataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                         continue;
                     }
 
@@ -265,49 +244,42 @@ namespace DE.Editor
                     stringBuilder.AppendLine("                    m_Id = binaryReader.ReadInt32();");
                     continue;
                 }
-
+                string languageKeyword = UGFDataTableProcessor.GetLanguageKeyword(i);
                 if (DataTableProcessorHelper.IsListColumn(i))
                 {
-                    System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType()
-                        .GetGenericArguments();
-                    UGFDataTableProcessor.DataProcessor dataProcessor =
-                        Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
-                    if (dataProcessor.IsSystem)
+                    System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType().GetGenericArguments();
+                    UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
+                    if (DataTableProcessorHelper.GetDataProcessor(i) is ICollectionProcessor ic && ic.ItemLanguageKeyword == "string")
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t{0} = binaryReader.ReadList<{1}>();",
-                            UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}List(strings);",
+                            UGFDataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                     }
                     else
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t{0} = binaryReader.Read{1}List();",
-                            UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}List();",
+                            UGFDataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                     }
-
                     continue;
                 }
 
                 if (DataTableProcessorHelper.IsArrayColumn(i))
                 {
-                    System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType()
-                        .GetGenericArguments();
-                    UGFDataTableProcessor.DataProcessor dataProcessor =
-                        Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
-                    // 编号列
-                    if (dataProcessor.IsSystem)
+                    System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType().GetGenericArguments();
+                    UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
+                    if (DataTableProcessorHelper.GetDataProcessor(i) is ICollectionProcessor ic && ic.ItemLanguageKeyword == "string")
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t{0} = binaryReader.ReadArray<{1}>();",
-                            UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}Array(strings);",
+                            UGFDataTableProcessor.GetName(i),dataProcessor.Type.Name).AppendLine();
                     }
                     else
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t{0} = binaryReader.Read{1}Array();",
-                            UGFDataTableProcessor.GetName(i), dataProcessor.LanguageKeyword).AppendLine();
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
+                            UGFDataTableProcessor.GetName(i),  dataProcessor.Type.Name).AppendLine();
                     }
-
                     continue;
                 }
 
-                string languageKeyword = UGFDataTableProcessor.GetLanguageKeyword(i);
+                
                 if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
                     languageKeyword == "ulong")
                 {

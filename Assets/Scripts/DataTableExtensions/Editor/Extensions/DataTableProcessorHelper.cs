@@ -21,7 +21,7 @@ namespace DE.Editor
         private static readonly char[] DataTrimSeparators = new char[] {'\"'};
         private static readonly Dictionary<string, FieldInfo> FieldInfos = new Dictionary<string, FieldInfo>();
         
-        
+
         static DataTableProcessorHelper()
         {
             m_UGFDataTableProcessor = new UGFDataTableProcessor(
@@ -35,8 +35,8 @@ namespace DE.Editor
             {
                 FieldInfos.Add(fieldInfo.Name, fieldInfo);
             }
-        }
 
+        }
         private static void SetValue(string filedName, object value)
         {
             FieldInfos.TryGetValue(filedName, out FieldInfo fieldInfo);
@@ -218,19 +218,36 @@ namespace DE.Editor
 
                 for (int j = 0; j < rawColumnCount; j++)
                 {
-                    if (m_DataProcessor[j].LanguageKeyword != "string")
-                    {
-                        continue;
-                    }
+                    ICollectionProcessor collectionProcessor = m_DataProcessor[j] as  ICollectionProcessor;
 
-                    string str = UGFDataTableProcessorRawValues[i][j];
-                    if (strings.ContainsKey(str))
+                    if (collectionProcessor != null)
                     {
-                        strings[str]++;
+                        if (collectionProcessor.ItemLanguageKeyword != "string")
+                        {
+                            continue;
+                        }
                     }
                     else
                     {
-                        strings[str] = 1;
+                        if (m_DataProcessor[j].LanguageKeyword != "string")
+                        {
+                            continue;
+                        }
+                    }
+                    
+
+                    string str = UGFDataTableProcessorRawValues[i][j];
+                    string[] values = str.Split('|');
+                    foreach (string value in values)
+                    {
+                        if (strings.ContainsKey(value))
+                        {
+                            strings[value]++;
+                        }
+                        else
+                        {
+                            strings[value] = 1;
+                        }
                     }
                 }
             }
@@ -268,6 +285,7 @@ namespace DE.Editor
         {
             return m_DataProcessor[rawColumn];
         }
+      
 
         
         private static readonly string[] EditorAssemblyNames =
@@ -310,6 +328,11 @@ namespace DE.Editor
             }
 
             return typeNames;
+        }
+        
+        public static bool IsCustomType(Type type)
+        {
+            return (type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object);
         }
     }
 }

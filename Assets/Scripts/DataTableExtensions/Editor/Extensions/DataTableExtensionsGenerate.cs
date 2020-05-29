@@ -30,35 +30,29 @@ namespace DE.Editor
                 {
                     continue;
                 }
-
                 if (dataProcessorBaseType.IsAssignableFrom(types[i]))
                 {
                     UGFDataTableProcessor.DataProcessor dataProcessor = null;
                     dataProcessor = (UGFDataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
-                    if (IsCustomType(dataProcessor.Type) && !(dataProcessor.IsId || dataProcessor.IsComment))
+                    if (dataProcessor.IsComment || dataProcessor.IsId)
                     {
-                        datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
-                        binaryReaderDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
+                        continue;
                     }
-
-                    if (dataProcessor.Type == typeof(DateTime))
-                    {
-                        binaryReaderDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
-                    }
+                    datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
+                    Debug.Log(dataProcessor.LanguageKeyword);
                 }
             }
 
             GenerateDataTableExtensionArray(datableDataProcessors);
             GenerateDataTableExtensionList(datableDataProcessors);
-            GenerateBinaryReaderExtensionList(binaryReaderDataProcessors);
-            GenerateBinaryReaderExtensionArray(binaryReaderDataProcessors);
+            GenerateBinaryReaderExtensionList(datableDataProcessors);
+            GenerateBinaryReaderExtensionArray(datableDataProcessors);
 
             AssetDatabase.Refresh();
         }
 
 
-        private static void GenerateDataTableExtensionArray(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionArray(IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using UnityEngine;");
@@ -71,36 +65,35 @@ namespace DE.Editor
             sb.AppendLine("\t{");
             foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Key}Array(string value)");
+                sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Value.Type.Name}Array(string value)");
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
+                sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
                 sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[splitValue.Length];");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
-                sb.AppendLine($"\t\t\t\tarray[i] = Parse{item.Key}(splitValue[i]);");
+                if (item.Value.IsSystem)
+                {
+                    if (item.Key == "string")
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = splitValue[i];");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = {item.Value.Type.Name}.Parse(splitValue[i]);");
+                    }
+                }
+                else
+                {
+                    sb.AppendLine($"\t\t\t\tarray[i] = Parse{item.Value.Type.Name}(splitValue[i]);");
+                }
+
                 sb.AppendLine("\t\t\t}");
                 sb.AppendLine();
                 sb.AppendLine($"\t\t\treturn array;");
                 sb.AppendLine("\t\t}");
             }
-
-            sb.AppendLine("\t\tpublic static T[] ParseArray<T>(string value)");
-            sb.AppendLine("\t\t{");
-            sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\treturn null;");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
-            sb.AppendLine("\t\t\tT[] array = new T[splitValue.Length];");
-            sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\tT t = DataTableExtensionHelper.Parse<T>(splitValue[i]);");
-            sb.AppendLine("\t\t\t\tarray[i] = t;");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\t return array;");
-            sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
             sb.AppendLine("}");
             GenerateCodeFile("DataTableExtension.Array", sb.ToString());
@@ -120,43 +113,33 @@ namespace DE.Editor
             sb.AppendLine("\t{");
             foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Key}List(string value)");
+                sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                sb.AppendLine("\t\t\tstring[] items = value.Split('|');");
-                sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(items.Length);");
-                sb.AppendLine("\t\t\tforeach (string item in items)");
+                sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
+                sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(splitValue.Length);");
+                sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
-                sb.AppendLine("\t\t\t\tstring[] splitValue = value.Split(',');");
-                sb.AppendLine("\t\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
-                sb.AppendLine("\t\t\t\t{");
-                sb.AppendLine($"\t\t\t\t\tlist.Add(Parse{item.Key}(splitValue[i]));");
-                sb.AppendLine("\t\t\t\t}");
+                if (item.Value.IsSystem)
+                {
+                    if (item.Key == "string")
+                    {
+                        sb.AppendLine($"\t\t\t\tlist.Add(splitValue[i]);");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tlist.Add({item.Value.Type.Name}.Parse(splitValue[i]));");
+                    }
+                }
+                else
+                {
+                    sb.AppendLine($"\t\t\t\tlist.Add(Parse{item.Value.Type.Name}(splitValue[i]));");
+                }
                 sb.AppendLine("\t\t\t}");
                 sb.AppendLine("\t\t\treturn list;");
                 sb.AppendLine("\t\t}");
             }
-
-            sb.AppendLine("\t\tpublic static List<T> ParseList<T>(string value)");
-            sb.AppendLine("\t\t{");
-            sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\treturn null;");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\tstring[] items = value.Split('|');");
-            sb.AppendLine("\t\t\tList<T> list = new List<T>(items.Length);");
-            sb.AppendLine("\t\t\tforeach (string item in items)");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\tstring[] splitValue = value.Split(',');");
-            sb.AppendLine("\t\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
-            sb.AppendLine("\t\t\t\t{");
-            sb.AppendLine("\t\t\t\t\tT t = DataTableExtensionHelper.Parse<T>(splitValue[i]);");
-            sb.AppendLine("\t\t\t\t\tlist.Add(t);");
-            sb.AppendLine("\t\t\t\t}");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\treturn list;");
-            sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
             sb.AppendLine("}");
             GenerateCodeFile("DataTableExtension.List", sb.ToString());
@@ -176,38 +159,40 @@ namespace DE.Editor
             sb.AppendLine("\t{");
             foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static List<{item.Key}> Read{item.Key}List(this BinaryReader binaryReader)");
+                sb.AppendLine($"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)");
                 sb.AppendLine("\t\t{");
-                sb.AppendLine("\t\t\tstring value = binaryReader.ReadString();");
-                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-                sb.AppendLine("\t\t\t\treturn null;");
-                if (item.Value.Type == typeof(DateTime))
+                sb.AppendLine("\t\t\tint count = binaryReader.Read7BitEncodedInt32();");
+                sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(count);");
+                sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
+                sb.AppendLine("\t\t\t{");
+                if (DataTableProcessorHelper.IsCustomType(item.Value.Type)|| item.Value.Type == typeof(DateTime))
                 {
-                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
-                    sb.AppendLine($"\t\t\tList<DateTime> list = new List<DateTime>(splitValue.Length);");
-                    sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
-                    sb.AppendLine("\t\t\t{");
-                    sb.AppendLine($"\t\t\t\tlist.Add(new DateTime(Int64.Parse(splitValue[i])));");
-                    sb.AppendLine("\t\t\t}");
-                    sb.AppendLine("\t\t\treturn list;");
+                    sb.AppendLine($"\t\t\t\tlist.Add(Read{item.Key}(binaryReader));");
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\treturn DataTableExtension.Parse{item.Key}List(value);");
+                    string languageKeyword = item.Key;
+                    if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
+                        languageKeyword == "ulong")
+                    {
+                        sb.AppendLine($"\t\t\t\tlist.Add(binaryReader.Read7BitEncoded{item.Value.Type.Name}());");
+                    }
+                    else if (languageKeyword == "string")
+                    {
+                        sb.Replace($"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)",
+                            $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader,string[] strings)");
+                        sb.AppendLine("\t\t\t\tlist.Add(strings[binaryReader.Read7BitEncodedInt32()]);");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tlist.Add(binaryReader.Read{item.Value.Type.Name}());");
+                    }
                 }
 
+                sb.AppendLine("\t\t\t}");
+                sb.AppendLine("\t\t\treturn list;");
                 sb.AppendLine("\t\t}");
             }
-
-            sb.AppendLine("\t\tpublic static List<T> ReadList<T>(this BinaryReader binaryReader)");
-            sb.AppendLine("\t\t{");
-            sb.AppendLine("\t\t\tstring value = binaryReader.ReadString();");
-            sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\treturn null;");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\treturn DataTableExtension.ParseList<T>(value);");
-            sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
             sb.AppendLine("}");
             GenerateCodeFile("BinaryReaderExtension.List", sb.ToString());
@@ -227,38 +212,40 @@ namespace DE.Editor
             sb.AppendLine("\t{");
             foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static {item.Key}[] Read{item.Key}Array(this BinaryReader binaryReader)");
+                sb.AppendLine($"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)");
                 sb.AppendLine("\t\t{");
-                sb.AppendLine("\t\t\tstring value = binaryReader.ReadString();");
-                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-                sb.AppendLine("\t\t\t\treturn null;");
-                if (item.Value.Type == typeof(DateTime))
+                sb.AppendLine("\t\t\tint count = binaryReader.Read7BitEncodedInt32();");
+                sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[count];");
+                sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
+                sb.AppendLine("\t\t\t{");
+                if (DataTableProcessorHelper.IsCustomType(item.Value.Type)|| item.Value.Type == typeof(DateTime))
                 {
-                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
-                    sb.AppendLine($"\t\t\tDateTime[] array = new DateTime[splitValue.Length];");
-                    sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
-                    sb.AppendLine("\t\t\t{");
-                    sb.AppendLine($"\t\t\t\tarray[i] = new DateTime(Int64.Parse(splitValue[i]));");
-                    sb.AppendLine("\t\t\t}");
-                    sb.AppendLine("\t\t\treturn array;");
+                    sb.AppendLine($"\t\t\t\tarray[i] = Read{item.Key}(binaryReader);");
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\treturn DataTableExtension.Parse{item.Key}Array(value);");
+                    string languageKeyword = item.Key;
+                    if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
+                        languageKeyword == "ulong")
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = binaryReader.Read7BitEncoded{item.Value.Type.Name}();");
+                    }
+                    else if (languageKeyword == "string")
+                    {
+                        sb.Replace($"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)",
+                            $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader,string[] strings)");
+                        sb.AppendLine("\t\t\t\tarray[i] = strings[binaryReader.Read7BitEncodedInt32()];");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = binaryReader.Read{item.Value.Type.Name}();");
+                    }
                 }
 
+                sb.AppendLine("\t\t\t}");
+                sb.AppendLine("\t\t\treturn array;");
                 sb.AppendLine("\t\t}");
             }
-
-            sb.AppendLine("\t\tpublic static T[] ReadArray<T>(this BinaryReader binaryReader)");
-            sb.AppendLine("\t\t{");
-            sb.AppendLine("\t\t\tstring value = binaryReader.ReadString();");
-            sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
-            sb.AppendLine("\t\t\t{");
-            sb.AppendLine("\t\t\t\treturn null;");
-            sb.AppendLine("\t\t\t}");
-            sb.AppendLine("\t\t\treturn DataTableExtension.ParseArray<T>(value);");
-            sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
             sb.AppendLine("}");
             GenerateCodeFile("BinaryReaderExtension.Array", sb.ToString());

@@ -6,13 +6,30 @@ using UGFDataTableProcessor =  UnityGameFramework.Editor.DataTableTools.DataTabl
 
 namespace DE.Editor
 {
-    public sealed class ListProcessor<T,K> : UGFDataTableProcessor.DataProcessor where T : UGFDataTableProcessor.GenericDataProcessor<K>
+    public sealed class ListProcessor<T,K> : UGFDataTableProcessor.DataProcessor ,ICollectionProcessor where T : UGFDataTableProcessor.GenericDataProcessor<K>
     {
         public override bool IsComment => false;
 
         public override bool IsSystem
         {
             get { return false; }
+        }
+
+        public Type ItemType
+        {
+            get
+            {
+                UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
+                return dataProcessor.Type;
+            }
+        }
+
+        public string ItemLanguageKeyword {
+            get
+            {
+                UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
+                return dataProcessor.LanguageKeyword;
+            }
         }
 
         public override System.Type Type
@@ -51,7 +68,14 @@ namespace DE.Editor
 
         public override void WriteToStream(UGFDataTableProcessor UGFDataTableProcessor, BinaryWriter binaryWriter, string value)
         {
-            binaryWriter.Write(value);
+            UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
+            string[] splitValues = value.Split('|');
+            binaryWriter.Write7BitEncodedInt32(splitValues.Length);
+            foreach (string itemValue in splitValues)
+            {
+                dataProcessor.WriteToStream(UGFDataTableProcessor, binaryWriter, itemValue);
+            }
         }
+
     }
 }

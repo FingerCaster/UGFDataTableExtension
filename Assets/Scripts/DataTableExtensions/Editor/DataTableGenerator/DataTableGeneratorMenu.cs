@@ -1,5 +1,9 @@
-﻿
 
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using GameFramework;
 using UnityEditor;
 using UnityEngine;
@@ -7,12 +11,16 @@ using UGFDataTableProcessor =  UnityGameFramework.Editor.DataTableTools.DataTabl
 
 namespace DE.Editor
 {
-    public sealed class DataTableGeneratorMenu
+    public static class DataTableGeneratorMenu
     {
-        private static string[] DataTableNames = new []
+        private const string DataTablePath = "Assets/Res/DataTables";
+        private static string[] DataTableNames;
+        static DataTableGeneratorMenu()
         {
-            "Test"
-        };
+            DirectoryInfo folder = new DirectoryInfo(DataTablePath);
+            DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name)).ToArray();
+        }
+
         [MenuItem("DataTable/Generate DataTables")]
         private static void GenerateDataTables()
         {

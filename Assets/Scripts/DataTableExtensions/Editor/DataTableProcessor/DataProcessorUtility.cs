@@ -12,7 +12,6 @@ namespace DE.Editor
     {
         private static IDictionary<string, UGFDataTableProcessor.DataProcessor> s_DataProcessors =
             new SortedDictionary<string, UGFDataTableProcessor.DataProcessor>();
-
         static DataProcessorUtility()
         {
             System.Type dataProcessorBaseType = typeof(UGFDataTableProcessor.DataProcessor);
@@ -39,11 +38,11 @@ namespace DE.Editor
                     addList.Add(types[i]);
                 }
             }
+            
 
             AddListType(addList);
             AddArrayType(addList);
         }
-
         private static void AddArrayType(List<System.Type> addList)
         {
             System.Type dataProcessorBaseType = typeof(UGFDataTableProcessor.DataProcessor);
@@ -66,11 +65,11 @@ namespace DE.Editor
                         addList[i],
                         memberInfo.GenericTypeArguments[0]
                     };
-                    System.Type listType = type.MakeGenericType(typeArgs);
-                    if (dataProcessorBaseType.IsAssignableFrom(listType))
+                    System.Type arrayType = type.MakeGenericType(typeArgs);
+                    if (dataProcessorBaseType.IsAssignableFrom(arrayType))
                     {
                         UGFDataTableProcessor.DataProcessor dataProcessor =
-                            (UGFDataTableProcessor.DataProcessor) Activator.CreateInstance(listType);
+                            (UGFDataTableProcessor.DataProcessor) Activator.CreateInstance(arrayType);
                         UGFDataTableProcessor.DataProcessor tDataProcessor =
                             (UGFDataTableProcessor.DataProcessor) Activator.CreateInstance(addList[i]);
                         foreach (string typeString in dataProcessor.GetTypeStrings())
