@@ -21,7 +21,8 @@ namespace DE
 
         public static readonly string[] DataTableNames = new string[]
         {
-            "Test", // 测试
+            "Test", // 测试 
+            "TestDictionary", // 测试字典
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -90,6 +91,60 @@ namespace DE
                         $"{ArrayToString(drTest.DecimalArray)}    {ArrayToString(drTest.DoubleArray)}    {ArrayToString(drTest.FloatArray)}    {ArrayToString(drTest.IntArray)}    {ArrayToString(drTest.LongArray)}    {ArrayToString(drTest.QuaternionArray)}    {ArrayToString(drTest.RectArray)}    " +
                         $"{ArrayToString(drTest.SByteArray)}    {ArrayToString(drTest.ShortArray)}    {ArrayToString(drTest.StringArray)}    {ArrayToString(drTest.UIntArray)}    {ArrayToString(drTest.ULongArray)}    {ArrayToString(drTest.UShortArray)}    {ArrayToString(drTest.Vector2Array)}    " +
                         $"{ArrayToString(drTest.Vector3Array)}    {ArrayToString(drTest.Vector4Array)}");
+                }
+
+                string ArrayToString<T>(T[] array)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string comma = ",";
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        string separator = (i < array.Length - 1) ? comma : string.Empty;
+                        stringBuilder.Append($"{array[i].ToString()}{separator}");
+                    }
+
+                    return stringBuilder.ToString();
+                }
+
+                string ListToString<T>(List<T> array)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string comma = ",";
+                    for (int i = 0; i < array.Count; i++)
+                    {
+                        string separator = (i < array.Count - 1) ? comma : string.Empty;
+                        stringBuilder.Append($"{array[i].ToString()}{separator}");
+                    }
+
+                    return stringBuilder.ToString();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                IDataTable<DRTestDictionary> drTestDictionaries = DataTable.GetDataTable<DRTestDictionary>();
+                DRTestDictionary drTestDictionary = drTestDictionaries.GetDataRow(1);
+                if (drTestDictionary == null)
+                {
+                    return;
+                }
+                else
+                {
+                    Debug.Log($"{drTestDictionary.Id}    TestDictionary:{DictionaryToString(drTestDictionary.TestDictionary)}");
+                }
+
+                string DictionaryToString<K, V>(Dictionary<K, V> dictionary)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string comma = ",";
+                    int index = 0;
+                    foreach (KeyValuePair<K, V> keyValue in dictionary)
+                    {
+                        string separator = (index < dictionary.Count - 1) ? comma : string.Empty;
+                        stringBuilder.Append($"{{{keyValue.Key.ToString()},{keyValue.Value.ToString()}}}{separator}");
+                    }
+
+                    return stringBuilder.ToString();
                 }
 
                 string ArrayToString<T>(T[] array)

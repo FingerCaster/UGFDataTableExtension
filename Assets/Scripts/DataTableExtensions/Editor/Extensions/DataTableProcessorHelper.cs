@@ -280,6 +280,16 @@ namespace DE.Editor
 
             return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("{0}[]");
         }
+        public static bool IsDictionaryColumn(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= m_UGFDataTableProcessor.RawColumnCount)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
+                    rawColumn.ToString()));
+            }
+
+            return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("Dictionary<{0},{1}>");
+        }
 
         public static UGFDataTableProcessor.DataProcessor GetDataProcessor(int rawColumn)
         {

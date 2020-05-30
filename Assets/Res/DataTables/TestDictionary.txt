@@ -1,0 +1,5 @@
+#	测试表格生成		
+#	Id		TestDictionary
+#	int		"dictionary<int,int>"
+#	编号	备注	测试字典
+	1		"{1,1}|{2,2}|{3,3}"

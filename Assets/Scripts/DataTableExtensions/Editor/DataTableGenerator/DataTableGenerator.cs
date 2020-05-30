@@ -205,6 +205,15 @@ namespace DE.Editor
                                     UGFDataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                         continue;
                     }
+                    if (DataTableProcessorHelper.IsDictionaryColumn(i))
+                    {
+                        System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType().GetGenericArguments();
+                        UGFDataTableProcessor.DataProcessor dataProcessorT1 = Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
+                        UGFDataTableProcessor.DataProcessor dataProcessorT2 = Activator.CreateInstance(t[1]) as UGFDataTableProcessor.DataProcessor;
+                        stringBuilder.AppendFormat("\t\t\t\t{0} = DataTableExtension.Parse{1}{2}Dictionary(columnTexts[index++]);",
+                            UGFDataTableProcessor.GetName(i),dataProcessorT1.Type.Name,dataProcessorT2.Type.Name).AppendLine();
+                        continue;
+                    }
 
                     stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnTexts[index++]);",
                         UGFDataTableProcessor.GetName(i), UGFDataTableProcessor.GetType(i).Name).AppendLine();
@@ -275,6 +284,23 @@ namespace DE.Editor
                     {
                         stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
                             UGFDataTableProcessor.GetName(i),  dataProcessor.Type.Name).AppendLine();
+                    }
+                    continue;
+                }
+                if (DataTableProcessorHelper.IsDictionaryColumn(i))
+                {
+                    System.Type[] t = DataTableProcessorHelper.GetDataProcessor(i).GetType().GetGenericArguments();
+                    UGFDataTableProcessor.DataProcessor dataProcessorT1 = Activator.CreateInstance(t[0]) as UGFDataTableProcessor.DataProcessor;
+                    UGFDataTableProcessor.DataProcessor dataProcessorT2 = Activator.CreateInstance(t[1]) as UGFDataTableProcessor.DataProcessor;
+                    if (DataTableProcessorHelper.GetDataProcessor(i) is IDictionaryProcessor dictionaryProcessor && (dictionaryProcessor.KeyLanguageKeyword == "string" || dictionaryProcessor.ValueLanguageKeyword == "string"))
+                    {
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary(strings);",
+                            UGFDataTableProcessor.GetName(i),dataProcessorT1.Type.Name,dataProcessorT2.Type.Name).AppendLine();
+                    }
+                    else
+                    {
+                        stringBuilder.AppendFormat("\t\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
+                            UGFDataTableProcessor.GetName(i),dataProcessorT1.Type.Name,dataProcessorT2.Type.Name).AppendLine();
                     }
                     continue;
                 }
