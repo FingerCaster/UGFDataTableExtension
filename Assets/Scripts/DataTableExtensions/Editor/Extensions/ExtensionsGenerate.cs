@@ -16,7 +16,7 @@ namespace DE.Editor
         private static string ExtensionDirectoryPath = "Assets/Scripts/DataTableExtensions/Runtime/Extensions";
         private static string NameSpace = "DE";
 
-        [MenuItem("DatableTools/GenerateExtension")]
+        [MenuItem("DataTable/GenerateExtension")]
         private static void GenerateExtension()
         {
             IDictionary<string, UGFDataTableProcessor.DataProcessor> datableDataProcessors =
@@ -43,7 +43,6 @@ namespace DE.Editor
                     datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
                 }
             }
-
             GenerateDataTableExtensionArray(datableDataProcessors);
             GenerateDataTableExtensionList(datableDataProcessors);
             GenerateBinaryReaderExtensionList(datableDataProcessors);
