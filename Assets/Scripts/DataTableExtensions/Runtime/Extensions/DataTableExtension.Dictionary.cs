@@ -14,7 +14,7 @@ namespace DE
 			Dictionary<Vector3,Vector4> dictionary = new Dictionary<Vector3,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector3(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -27,7 +27,7 @@ namespace DE
 			Dictionary<Vector2,Vector4> dictionary = new Dictionary<Vector2,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector2(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -40,7 +40,7 @@ namespace DE
 			Dictionary<ushort,Vector4> dictionary = new Dictionary<ushort,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -53,7 +53,7 @@ namespace DE
 			Dictionary<ulong,Vector4> dictionary = new Dictionary<ulong,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -66,7 +66,7 @@ namespace DE
 			Dictionary<uint,Vector4> dictionary = new Dictionary<uint,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -79,7 +79,7 @@ namespace DE
 			Dictionary<string,Vector4> dictionary = new Dictionary<string,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -92,7 +92,7 @@ namespace DE
 			Dictionary<short,Vector4> dictionary = new Dictionary<short,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -105,7 +105,7 @@ namespace DE
 			Dictionary<sbyte,Vector4> dictionary = new Dictionary<sbyte,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -118,7 +118,7 @@ namespace DE
 			Dictionary<Rect,Vector4> dictionary = new Dictionary<Rect,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -131,7 +131,7 @@ namespace DE
 			Dictionary<Quaternion,Vector4> dictionary = new Dictionary<Quaternion,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -144,7 +144,7 @@ namespace DE
 			Dictionary<long,Vector4> dictionary = new Dictionary<long,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -157,7 +157,7 @@ namespace DE
 			Dictionary<int,Vector4> dictionary = new Dictionary<int,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -170,7 +170,7 @@ namespace DE
 			Dictionary<float,Vector4> dictionary = new Dictionary<float,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -183,7 +183,7 @@ namespace DE
 			Dictionary<double,Vector4> dictionary = new Dictionary<double,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -196,7 +196,7 @@ namespace DE
 			Dictionary<decimal,Vector4> dictionary = new Dictionary<decimal,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -209,7 +209,7 @@ namespace DE
 			Dictionary<DateTime,Vector4> dictionary = new Dictionary<DateTime,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -222,7 +222,7 @@ namespace DE
 			Dictionary<Color32,Vector4> dictionary = new Dictionary<Color32,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -235,7 +235,7 @@ namespace DE
 			Dictionary<Color,Vector4> dictionary = new Dictionary<Color,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -248,7 +248,7 @@ namespace DE
 			Dictionary<char,Vector4> dictionary = new Dictionary<char,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -261,7 +261,7 @@ namespace DE
 			Dictionary<byte,Vector4> dictionary = new Dictionary<byte,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -274,7 +274,7 @@ namespace DE
 			Dictionary<bool,Vector4> dictionary = new Dictionary<bool,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -287,7 +287,7 @@ namespace DE
 			Dictionary<Vector2,Vector3> dictionary = new Dictionary<Vector2,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector2(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -300,7 +300,7 @@ namespace DE
 			Dictionary<ushort,Vector3> dictionary = new Dictionary<ushort,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -313,7 +313,7 @@ namespace DE
 			Dictionary<ulong,Vector3> dictionary = new Dictionary<ulong,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -326,7 +326,7 @@ namespace DE
 			Dictionary<uint,Vector3> dictionary = new Dictionary<uint,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -339,7 +339,7 @@ namespace DE
 			Dictionary<string,Vector3> dictionary = new Dictionary<string,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -352,7 +352,7 @@ namespace DE
 			Dictionary<short,Vector3> dictionary = new Dictionary<short,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -365,7 +365,7 @@ namespace DE
 			Dictionary<sbyte,Vector3> dictionary = new Dictionary<sbyte,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -378,7 +378,7 @@ namespace DE
 			Dictionary<Rect,Vector3> dictionary = new Dictionary<Rect,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -391,7 +391,7 @@ namespace DE
 			Dictionary<Quaternion,Vector3> dictionary = new Dictionary<Quaternion,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -404,7 +404,7 @@ namespace DE
 			Dictionary<long,Vector3> dictionary = new Dictionary<long,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -417,7 +417,7 @@ namespace DE
 			Dictionary<int,Vector3> dictionary = new Dictionary<int,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -430,7 +430,7 @@ namespace DE
 			Dictionary<float,Vector3> dictionary = new Dictionary<float,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -443,7 +443,7 @@ namespace DE
 			Dictionary<double,Vector3> dictionary = new Dictionary<double,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -456,7 +456,7 @@ namespace DE
 			Dictionary<decimal,Vector3> dictionary = new Dictionary<decimal,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -469,7 +469,7 @@ namespace DE
 			Dictionary<DateTime,Vector3> dictionary = new Dictionary<DateTime,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -482,7 +482,7 @@ namespace DE
 			Dictionary<Color32,Vector3> dictionary = new Dictionary<Color32,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -495,7 +495,7 @@ namespace DE
 			Dictionary<Color,Vector3> dictionary = new Dictionary<Color,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -508,7 +508,7 @@ namespace DE
 			Dictionary<char,Vector3> dictionary = new Dictionary<char,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -521,7 +521,7 @@ namespace DE
 			Dictionary<byte,Vector3> dictionary = new Dictionary<byte,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -534,7 +534,7 @@ namespace DE
 			Dictionary<bool,Vector3> dictionary = new Dictionary<bool,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -547,7 +547,7 @@ namespace DE
 			Dictionary<ushort,Vector2> dictionary = new Dictionary<ushort,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -560,7 +560,7 @@ namespace DE
 			Dictionary<ulong,Vector2> dictionary = new Dictionary<ulong,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -573,7 +573,7 @@ namespace DE
 			Dictionary<uint,Vector2> dictionary = new Dictionary<uint,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -586,7 +586,7 @@ namespace DE
 			Dictionary<string,Vector2> dictionary = new Dictionary<string,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -599,7 +599,7 @@ namespace DE
 			Dictionary<short,Vector2> dictionary = new Dictionary<short,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -612,7 +612,7 @@ namespace DE
 			Dictionary<sbyte,Vector2> dictionary = new Dictionary<sbyte,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -625,7 +625,7 @@ namespace DE
 			Dictionary<Rect,Vector2> dictionary = new Dictionary<Rect,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -638,7 +638,7 @@ namespace DE
 			Dictionary<Quaternion,Vector2> dictionary = new Dictionary<Quaternion,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -651,7 +651,7 @@ namespace DE
 			Dictionary<long,Vector2> dictionary = new Dictionary<long,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -664,7 +664,7 @@ namespace DE
 			Dictionary<int,Vector2> dictionary = new Dictionary<int,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -677,7 +677,7 @@ namespace DE
 			Dictionary<float,Vector2> dictionary = new Dictionary<float,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -690,7 +690,7 @@ namespace DE
 			Dictionary<double,Vector2> dictionary = new Dictionary<double,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -703,7 +703,7 @@ namespace DE
 			Dictionary<decimal,Vector2> dictionary = new Dictionary<decimal,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -716,7 +716,7 @@ namespace DE
 			Dictionary<DateTime,Vector2> dictionary = new Dictionary<DateTime,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -729,7 +729,7 @@ namespace DE
 			Dictionary<Color32,Vector2> dictionary = new Dictionary<Color32,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -742,7 +742,7 @@ namespace DE
 			Dictionary<Color,Vector2> dictionary = new Dictionary<Color,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -755,7 +755,7 @@ namespace DE
 			Dictionary<char,Vector2> dictionary = new Dictionary<char,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -768,7 +768,7 @@ namespace DE
 			Dictionary<byte,Vector2> dictionary = new Dictionary<byte,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -781,7 +781,7 @@ namespace DE
 			Dictionary<bool,Vector2> dictionary = new Dictionary<bool,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -794,7 +794,7 @@ namespace DE
 			Dictionary<ulong,ushort> dictionary = new Dictionary<ulong,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -807,7 +807,7 @@ namespace DE
 			Dictionary<uint,ushort> dictionary = new Dictionary<uint,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -820,7 +820,7 @@ namespace DE
 			Dictionary<string,ushort> dictionary = new Dictionary<string,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -833,7 +833,7 @@ namespace DE
 			Dictionary<short,ushort> dictionary = new Dictionary<short,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -846,7 +846,7 @@ namespace DE
 			Dictionary<sbyte,ushort> dictionary = new Dictionary<sbyte,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -859,7 +859,7 @@ namespace DE
 			Dictionary<Rect,ushort> dictionary = new Dictionary<Rect,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -872,7 +872,7 @@ namespace DE
 			Dictionary<Quaternion,ushort> dictionary = new Dictionary<Quaternion,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -885,7 +885,7 @@ namespace DE
 			Dictionary<long,ushort> dictionary = new Dictionary<long,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -898,7 +898,7 @@ namespace DE
 			Dictionary<int,ushort> dictionary = new Dictionary<int,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -911,7 +911,7 @@ namespace DE
 			Dictionary<float,ushort> dictionary = new Dictionary<float,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -924,7 +924,7 @@ namespace DE
 			Dictionary<double,ushort> dictionary = new Dictionary<double,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -937,7 +937,7 @@ namespace DE
 			Dictionary<decimal,ushort> dictionary = new Dictionary<decimal,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -950,7 +950,7 @@ namespace DE
 			Dictionary<DateTime,ushort> dictionary = new Dictionary<DateTime,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -963,7 +963,7 @@ namespace DE
 			Dictionary<Color32,ushort> dictionary = new Dictionary<Color32,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -976,7 +976,7 @@ namespace DE
 			Dictionary<Color,ushort> dictionary = new Dictionary<Color,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -989,7 +989,7 @@ namespace DE
 			Dictionary<char,ushort> dictionary = new Dictionary<char,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1002,7 +1002,7 @@ namespace DE
 			Dictionary<byte,ushort> dictionary = new Dictionary<byte,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1015,7 +1015,7 @@ namespace DE
 			Dictionary<bool,ushort> dictionary = new Dictionary<bool,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1028,7 +1028,7 @@ namespace DE
 			Dictionary<uint,ulong> dictionary = new Dictionary<uint,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1041,7 +1041,7 @@ namespace DE
 			Dictionary<string,ulong> dictionary = new Dictionary<string,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1054,7 +1054,7 @@ namespace DE
 			Dictionary<short,ulong> dictionary = new Dictionary<short,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1067,7 +1067,7 @@ namespace DE
 			Dictionary<sbyte,ulong> dictionary = new Dictionary<sbyte,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1080,7 +1080,7 @@ namespace DE
 			Dictionary<Rect,ulong> dictionary = new Dictionary<Rect,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1093,7 +1093,7 @@ namespace DE
 			Dictionary<Quaternion,ulong> dictionary = new Dictionary<Quaternion,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1106,7 +1106,7 @@ namespace DE
 			Dictionary<long,ulong> dictionary = new Dictionary<long,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1119,7 +1119,7 @@ namespace DE
 			Dictionary<int,ulong> dictionary = new Dictionary<int,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1132,7 +1132,7 @@ namespace DE
 			Dictionary<float,ulong> dictionary = new Dictionary<float,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1145,7 +1145,7 @@ namespace DE
 			Dictionary<double,ulong> dictionary = new Dictionary<double,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1158,7 +1158,7 @@ namespace DE
 			Dictionary<decimal,ulong> dictionary = new Dictionary<decimal,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1171,7 +1171,7 @@ namespace DE
 			Dictionary<DateTime,ulong> dictionary = new Dictionary<DateTime,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1184,7 +1184,7 @@ namespace DE
 			Dictionary<Color32,ulong> dictionary = new Dictionary<Color32,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1197,7 +1197,7 @@ namespace DE
 			Dictionary<Color,ulong> dictionary = new Dictionary<Color,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1210,7 +1210,7 @@ namespace DE
 			Dictionary<char,ulong> dictionary = new Dictionary<char,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1223,7 +1223,7 @@ namespace DE
 			Dictionary<byte,ulong> dictionary = new Dictionary<byte,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1236,7 +1236,7 @@ namespace DE
 			Dictionary<bool,ulong> dictionary = new Dictionary<bool,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1249,7 +1249,7 @@ namespace DE
 			Dictionary<string,uint> dictionary = new Dictionary<string,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1262,7 +1262,7 @@ namespace DE
 			Dictionary<short,uint> dictionary = new Dictionary<short,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1275,7 +1275,7 @@ namespace DE
 			Dictionary<sbyte,uint> dictionary = new Dictionary<sbyte,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1288,7 +1288,7 @@ namespace DE
 			Dictionary<Rect,uint> dictionary = new Dictionary<Rect,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1301,7 +1301,7 @@ namespace DE
 			Dictionary<Quaternion,uint> dictionary = new Dictionary<Quaternion,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1314,7 +1314,7 @@ namespace DE
 			Dictionary<long,uint> dictionary = new Dictionary<long,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1327,7 +1327,7 @@ namespace DE
 			Dictionary<int,uint> dictionary = new Dictionary<int,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1340,7 +1340,7 @@ namespace DE
 			Dictionary<float,uint> dictionary = new Dictionary<float,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1353,7 +1353,7 @@ namespace DE
 			Dictionary<double,uint> dictionary = new Dictionary<double,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1366,7 +1366,7 @@ namespace DE
 			Dictionary<decimal,uint> dictionary = new Dictionary<decimal,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1379,7 +1379,7 @@ namespace DE
 			Dictionary<DateTime,uint> dictionary = new Dictionary<DateTime,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1392,7 +1392,7 @@ namespace DE
 			Dictionary<Color32,uint> dictionary = new Dictionary<Color32,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1405,7 +1405,7 @@ namespace DE
 			Dictionary<Color,uint> dictionary = new Dictionary<Color,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1418,7 +1418,7 @@ namespace DE
 			Dictionary<char,uint> dictionary = new Dictionary<char,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1431,7 +1431,7 @@ namespace DE
 			Dictionary<byte,uint> dictionary = new Dictionary<byte,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1444,7 +1444,7 @@ namespace DE
 			Dictionary<bool,uint> dictionary = new Dictionary<bool,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1457,7 +1457,7 @@ namespace DE
 			Dictionary<short,string> dictionary = new Dictionary<short,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1470,7 +1470,7 @@ namespace DE
 			Dictionary<sbyte,string> dictionary = new Dictionary<sbyte,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1483,7 +1483,7 @@ namespace DE
 			Dictionary<Rect,string> dictionary = new Dictionary<Rect,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1496,7 +1496,7 @@ namespace DE
 			Dictionary<Quaternion,string> dictionary = new Dictionary<Quaternion,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1509,7 +1509,7 @@ namespace DE
 			Dictionary<long,string> dictionary = new Dictionary<long,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1522,7 +1522,7 @@ namespace DE
 			Dictionary<int,string> dictionary = new Dictionary<int,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1535,7 +1535,7 @@ namespace DE
 			Dictionary<float,string> dictionary = new Dictionary<float,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1548,7 +1548,7 @@ namespace DE
 			Dictionary<double,string> dictionary = new Dictionary<double,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1561,7 +1561,7 @@ namespace DE
 			Dictionary<decimal,string> dictionary = new Dictionary<decimal,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1574,7 +1574,7 @@ namespace DE
 			Dictionary<DateTime,string> dictionary = new Dictionary<DateTime,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1587,7 +1587,7 @@ namespace DE
 			Dictionary<Color32,string> dictionary = new Dictionary<Color32,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1600,7 +1600,7 @@ namespace DE
 			Dictionary<Color,string> dictionary = new Dictionary<Color,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1613,7 +1613,7 @@ namespace DE
 			Dictionary<char,string> dictionary = new Dictionary<char,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1626,7 +1626,7 @@ namespace DE
 			Dictionary<byte,string> dictionary = new Dictionary<byte,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1639,7 +1639,7 @@ namespace DE
 			Dictionary<bool,string> dictionary = new Dictionary<bool,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -1652,7 +1652,7 @@ namespace DE
 			Dictionary<sbyte,short> dictionary = new Dictionary<sbyte,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1665,7 +1665,7 @@ namespace DE
 			Dictionary<Rect,short> dictionary = new Dictionary<Rect,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1678,7 +1678,7 @@ namespace DE
 			Dictionary<Quaternion,short> dictionary = new Dictionary<Quaternion,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1691,7 +1691,7 @@ namespace DE
 			Dictionary<long,short> dictionary = new Dictionary<long,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1704,7 +1704,7 @@ namespace DE
 			Dictionary<int,short> dictionary = new Dictionary<int,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1717,7 +1717,7 @@ namespace DE
 			Dictionary<float,short> dictionary = new Dictionary<float,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1730,7 +1730,7 @@ namespace DE
 			Dictionary<double,short> dictionary = new Dictionary<double,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1743,7 +1743,7 @@ namespace DE
 			Dictionary<decimal,short> dictionary = new Dictionary<decimal,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1756,7 +1756,7 @@ namespace DE
 			Dictionary<DateTime,short> dictionary = new Dictionary<DateTime,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1769,7 +1769,7 @@ namespace DE
 			Dictionary<Color32,short> dictionary = new Dictionary<Color32,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1782,7 +1782,7 @@ namespace DE
 			Dictionary<Color,short> dictionary = new Dictionary<Color,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1795,7 +1795,7 @@ namespace DE
 			Dictionary<char,short> dictionary = new Dictionary<char,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1808,7 +1808,7 @@ namespace DE
 			Dictionary<byte,short> dictionary = new Dictionary<byte,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1821,7 +1821,7 @@ namespace DE
 			Dictionary<bool,short> dictionary = new Dictionary<bool,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1834,7 +1834,7 @@ namespace DE
 			Dictionary<Rect,sbyte> dictionary = new Dictionary<Rect,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1847,7 +1847,7 @@ namespace DE
 			Dictionary<Quaternion,sbyte> dictionary = new Dictionary<Quaternion,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1860,7 +1860,7 @@ namespace DE
 			Dictionary<long,sbyte> dictionary = new Dictionary<long,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1873,7 +1873,7 @@ namespace DE
 			Dictionary<int,sbyte> dictionary = new Dictionary<int,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1886,7 +1886,7 @@ namespace DE
 			Dictionary<float,sbyte> dictionary = new Dictionary<float,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1899,7 +1899,7 @@ namespace DE
 			Dictionary<double,sbyte> dictionary = new Dictionary<double,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1912,7 +1912,7 @@ namespace DE
 			Dictionary<decimal,sbyte> dictionary = new Dictionary<decimal,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1925,7 +1925,7 @@ namespace DE
 			Dictionary<DateTime,sbyte> dictionary = new Dictionary<DateTime,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1938,7 +1938,7 @@ namespace DE
 			Dictionary<Color32,sbyte> dictionary = new Dictionary<Color32,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1951,7 +1951,7 @@ namespace DE
 			Dictionary<Color,sbyte> dictionary = new Dictionary<Color,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1964,7 +1964,7 @@ namespace DE
 			Dictionary<char,sbyte> dictionary = new Dictionary<char,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1977,7 +1977,7 @@ namespace DE
 			Dictionary<byte,sbyte> dictionary = new Dictionary<byte,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -1990,7 +1990,7 @@ namespace DE
 			Dictionary<bool,sbyte> dictionary = new Dictionary<bool,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2003,7 +2003,7 @@ namespace DE
 			Dictionary<Quaternion,Rect> dictionary = new Dictionary<Quaternion,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2016,7 +2016,7 @@ namespace DE
 			Dictionary<long,Rect> dictionary = new Dictionary<long,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2029,7 +2029,7 @@ namespace DE
 			Dictionary<int,Rect> dictionary = new Dictionary<int,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2042,7 +2042,7 @@ namespace DE
 			Dictionary<float,Rect> dictionary = new Dictionary<float,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2055,7 +2055,7 @@ namespace DE
 			Dictionary<double,Rect> dictionary = new Dictionary<double,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2068,7 +2068,7 @@ namespace DE
 			Dictionary<decimal,Rect> dictionary = new Dictionary<decimal,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2081,7 +2081,7 @@ namespace DE
 			Dictionary<DateTime,Rect> dictionary = new Dictionary<DateTime,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2094,7 +2094,7 @@ namespace DE
 			Dictionary<Color32,Rect> dictionary = new Dictionary<Color32,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2107,7 +2107,7 @@ namespace DE
 			Dictionary<Color,Rect> dictionary = new Dictionary<Color,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2120,7 +2120,7 @@ namespace DE
 			Dictionary<char,Rect> dictionary = new Dictionary<char,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2133,7 +2133,7 @@ namespace DE
 			Dictionary<byte,Rect> dictionary = new Dictionary<byte,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2146,7 +2146,7 @@ namespace DE
 			Dictionary<bool,Rect> dictionary = new Dictionary<bool,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2159,7 +2159,7 @@ namespace DE
 			Dictionary<long,Quaternion> dictionary = new Dictionary<long,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2172,7 +2172,7 @@ namespace DE
 			Dictionary<int,Quaternion> dictionary = new Dictionary<int,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2185,7 +2185,7 @@ namespace DE
 			Dictionary<float,Quaternion> dictionary = new Dictionary<float,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2198,7 +2198,7 @@ namespace DE
 			Dictionary<double,Quaternion> dictionary = new Dictionary<double,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2211,7 +2211,7 @@ namespace DE
 			Dictionary<decimal,Quaternion> dictionary = new Dictionary<decimal,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2224,7 +2224,7 @@ namespace DE
 			Dictionary<DateTime,Quaternion> dictionary = new Dictionary<DateTime,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2237,7 +2237,7 @@ namespace DE
 			Dictionary<Color32,Quaternion> dictionary = new Dictionary<Color32,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2250,7 +2250,7 @@ namespace DE
 			Dictionary<Color,Quaternion> dictionary = new Dictionary<Color,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2263,7 +2263,7 @@ namespace DE
 			Dictionary<char,Quaternion> dictionary = new Dictionary<char,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2276,7 +2276,7 @@ namespace DE
 			Dictionary<byte,Quaternion> dictionary = new Dictionary<byte,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2289,7 +2289,7 @@ namespace DE
 			Dictionary<bool,Quaternion> dictionary = new Dictionary<bool,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2302,7 +2302,7 @@ namespace DE
 			Dictionary<int,long> dictionary = new Dictionary<int,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2315,7 +2315,7 @@ namespace DE
 			Dictionary<float,long> dictionary = new Dictionary<float,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2328,7 +2328,7 @@ namespace DE
 			Dictionary<double,long> dictionary = new Dictionary<double,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2341,7 +2341,7 @@ namespace DE
 			Dictionary<decimal,long> dictionary = new Dictionary<decimal,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2354,7 +2354,7 @@ namespace DE
 			Dictionary<DateTime,long> dictionary = new Dictionary<DateTime,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2367,7 +2367,7 @@ namespace DE
 			Dictionary<Color32,long> dictionary = new Dictionary<Color32,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2380,7 +2380,7 @@ namespace DE
 			Dictionary<Color,long> dictionary = new Dictionary<Color,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2393,7 +2393,7 @@ namespace DE
 			Dictionary<char,long> dictionary = new Dictionary<char,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2406,7 +2406,7 @@ namespace DE
 			Dictionary<byte,long> dictionary = new Dictionary<byte,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2419,7 +2419,7 @@ namespace DE
 			Dictionary<bool,long> dictionary = new Dictionary<bool,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2432,7 +2432,7 @@ namespace DE
 			Dictionary<float,int> dictionary = new Dictionary<float,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2445,7 +2445,7 @@ namespace DE
 			Dictionary<double,int> dictionary = new Dictionary<double,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2458,7 +2458,7 @@ namespace DE
 			Dictionary<decimal,int> dictionary = new Dictionary<decimal,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2471,7 +2471,7 @@ namespace DE
 			Dictionary<DateTime,int> dictionary = new Dictionary<DateTime,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2484,7 +2484,7 @@ namespace DE
 			Dictionary<Color32,int> dictionary = new Dictionary<Color32,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2497,7 +2497,7 @@ namespace DE
 			Dictionary<Color,int> dictionary = new Dictionary<Color,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2510,7 +2510,7 @@ namespace DE
 			Dictionary<char,int> dictionary = new Dictionary<char,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2523,7 +2523,7 @@ namespace DE
 			Dictionary<byte,int> dictionary = new Dictionary<byte,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2536,7 +2536,7 @@ namespace DE
 			Dictionary<bool,int> dictionary = new Dictionary<bool,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2549,7 +2549,7 @@ namespace DE
 			Dictionary<double,float> dictionary = new Dictionary<double,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2562,7 +2562,7 @@ namespace DE
 			Dictionary<decimal,float> dictionary = new Dictionary<decimal,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2575,7 +2575,7 @@ namespace DE
 			Dictionary<DateTime,float> dictionary = new Dictionary<DateTime,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2588,7 +2588,7 @@ namespace DE
 			Dictionary<Color32,float> dictionary = new Dictionary<Color32,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2601,7 +2601,7 @@ namespace DE
 			Dictionary<Color,float> dictionary = new Dictionary<Color,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2614,7 +2614,7 @@ namespace DE
 			Dictionary<char,float> dictionary = new Dictionary<char,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2627,7 +2627,7 @@ namespace DE
 			Dictionary<byte,float> dictionary = new Dictionary<byte,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2640,7 +2640,7 @@ namespace DE
 			Dictionary<bool,float> dictionary = new Dictionary<bool,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2653,7 +2653,7 @@ namespace DE
 			Dictionary<decimal,double> dictionary = new Dictionary<decimal,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2666,7 +2666,7 @@ namespace DE
 			Dictionary<DateTime,double> dictionary = new Dictionary<DateTime,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2679,7 +2679,7 @@ namespace DE
 			Dictionary<Color32,double> dictionary = new Dictionary<Color32,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2692,7 +2692,7 @@ namespace DE
 			Dictionary<Color,double> dictionary = new Dictionary<Color,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2705,7 +2705,7 @@ namespace DE
 			Dictionary<char,double> dictionary = new Dictionary<char,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2718,7 +2718,7 @@ namespace DE
 			Dictionary<byte,double> dictionary = new Dictionary<byte,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2731,7 +2731,7 @@ namespace DE
 			Dictionary<bool,double> dictionary = new Dictionary<bool,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2744,7 +2744,7 @@ namespace DE
 			Dictionary<DateTime,decimal> dictionary = new Dictionary<DateTime,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2757,7 +2757,7 @@ namespace DE
 			Dictionary<Color32,decimal> dictionary = new Dictionary<Color32,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2770,7 +2770,7 @@ namespace DE
 			Dictionary<Color,decimal> dictionary = new Dictionary<Color,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2783,7 +2783,7 @@ namespace DE
 			Dictionary<char,decimal> dictionary = new Dictionary<char,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2796,7 +2796,7 @@ namespace DE
 			Dictionary<byte,decimal> dictionary = new Dictionary<byte,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2809,7 +2809,7 @@ namespace DE
 			Dictionary<bool,decimal> dictionary = new Dictionary<bool,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2822,7 +2822,7 @@ namespace DE
 			Dictionary<Color32,DateTime> dictionary = new Dictionary<Color32,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2835,7 +2835,7 @@ namespace DE
 			Dictionary<Color,DateTime> dictionary = new Dictionary<Color,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2848,7 +2848,7 @@ namespace DE
 			Dictionary<char,DateTime> dictionary = new Dictionary<char,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2861,7 +2861,7 @@ namespace DE
 			Dictionary<byte,DateTime> dictionary = new Dictionary<byte,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2874,7 +2874,7 @@ namespace DE
 			Dictionary<bool,DateTime> dictionary = new Dictionary<bool,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2887,7 +2887,7 @@ namespace DE
 			Dictionary<Color,Color32> dictionary = new Dictionary<Color,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseColor32(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2900,7 +2900,7 @@ namespace DE
 			Dictionary<char,Color32> dictionary = new Dictionary<char,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseColor32(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2913,7 +2913,7 @@ namespace DE
 			Dictionary<byte,Color32> dictionary = new Dictionary<byte,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseColor32(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2926,7 +2926,7 @@ namespace DE
 			Dictionary<bool,Color32> dictionary = new Dictionary<bool,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseColor32(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2939,7 +2939,7 @@ namespace DE
 			Dictionary<char,Color> dictionary = new Dictionary<char,Color>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),ParseColor(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2952,7 +2952,7 @@ namespace DE
 			Dictionary<byte,Color> dictionary = new Dictionary<byte,Color>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),ParseColor(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2965,7 +2965,7 @@ namespace DE
 			Dictionary<bool,Color> dictionary = new Dictionary<bool,Color>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),ParseColor(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2978,7 +2978,7 @@ namespace DE
 			Dictionary<byte,char> dictionary = new Dictionary<byte,char>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Char.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -2991,7 +2991,7 @@ namespace DE
 			Dictionary<bool,char> dictionary = new Dictionary<bool,char>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Char.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3004,7 +3004,7 @@ namespace DE
 			Dictionary<bool,byte> dictionary = new Dictionary<bool,byte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Byte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3017,7 +3017,7 @@ namespace DE
 			Dictionary<bool,bool> dictionary = new Dictionary<bool,bool>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),Boolean.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3030,7 +3030,7 @@ namespace DE
 			Dictionary<byte,byte> dictionary = new Dictionary<byte,byte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),Byte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3043,7 +3043,7 @@ namespace DE
 			Dictionary<char,char> dictionary = new Dictionary<char,char>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),Char.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3056,7 +3056,7 @@ namespace DE
 			Dictionary<Color,Color> dictionary = new Dictionary<Color,Color>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor(keyValue[0].Substring(1)),ParseColor(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3069,7 +3069,7 @@ namespace DE
 			Dictionary<Color32,Color32> dictionary = new Dictionary<Color32,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),ParseColor32(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3082,7 +3082,7 @@ namespace DE
 			Dictionary<DateTime,DateTime> dictionary = new Dictionary<DateTime,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3095,7 +3095,7 @@ namespace DE
 			Dictionary<decimal,decimal> dictionary = new Dictionary<decimal,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3108,7 +3108,7 @@ namespace DE
 			Dictionary<double,double> dictionary = new Dictionary<double,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3121,7 +3121,7 @@ namespace DE
 			Dictionary<float,float> dictionary = new Dictionary<float,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3134,7 +3134,7 @@ namespace DE
 			Dictionary<int,int> dictionary = new Dictionary<int,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3147,7 +3147,7 @@ namespace DE
 			Dictionary<long,long> dictionary = new Dictionary<long,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3160,7 +3160,7 @@ namespace DE
 			Dictionary<Quaternion,Quaternion> dictionary = new Dictionary<Quaternion,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),ParseQuaternion(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3173,7 +3173,7 @@ namespace DE
 			Dictionary<Rect,Rect> dictionary = new Dictionary<Rect,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseRect(keyValue[0].Substring(1)),ParseRect(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3186,7 +3186,7 @@ namespace DE
 			Dictionary<sbyte,sbyte> dictionary = new Dictionary<sbyte,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3199,7 +3199,7 @@ namespace DE
 			Dictionary<short,short> dictionary = new Dictionary<short,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3212,7 +3212,7 @@ namespace DE
 			Dictionary<string,string> dictionary = new Dictionary<string,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(keyValue[0].Substring(1),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
@@ -3225,7 +3225,7 @@ namespace DE
 			Dictionary<uint,uint> dictionary = new Dictionary<uint,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3238,7 +3238,7 @@ namespace DE
 			Dictionary<ulong,ulong> dictionary = new Dictionary<ulong,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3251,7 +3251,7 @@ namespace DE
 			Dictionary<ushort,ushort> dictionary = new Dictionary<ushort,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3264,7 +3264,7 @@ namespace DE
 			Dictionary<Vector2,Vector2> dictionary = new Dictionary<Vector2,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector2(keyValue[0].Substring(1)),ParseVector2(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3277,7 +3277,7 @@ namespace DE
 			Dictionary<Vector3,Vector3> dictionary = new Dictionary<Vector3,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector3(keyValue[0].Substring(1)),ParseVector3(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
@@ -3290,7 +3290,7 @@ namespace DE
 			Dictionary<Vector4,Vector4> dictionary = new Dictionary<Vector4,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				string[] keyValue = splitValue[i].Split(',');
+				string[] keyValue = splitValue[i].Split('#');
 				dictionary.Add(ParseVector4(keyValue[0].Substring(1)),ParseVector4(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;

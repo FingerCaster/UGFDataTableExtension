@@ -314,7 +314,7 @@ namespace DE.Editor
                     $"\t\t\tDictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> dictionary = new Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}>(splitValue.Length);");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
-                sb.AppendLine("\t\t\t\tstring[] keyValue = splitValue[i].Split(',');");
+                sb.AppendLine("\t\t\t\tstring[] keyValue = splitValue[i].Split('#');");
                 if (dataProcessorT1.IsSystem)
                 {
                     if (dataProcessorT2.IsSystem)

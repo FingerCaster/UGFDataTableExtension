@@ -130,7 +130,7 @@ namespace DE
                 }
                 else
                 {
-                    Debug.Log($"{drTestDictionary.Id}    TestDictionary:{DictionaryToString(drTestDictionary.TestDictionary)}");
+                    Debug.Log($"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}");
                 }
 
                 string DictionaryToString<K, V>(Dictionary<K, V> dictionary)

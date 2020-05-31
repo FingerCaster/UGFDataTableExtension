@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-05-31 04:29:02.867
+// 生成时间：2020-05-31 17:23:54.964
 //------------------------------------------------------------
 
 using GameFramework;
@@ -32,9 +32,18 @@ namespace DE
         }
 
         /// <summary>
-        /// 获取测试字典。
+        /// 获取测试字典(KeyType：int ValueType:Int)。
         /// </summary>
-        public Dictionary<int,int> TestDictionary
+        public Dictionary<int,int> TestIntIntDictionary
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取测试字典(KeyType：int ValueType:vector3)。
+        /// </summary>
+        public Dictionary<int,Vector3> TestIntVector3Dictionary
         {
             get;
             private set;
@@ -55,7 +64,8 @@ namespace DE
                 index++;
                 m_Id = int.Parse(columnTexts[index++]);
                 index++;
-				TestDictionary = DataTableExtension.ParseInt32Int32Dictionary(columnTexts[index++]);
+				TestIntIntDictionary = DataTableExtension.ParseInt32Int32Dictionary(columnTexts[index++]);
+				TestIntVector3Dictionary = DataTableExtension.ParseInt32Vector3Dictionary(columnTexts[index++]);
             }
             else if (dataType == typeof(byte[]))
             {
@@ -65,7 +75,8 @@ namespace DE
                     using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                     {
                         m_Id = binaryReader.Read7BitEncodedInt32();
-						TestDictionary = binaryReader.ReadInt32Int32Dictionary();
+						TestIntIntDictionary = binaryReader.ReadInt32Int32Dictionary();
+						TestIntVector3Dictionary = binaryReader.ReadInt32Vector3Dictionary();
                     }
                 }
             }

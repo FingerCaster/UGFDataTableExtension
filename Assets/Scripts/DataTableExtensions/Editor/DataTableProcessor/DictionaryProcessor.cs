@@ -65,9 +65,9 @@ namespace DE.Editor
             binaryWriter.Write7BitEncodedInt32(splitValues.Length);
             foreach (string itemValue in splitValues)
             {
-                string[] keyValue = itemValue.Split(',');
+                string[] keyValue = itemValue.Split('#');
                 dataProcessor1.WriteToStream(dataTableProcessor, binaryWriter, keyValue[0].Substring(1));
-                dataProcessor1.WriteToStream(dataTableProcessor, binaryWriter,
+                dataProcessor2.WriteToStream(dataTableProcessor, binaryWriter,
                     keyValue[1].Substring(0, keyValue[1].Length - 1));
             }
         }
