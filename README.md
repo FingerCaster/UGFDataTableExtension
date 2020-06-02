@@ -6,12 +6,13 @@
 ## 配置数据表
 使用如(Microsoft Excel,Wps)等工具编辑表格 保存时文件类型选择 文本文件(制表符分隔)(*.txt) 格式也可以自定义 如使用自定义分隔符分隔 需修改 [DataTableProcessorHelper.cs](./Assets/Scripts/DataTableExtensions/Editor/Extensions/DataTableProcessorHelper.cs)文件中的DataSplitSeparators。
 
-List在数据表中的类型为配置 list\<type> （不区分大小写） type为实现了GenericDataProcessor的类型 list 不同元素在表中使用 | 进行分割
-例：list<int> 1|2|3   list<vector3> 12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
+List在数据表中的类型为配置 list\<type> （不区分大小写） type为实现了GenericDataProcessor的类型 list
+内置类型使用 ,进行分割   其他类型使用 | 进行分割
+例：list<int> 1,2,3   list<vector3> 12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
 
-
-数组在数据表中的类型为配置 type[] （不区分大小写） type为实现了GenericDataProcessor的类型不同元素在表中使用 | 进行分割 
-例：int[] 1|2|3   vector3[]   12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
+数组在数据表中的类型为配置 type[] （不区分大小写） type为实现了GenericDataProcessor的类型
+内置类型使用 ,进行分割   其他类型使用 | 进行分割
+例：int[] 1,2,3   vector3[]   12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
 
 Dictionary在数据表中的类型为配置 dictionary\<keyType,valueType> （不区分大小写） 键值类型为实现了GenericDataProcessor的类型 不同元素在表中使用 | 进行分割 key value 使用# 进行分割
 例：dictionary\<int,int> {1#1}|{2#2}|{3#3}     dictionary\<int,vector3>
