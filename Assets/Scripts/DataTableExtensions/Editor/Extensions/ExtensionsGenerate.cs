@@ -71,7 +71,14 @@ namespace DE.Editor
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
+                if (item.Value.IsSystem)
+                {
+                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
+                }
+                else
+                {
+                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
+                }
                 sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[splitValue.Length];");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
@@ -120,7 +127,14 @@ namespace DE.Editor
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
+                if (item.Value.IsSystem)
+                {
+                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
+                }
+                else
+                {
+                    sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
+                }
                 sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(splitValue.Length);");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");

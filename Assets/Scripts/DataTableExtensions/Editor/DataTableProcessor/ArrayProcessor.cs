@@ -7,7 +7,7 @@ using UGFDataTableProcessor = UnityGameFramework.Editor.DataTableTools.DataTable
 namespace DE.Editor
 {
     public class ArrayProcessor<T, K> : UGFDataTableProcessor.DataProcessor, ICollectionProcessor
-        where T : UGFDataTableProcessor.GenericDataProcessor<K>
+        where T : UGFDataTableProcessor.GenericDataProcessor<K>,new()
     {
         public override bool IsComment => false;
 
@@ -71,8 +71,10 @@ namespace DE.Editor
         public override void WriteToStream(UGFDataTableProcessor UGFDataTableProcessor, BinaryWriter binaryWriter,
             string value)
         {
-            UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
-            string[] splitValues = value.Split('|');
+            UGFDataTableProcessor.DataProcessor dataProcessor = new T();
+            string[] splitValues;
+            splitValues = value.Split(dataProcessor.IsSystem ? ',' :  '|');
+
             binaryWriter.Write7BitEncodedInt32(splitValues.Length);
             foreach (string itemValue in splitValues)
             {

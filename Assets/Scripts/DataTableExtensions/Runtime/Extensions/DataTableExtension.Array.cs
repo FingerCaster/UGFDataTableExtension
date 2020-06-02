@@ -10,7 +10,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			bool[] array = new bool[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -23,7 +23,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			byte[] array = new byte[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -36,7 +36,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			char[] array = new char[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -75,7 +75,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			DateTime[] array = new DateTime[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -88,7 +88,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			decimal[] array = new decimal[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -101,7 +101,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			double[] array = new double[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -114,7 +114,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			float[] array = new float[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -127,7 +127,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			int[] array = new int[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -140,7 +140,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			long[] array = new long[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -179,7 +179,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			sbyte[] array = new sbyte[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -192,7 +192,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			short[] array = new short[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -205,7 +205,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			string[] array = new string[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -218,7 +218,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			uint[] array = new uint[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -231,7 +231,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			ulong[] array = new ulong[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -244,7 +244,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			ushort[] array = new ushort[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{

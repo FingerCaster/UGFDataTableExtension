@@ -10,7 +10,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<bool> list = new List<bool>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -22,7 +22,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<byte> list = new List<byte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -34,7 +34,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<char> list = new List<char>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -70,7 +70,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<DateTime> list = new List<DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -82,7 +82,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<decimal> list = new List<decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -94,7 +94,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<double> list = new List<double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -106,7 +106,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<float> list = new List<float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -118,7 +118,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<int> list = new List<int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -130,7 +130,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<long> list = new List<long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -166,7 +166,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<sbyte> list = new List<sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -178,7 +178,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<short> list = new List<short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -190,7 +190,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<string> list = new List<string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -202,7 +202,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<uint> list = new List<uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -214,7 +214,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<ulong> list = new List<ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
@@ -226,7 +226,7 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<ushort> list = new List<ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{

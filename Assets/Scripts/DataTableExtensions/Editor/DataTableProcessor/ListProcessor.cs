@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UGFDataTableProcessor =  UnityGameFramework.Editor.DataTableTools.DataTableProcessor;
+using UGFDataTableProcessor = UnityGameFramework.Editor.DataTableTools.DataTableProcessor;
 
 
 namespace DE.Editor
 {
-    public sealed class ListProcessor<T,K> : UGFDataTableProcessor.DataProcessor ,ICollectionProcessor where T : UGFDataTableProcessor.GenericDataProcessor<K>
+    public sealed class ListProcessor<T, K> : UGFDataTableProcessor.DataProcessor, ICollectionProcessor
+        where T : UGFDataTableProcessor.GenericDataProcessor<K>, new()
     {
         public override bool IsComment => false;
 
@@ -19,16 +20,17 @@ namespace DE.Editor
         {
             get
             {
-                UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
-                return dataProcessor.Type;
+                T t = new T();
+                return t.Type;
             }
         }
 
-        public string ItemLanguageKeyword {
+        public string ItemLanguageKeyword
+        {
             get
             {
-                UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
-                return dataProcessor.LanguageKeyword;
+                T t = new T();
+                return t.LanguageKeyword;
             }
         }
 
@@ -36,7 +38,7 @@ namespace DE.Editor
         {
             get
             {
-                if (!(Activator.CreateInstance(typeof(T)) is T t)) return typeof(List<T>);
+                T t = new T();
                 System.Type type = typeof(List<>);
                 type = type.MakeGenericType(t.Type);
                 return type;
@@ -44,19 +46,16 @@ namespace DE.Editor
         }
 
         public override bool IsId => false;
-        
+
         public override string LanguageKeyword
         {
             get
             {
-                if (Activator.CreateInstance(typeof(T)) is T t)
-                {
-                    return $"List<{t.LanguageKeyword}>";
-                }
-
-                return $"List<{typeof(T)}>";
+                T t = new T();
+                return $"List<{t.LanguageKeyword}>";
             }
         }
+
         public override string[] GetTypeStrings()
         {
             return new string[]
@@ -66,16 +65,17 @@ namespace DE.Editor
             };
         }
 
-        public override void WriteToStream(UGFDataTableProcessor UGFDataTableProcessor, BinaryWriter binaryWriter, string value)
+        public override void WriteToStream(UGFDataTableProcessor UGFDataTableProcessor, BinaryWriter binaryWriter,
+            string value)
         {
-            UGFDataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(typeof(T)) as T;
-            string[] splitValues = value.Split('|');
+            UGFDataTableProcessor.DataProcessor dataProcessor = new T();
+            string[] splitValues;
+            splitValues = value.Split(dataProcessor.IsSystem ? ',' :  '|');
             binaryWriter.Write7BitEncodedInt32(splitValues.Length);
             foreach (string itemValue in splitValues)
             {
                 dataProcessor.WriteToStream(UGFDataTableProcessor, binaryWriter, itemValue);
             }
         }
-
     }
 }

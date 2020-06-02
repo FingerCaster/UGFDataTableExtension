@@ -146,32 +146,6 @@ namespace DE
 
                     return stringBuilder.ToString();
                 }
-
-                string ArrayToString<T>(T[] array)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    string comma = ",";
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        string separator = (i < array.Length - 1) ? comma : string.Empty;
-                        stringBuilder.Append($"{array[i].ToString()}{separator}");
-                    }
-
-                    return stringBuilder.ToString();
-                }
-
-                string ListToString<T>(List<T> array)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    string comma = ",";
-                    for (int i = 0; i < array.Count; i++)
-                    {
-                        string separator = (i < array.Count - 1) ? comma : string.Empty;
-                        stringBuilder.Append($"{array[i].ToString()}{separator}");
-                    }
-
-                    return stringBuilder.ToString();
-                }
             }
         }
 
