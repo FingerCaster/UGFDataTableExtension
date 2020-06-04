@@ -178,7 +178,7 @@ namespace DE.Editor
                     }
                     else
                     {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = {1}.Parse(columnTexts[index++]);",
+                        stringBuilder.AppendFormat("\t\t\t\t{0} = {1}.Parse(columnTexts[index++]);",
                             UGFDataTableProcessor.GetName(i), languageKeyword).AppendLine();
                     }
                 }
@@ -215,7 +215,7 @@ namespace DE.Editor
                         continue;
                     }
 
-                    stringBuilder.AppendFormat("            {0} = DataTableExtension.Parse{1}(columnTexts[index++]);",
+                    stringBuilder.AppendFormat("\t\t\t\t{0} = DataTableExtension.Parse{1}(columnTexts[index++]);",
                         UGFDataTableProcessor.GetName(i), UGFDataTableProcessor.GetType(i).Name).AppendLine();
                 }
             }

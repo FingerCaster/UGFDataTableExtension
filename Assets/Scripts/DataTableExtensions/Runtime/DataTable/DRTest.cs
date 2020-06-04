@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-06-02 09:45:15.312
+// 生成时间：2020-06-04 11:10:59.885
 //------------------------------------------------------------
 
 using GameFramework;
@@ -640,29 +640,29 @@ namespace DE
                 index++;
                 m_Id = int.Parse(columnTexts[index++]);
                 index++;
-					BoolValue = bool.Parse(columnTexts[index++]);
-					ByteValue = byte.Parse(columnTexts[index++]);
-					CharValue = char.Parse(columnTexts[index++]);
-            Color32Value = DataTableExtension.ParseColor32(columnTexts[index++]);
-            ColorValue = DataTableExtension.ParseColor(columnTexts[index++]);
+				BoolValue = bool.Parse(columnTexts[index++]);
+				ByteValue = byte.Parse(columnTexts[index++]);
+				CharValue = char.Parse(columnTexts[index++]);
+				Color32Value = DataTableExtension.ParseColor32(columnTexts[index++]);
+				ColorValue = DataTableExtension.ParseColor(columnTexts[index++]);
                 index++;
-					DateTimeValue = DateTime.Parse(columnTexts[index++]);
-					DecimalValue = decimal.Parse(columnTexts[index++]);
-					DoubleValue = double.Parse(columnTexts[index++]);
-					FloatValue = float.Parse(columnTexts[index++]);
-					IntValue = int.Parse(columnTexts[index++]);
-					LongValue = long.Parse(columnTexts[index++]);
-            QuaternionValue = DataTableExtension.ParseQuaternion(columnTexts[index++]);
-            RectValue = DataTableExtension.ParseRect(columnTexts[index++]);
-					SByteValue = sbyte.Parse(columnTexts[index++]);
-					ShortValue = short.Parse(columnTexts[index++]);
+				DateTimeValue = DateTime.Parse(columnTexts[index++]);
+				DecimalValue = decimal.Parse(columnTexts[index++]);
+				DoubleValue = double.Parse(columnTexts[index++]);
+				FloatValue = float.Parse(columnTexts[index++]);
+				IntValue = int.Parse(columnTexts[index++]);
+				LongValue = long.Parse(columnTexts[index++]);
+				QuaternionValue = DataTableExtension.ParseQuaternion(columnTexts[index++]);
+				RectValue = DataTableExtension.ParseRect(columnTexts[index++]);
+				SByteValue = sbyte.Parse(columnTexts[index++]);
+				ShortValue = short.Parse(columnTexts[index++]);
 				StringValue = columnTexts[index++];
-					UIntValue = uint.Parse(columnTexts[index++]);
-					ULongValue = ulong.Parse(columnTexts[index++]);
-					UShortValue = ushort.Parse(columnTexts[index++]);
-            Vector2Value = DataTableExtension.ParseVector2(columnTexts[index++]);
-            Vector3Value = DataTableExtension.ParseVector3(columnTexts[index++]);
-            Vector4Value = DataTableExtension.ParseVector4(columnTexts[index++]);
+				UIntValue = uint.Parse(columnTexts[index++]);
+				ULongValue = ulong.Parse(columnTexts[index++]);
+				UShortValue = ushort.Parse(columnTexts[index++]);
+				Vector2Value = DataTableExtension.ParseVector2(columnTexts[index++]);
+				Vector3Value = DataTableExtension.ParseVector3(columnTexts[index++]);
+				Vector4Value = DataTableExtension.ParseVector4(columnTexts[index++]);
 				BoolList = DataTableExtension.ParseBooleanList(columnTexts[index++]);
 				ByteList = DataTableExtension.ParseByteList(columnTexts[index++]);
 				CharList = DataTableExtension.ParseCharList(columnTexts[index++]);

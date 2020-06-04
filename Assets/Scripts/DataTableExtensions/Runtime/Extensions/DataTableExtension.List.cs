@@ -8,7 +8,7 @@ namespace DE
 	{
 		public static List<bool> ParseBooleanList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<bool> list = new List<bool>(splitValue.Length);
@@ -20,7 +20,7 @@ namespace DE
 		}
 		public static List<byte> ParseByteList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<byte> list = new List<byte>(splitValue.Length);
@@ -32,7 +32,7 @@ namespace DE
 		}
 		public static List<char> ParseCharList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<char> list = new List<char>(splitValue.Length);
@@ -44,7 +44,7 @@ namespace DE
 		}
 		public static List<Color> ParseColorList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Color> list = new List<Color>(splitValue.Length);
@@ -56,7 +56,7 @@ namespace DE
 		}
 		public static List<Color32> ParseColor32List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Color32> list = new List<Color32>(splitValue.Length);
@@ -68,7 +68,7 @@ namespace DE
 		}
 		public static List<DateTime> ParseDateTimeList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<DateTime> list = new List<DateTime>(splitValue.Length);
@@ -80,7 +80,7 @@ namespace DE
 		}
 		public static List<decimal> ParseDecimalList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<decimal> list = new List<decimal>(splitValue.Length);
@@ -92,7 +92,7 @@ namespace DE
 		}
 		public static List<double> ParseDoubleList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<double> list = new List<double>(splitValue.Length);
@@ -104,7 +104,7 @@ namespace DE
 		}
 		public static List<float> ParseSingleList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<float> list = new List<float>(splitValue.Length);
@@ -116,7 +116,7 @@ namespace DE
 		}
 		public static List<int> ParseInt32List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<int> list = new List<int>(splitValue.Length);
@@ -128,7 +128,7 @@ namespace DE
 		}
 		public static List<long> ParseInt64List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<long> list = new List<long>(splitValue.Length);
@@ -140,7 +140,7 @@ namespace DE
 		}
 		public static List<Quaternion> ParseQuaternionList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Quaternion> list = new List<Quaternion>(splitValue.Length);
@@ -152,7 +152,7 @@ namespace DE
 		}
 		public static List<Rect> ParseRectList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Rect> list = new List<Rect>(splitValue.Length);
@@ -164,7 +164,7 @@ namespace DE
 		}
 		public static List<sbyte> ParseSByteList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<sbyte> list = new List<sbyte>(splitValue.Length);
@@ -176,7 +176,7 @@ namespace DE
 		}
 		public static List<short> ParseInt16List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<short> list = new List<short>(splitValue.Length);
@@ -188,7 +188,7 @@ namespace DE
 		}
 		public static List<string> ParseStringList(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<string> list = new List<string>(splitValue.Length);
@@ -200,7 +200,7 @@ namespace DE
 		}
 		public static List<uint> ParseUInt32List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<uint> list = new List<uint>(splitValue.Length);
@@ -212,7 +212,7 @@ namespace DE
 		}
 		public static List<ulong> ParseUInt64List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<ulong> list = new List<ulong>(splitValue.Length);
@@ -224,7 +224,7 @@ namespace DE
 		}
 		public static List<ushort> ParseUInt16List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			List<ushort> list = new List<ushort>(splitValue.Length);
@@ -236,7 +236,7 @@ namespace DE
 		}
 		public static List<Vector2> ParseVector2List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Vector2> list = new List<Vector2>(splitValue.Length);
@@ -248,7 +248,7 @@ namespace DE
 		}
 		public static List<Vector3> ParseVector3List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Vector3> list = new List<Vector3>(splitValue.Length);
@@ -260,7 +260,7 @@ namespace DE
 		}
 		public static List<Vector4> ParseVector4List(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			List<Vector4> list = new List<Vector4>(splitValue.Length);

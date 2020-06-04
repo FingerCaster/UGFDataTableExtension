@@ -8,7 +8,7 @@ namespace DE
 	{
 		public static bool[] ParseBooleanArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			bool[] array = new bool[splitValue.Length];
@@ -21,7 +21,7 @@ namespace DE
 		}
 		public static byte[] ParseByteArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			byte[] array = new byte[splitValue.Length];
@@ -34,7 +34,7 @@ namespace DE
 		}
 		public static char[] ParseCharArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			char[] array = new char[splitValue.Length];
@@ -47,7 +47,7 @@ namespace DE
 		}
 		public static Color[] ParseColorArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Color[] array = new Color[splitValue.Length];
@@ -60,7 +60,7 @@ namespace DE
 		}
 		public static Color32[] ParseColor32Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Color32[] array = new Color32[splitValue.Length];
@@ -73,7 +73,7 @@ namespace DE
 		}
 		public static DateTime[] ParseDateTimeArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			DateTime[] array = new DateTime[splitValue.Length];
@@ -86,7 +86,7 @@ namespace DE
 		}
 		public static decimal[] ParseDecimalArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			decimal[] array = new decimal[splitValue.Length];
@@ -99,7 +99,7 @@ namespace DE
 		}
 		public static double[] ParseDoubleArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			double[] array = new double[splitValue.Length];
@@ -112,7 +112,7 @@ namespace DE
 		}
 		public static float[] ParseSingleArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			float[] array = new float[splitValue.Length];
@@ -125,7 +125,7 @@ namespace DE
 		}
 		public static int[] ParseInt32Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			int[] array = new int[splitValue.Length];
@@ -138,7 +138,7 @@ namespace DE
 		}
 		public static long[] ParseInt64Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			long[] array = new long[splitValue.Length];
@@ -151,7 +151,7 @@ namespace DE
 		}
 		public static Quaternion[] ParseQuaternionArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Quaternion[] array = new Quaternion[splitValue.Length];
@@ -164,7 +164,7 @@ namespace DE
 		}
 		public static Rect[] ParseRectArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Rect[] array = new Rect[splitValue.Length];
@@ -177,7 +177,7 @@ namespace DE
 		}
 		public static sbyte[] ParseSByteArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			sbyte[] array = new sbyte[splitValue.Length];
@@ -190,7 +190,7 @@ namespace DE
 		}
 		public static short[] ParseInt16Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			short[] array = new short[splitValue.Length];
@@ -203,7 +203,7 @@ namespace DE
 		}
 		public static string[] ParseStringArray(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			string[] array = new string[splitValue.Length];
@@ -216,7 +216,7 @@ namespace DE
 		}
 		public static uint[] ParseUInt32Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			uint[] array = new uint[splitValue.Length];
@@ -229,7 +229,7 @@ namespace DE
 		}
 		public static ulong[] ParseUInt64Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			ulong[] array = new ulong[splitValue.Length];
@@ -242,7 +242,7 @@ namespace DE
 		}
 		public static ushort[] ParseUInt16Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
 			ushort[] array = new ushort[splitValue.Length];
@@ -255,7 +255,7 @@ namespace DE
 		}
 		public static Vector2[] ParseVector2Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Vector2[] array = new Vector2[splitValue.Length];
@@ -268,7 +268,7 @@ namespace DE
 		}
 		public static Vector3[] ParseVector3Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Vector3[] array = new Vector3[splitValue.Length];
@@ -281,7 +281,7 @@ namespace DE
 		}
 		public static Vector4[] ParseVector4Array(string value)
 		{
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
 			Vector4[] array = new Vector4[splitValue.Length];
