@@ -237,7 +237,7 @@ namespace DE.Editor
                     
 
                     string str = UGFDataTableProcessorRawValues[i][j];
-                    string[] values = StringHelper.SplitString(str);
+                    string[] values = str.Split(m_DataProcessor[j].IsSystem ? ',' :  '|');
                     foreach (string value in values)
                     {
                         if (strings.ContainsKey(value))
