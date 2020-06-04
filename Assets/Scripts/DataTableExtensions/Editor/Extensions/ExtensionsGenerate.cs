@@ -69,7 +69,7 @@ namespace DE.Editor
             {
                 sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Value.Type.Name}Array(string value)");
                 sb.AppendLine("\t\t{");
-                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
+                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
                 if (item.Value.IsSystem)
                 {
@@ -125,7 +125,7 @@ namespace DE.Editor
             {
                 sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
                 sb.AppendLine("\t\t{");
-                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
+                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
                 if (item.Value.IsSystem)
                 {
@@ -320,7 +320,7 @@ namespace DE.Editor
                 sb.AppendLine(
                     $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Parse{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(string value)");
                 sb.AppendLine("\t\t{");
-                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value))");
+                sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
                 sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
                 sb.AppendLine(

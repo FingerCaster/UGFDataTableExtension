@@ -59,6 +59,11 @@ namespace DE.Editor
         public override void WriteToStream(UGFDataTableProcessor dataTableProcessor, BinaryWriter binaryWriter,
             string value)
         {
+            if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
+            {
+                binaryWriter.Write7BitEncodedInt32(0);
+                return;
+            }
             UGFDataTableProcessor.DataProcessor dataProcessor1 = new T1();
             UGFDataTableProcessor.DataProcessor dataProcessor2 = new T2();
             string[] splitValues = value.Split('|');
