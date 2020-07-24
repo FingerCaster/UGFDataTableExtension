@@ -2,21 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using DE.Editor.DataTableTools;
 using GameFramework;
-using UnityEngine;
 namespace DE.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
         public static class DataProcessorUtility
         {
-            private static IDictionary<string, DataTableProcessor.DataProcessor> s_DataProcessors =
-                new SortedDictionary<string, DataTableProcessor.DataProcessor>();
+            private static IDictionary<string, DataProcessor> s_DataProcessors =
+                new SortedDictionary<string, DataProcessor>();
 
             static DataProcessorUtility()
             {
-                System.Type dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+                System.Type dataProcessorBaseType = typeof(DataProcessor);
 
                 System.Type[] types =  Assembly.GetExecutingAssembly().GetTypes();;
                 List<System.Type> addList = new List<System.Type>();
@@ -30,8 +28,8 @@ namespace DE.Editor.DataTableTools
 
                     if (dataProcessorBaseType.IsAssignableFrom(types[i]))
                     {
-                        DataTableProcessor.DataProcessor dataProcessor = null;
-                        dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
+                        DataProcessor dataProcessor = null;
+                        dataProcessor = (DataProcessor) Activator.CreateInstance(types[i]);
                         foreach (string typeString in dataProcessor.GetTypeStrings())
                         {
                             s_DataProcessors.Add(typeString.ToLower(), dataProcessor);
@@ -49,13 +47,13 @@ namespace DE.Editor.DataTableTools
 
             private static void AddArrayType(List<System.Type> addList)
             {
-                System.Type dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+                System.Type dataProcessorBaseType = typeof(DataProcessor);
 
-                System.Type type = typeof(DataTableProcessor.ArrayProcessor<,>);
+                System.Type type = typeof(ArrayProcessor<,>);
 
                 for (int i = 0; i < addList.Count; i++)
                 {
-                    if (!addList[i].HasImplementedRawGeneric(typeof(DataTableProcessor.GenericDataProcessor<>)))
+                    if (!addList[i].HasImplementedRawGeneric(typeof(GenericDataProcessor<>)))
                     {
                         continue;
                     }
@@ -72,10 +70,10 @@ namespace DE.Editor.DataTableTools
                         System.Type arrayType = type.MakeGenericType(typeArgs);
                         if (dataProcessorBaseType.IsAssignableFrom(arrayType))
                         {
-                            DataTableProcessor.DataProcessor dataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(arrayType);
-                            DataTableProcessor.DataProcessor tDataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(addList[i]);
+                            DataProcessor dataProcessor =
+                                (DataProcessor) Activator.CreateInstance(arrayType);
+                            DataProcessor tDataProcessor =
+                                (DataProcessor) Activator.CreateInstance(addList[i]);
                             foreach (string typeString in dataProcessor.GetTypeStrings())
                             {
                                 foreach (var tTypeString in tDataProcessor.GetTypeStrings())
@@ -91,13 +89,13 @@ namespace DE.Editor.DataTableTools
 
             private static void AddListType(List<System.Type> addList)
             {
-                System.Type dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+                System.Type dataProcessorBaseType = typeof(DataProcessor);
 
-                System.Type type = typeof(DataTableProcessor.ListProcessor<,>);
+                System.Type type = typeof(ListProcessor<,>);
 
                 for (int i = 0; i < addList.Count; i++)
                 {
-                    if (!addList[i].HasImplementedRawGeneric(typeof(DataTableProcessor.GenericDataProcessor<>)))
+                    if (!addList[i].HasImplementedRawGeneric(typeof(GenericDataProcessor<>)))
                     {
                         continue;
                     }
@@ -114,10 +112,10 @@ namespace DE.Editor.DataTableTools
                         System.Type listType = type.MakeGenericType(typeArgs);
                         if (dataProcessorBaseType.IsAssignableFrom(listType))
                         {
-                            DataTableProcessor.DataProcessor dataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(listType);
-                            DataTableProcessor.DataProcessor tDataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(addList[i]);
+                            DataProcessor dataProcessor =
+                                (DataProcessor) Activator.CreateInstance(listType);
+                            DataProcessor tDataProcessor =
+                                (DataProcessor) Activator.CreateInstance(addList[i]);
                             foreach (string typeString in dataProcessor.GetTypeStrings())
                             {
                                 foreach (var tTypeString in tDataProcessor.GetTypeStrings())
@@ -133,13 +131,13 @@ namespace DE.Editor.DataTableTools
 
             private static void AddDictionary(List<System.Type> addList)
             {
-                System.Type dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+                System.Type dataProcessorBaseType = typeof(DataProcessor);
 
-                System.Type type = typeof(DataTableProcessor.DictionaryProcessor<,,,>);
+                System.Type type = typeof(DictionaryProcessor<,,,>);
                 List<Type> list = new List<Type>();
                 for (int i = 0; i < addList.Count; i++)
                 {
-                    if (!addList[i].HasImplementedRawGeneric(typeof(DataTableProcessor.GenericDataProcessor<>)))
+                    if (!addList[i].HasImplementedRawGeneric(typeof(GenericDataProcessor<>)))
                     {
                         continue;
                     }
@@ -176,12 +174,12 @@ namespace DE.Editor.DataTableTools
                         System.Type dictionaryType = type.MakeGenericType(typeArgs);
                         if (dataProcessorBaseType.IsAssignableFrom(dictionaryType))
                         {
-                            DataTableProcessor.DataProcessor dataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(dictionaryType);
-                            DataTableProcessor.DataProcessor keyDataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(keyValue[0]);
-                            DataTableProcessor.DataProcessor valueDataProcessor =
-                                (DataTableProcessor.DataProcessor) Activator.CreateInstance(keyValue[1]);
+                            DataProcessor dataProcessor =
+                                (DataProcessor) Activator.CreateInstance(dictionaryType);
+                            DataProcessor keyDataProcessor =
+                                (DataProcessor) Activator.CreateInstance(keyValue[0]);
+                            DataProcessor valueDataProcessor =
+                                (DataProcessor) Activator.CreateInstance(keyValue[1]);
                             foreach (string typeString in dataProcessor.GetTypeStrings())
                             {
                                 foreach (string key in keyDataProcessor.GetTypeStrings())
@@ -199,14 +197,14 @@ namespace DE.Editor.DataTableTools
                 }
             }
 
-            public static DataTableProcessor.DataProcessor GetDataProcessor(string type)
+            public static DataProcessor GetDataProcessor(string type)
             {
                 if (type == null)
                 {
                     type = string.Empty;
                 }
 
-                DataTableProcessor.DataProcessor dataProcessor = null;
+                DataProcessor dataProcessor = null;
                 if (s_DataProcessors.TryGetValue(type.ToLower(), out dataProcessor))
                 {
                     return dataProcessor;

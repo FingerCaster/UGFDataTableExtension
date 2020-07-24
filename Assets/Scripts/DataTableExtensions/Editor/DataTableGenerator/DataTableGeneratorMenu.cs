@@ -1,13 +1,6 @@
-﻿﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
- using System.IO;
- using System.Linq;
- using GameFramework;
+﻿using System.IO;
+using System.Linq;
+using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,11 +10,14 @@ namespace DE.Editor.DataTableTools
     {
         private const string DataTablePath = "Assets/Res/DataTables";
         private static string[] DataTableNames;
+
         static DataTableGeneratorMenu()
         {
             DirectoryInfo folder = new DirectoryInfo(DataTablePath);
-            DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name)).ToArray();
+            DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name))
+                .ToArray();
         }
+
         [MenuItem("DataTable/Generate DataTables")]
         private static void GenerateDataTables()
         {

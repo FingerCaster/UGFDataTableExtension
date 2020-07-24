@@ -260,38 +260,17 @@ namespace DE.Editor.DataTableTools
                     System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
                     DataTableProcessor.DataProcessor dataProcessor =
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
-                    if (dataTableProcessor.GetDataProcessor(i) is ICollectionProcessor ic &&
-                        ic.ItemLanguageKeyword == "string")
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
                             dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
-                    }
-                    else
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
-                            dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
-                    }
-
                     continue;
                 }
 
                 if (dataTableProcessor.IsArrayColumn(i))
                 {
                     System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                    DataTableProcessor.DataProcessor dataProcessor =
-                        Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
-                    if (dataTableProcessor.GetDataProcessor(i) is ICollectionProcessor ic &&
-                        ic.ItemLanguageKeyword == "string")
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
-                            dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
-                    }
-                    else
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
-                            dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
-                    }
-
+                    DataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
+                        dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                     continue;
                 }
 
@@ -302,21 +281,9 @@ namespace DE.Editor.DataTableTools
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                     DataTableProcessor.DataProcessor dataProcessorT2 =
                         Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
-                    if (dataTableProcessor.GetDataProcessor(i) is IDictionaryProcessor dictionaryProcessor &&
-                        (dictionaryProcessor.KeyLanguageKeyword == "string" ||
-                         dictionaryProcessor.ValueLanguageKeyword == "string"))
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
                                 dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
                             .AppendLine();
-                    }
-                    else
-                    {
-                        stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
-                                dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
-                            .AppendLine();
-                    }
-
                     continue;
                 }
 
