@@ -156,13 +156,13 @@ namespace DE
 			}
 			return array;
 		}
-		public static string[] ReadStringArray(this BinaryReader binaryReader,string[] strings)
+		public static string[] ReadStringArray(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			string[] array = new string[count];
 			for (int i = 0; i < count; i++)
 			{
-				array[i] = strings[binaryReader.Read7BitEncodedInt32()];
+				array[i] = binaryReader.ReadString();
 			}
 			return array;
 		}

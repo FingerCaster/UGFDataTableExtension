@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using DE.Editor.DataTableTools;
 using GameFramework;
 using UnityEditor;
 using UnityEngine;
-using UGFDataTableProcessor = UnityGameFramework.Editor.DataTableTools.DataTableProcessor;
-
 namespace DE.Editor
 {
     public static class ExtensionsGenerate
@@ -19,14 +18,15 @@ namespace DE.Editor
         [MenuItem("DataTable/GenerateExtension")]
         private static void GenerateExtension()
         {
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> datableDataProcessors =
-                new SortedDictionary<string, UGFDataTableProcessor.DataProcessor>();
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> binaryReaderDataProcessors =
-                new SortedDictionary<string, UGFDataTableProcessor.DataProcessor>();
-            System.Type dataProcessorBaseType = typeof(UGFDataTableProcessor.DataProcessor);
-            List<System.Type> types = DataTableProcessorHelper.GetTypeNames(dataProcessorBaseType);
+            IDictionary<string, DataTableProcessor.DataProcessor> datableDataProcessors =
+                new SortedDictionary<string, DataTableProcessor.DataProcessor>();
+            IDictionary<string, DataTableProcessor.DataProcessor> binaryReaderDataProcessors =
+                new SortedDictionary<string, DataTableProcessor.DataProcessor>();
+            System.Type dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+            List<System.Type> types = GetTypeNames(dataProcessorBaseType);
             for (int i = 0; i < types.Count; i++)
             {
+                
                 if (!types[i].IsClass || types[i].IsAbstract || types[i].ContainsGenericParameters)
                 {
                     continue;
@@ -34,8 +34,8 @@ namespace DE.Editor
 
                 if (dataProcessorBaseType.IsAssignableFrom(types[i]))
                 {
-                    UGFDataTableProcessor.DataProcessor dataProcessor = null;
-                    dataProcessor = (UGFDataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
+                    DataTableProcessor.DataProcessor dataProcessor = null;
+                    dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
                     if (dataProcessor.IsComment || dataProcessor.IsId)
                     {
                         continue;
@@ -54,7 +54,7 @@ namespace DE.Editor
 
 
         private static void GenerateDataTableExtensionArray(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using UnityEngine;");
@@ -65,7 +65,7 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
-            foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
+            foreach (KeyValuePair<string, DataTableProcessor.DataProcessor> item in dataProcessors)
             {
                 sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Value.Type.Name}Array(string value)");
                 sb.AppendLine("\t\t{");
@@ -110,7 +110,7 @@ namespace DE.Editor
         }
 
         private static void GenerateDataTableExtensionList(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using UnityEngine;");
@@ -121,7 +121,7 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
-            foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
+            foreach (KeyValuePair<string, DataTableProcessor.DataProcessor> item in dataProcessors)
             {
                 sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
                 sb.AppendLine("\t\t{");
@@ -165,7 +165,7 @@ namespace DE.Editor
         }
 
         private static void GenerateBinaryReaderExtensionList(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using UnityEngine;");
@@ -176,7 +176,7 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
-            foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
+            foreach (KeyValuePair<string, DataTableProcessor.DataProcessor> item in dataProcessors)
             {
                 sb.AppendLine(
                     $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)");
@@ -185,7 +185,7 @@ namespace DE.Editor
                 sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(count);");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
                 sb.AppendLine("\t\t\t{");
-                if (DataTableProcessorHelper.IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
+                if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
                 {
                     sb.AppendLine($"\t\t\t\tlist.Add(Read{item.Key}(binaryReader));");
                 }
@@ -196,13 +196,6 @@ namespace DE.Editor
                         languageKeyword == "ulong")
                     {
                         sb.AppendLine($"\t\t\t\tlist.Add(binaryReader.Read7BitEncoded{item.Value.Type.Name}());");
-                    }
-                    else if (languageKeyword == "string")
-                    {
-                        sb.Replace(
-                            $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)",
-                            $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader,string[] strings)");
-                        sb.AppendLine("\t\t\t\tlist.Add(strings[binaryReader.Read7BitEncodedInt32()]);");
                     }
                     else
                     {
@@ -221,7 +214,7 @@ namespace DE.Editor
         }
 
         private static void GenerateBinaryReaderExtensionArray(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using UnityEngine;");
@@ -232,7 +225,7 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
-            foreach (KeyValuePair<string, UGFDataTableProcessor.DataProcessor> item in dataProcessors)
+            foreach (KeyValuePair<string, DataTableProcessor.DataProcessor> item in dataProcessors)
             {
                 sb.AppendLine(
                     $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)");
@@ -241,7 +234,7 @@ namespace DE.Editor
                 sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[count];");
                 sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
                 sb.AppendLine("\t\t\t{");
-                if (DataTableProcessorHelper.IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
+                if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
                 {
                     sb.AppendLine($"\t\t\t\tarray[i] = Read{item.Key}(binaryReader);");
                 }
@@ -252,13 +245,6 @@ namespace DE.Editor
                         languageKeyword == "ulong")
                     {
                         sb.AppendLine($"\t\t\t\tarray[i] = binaryReader.Read7BitEncoded{item.Value.Type.Name}();");
-                    }
-                    else if (languageKeyword == "string")
-                    {
-                        sb.Replace(
-                            $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)",
-                            $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader,string[] strings)");
-                        sb.AppendLine("\t\t\t\tarray[i] = strings[binaryReader.Read7BitEncodedInt32()];");
                     }
                     else
                     {
@@ -294,12 +280,12 @@ namespace DE.Editor
         }
 
         private static void GenerateDataTableExtensionDictionary(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
-            List<UGFDataTableProcessor.DataProcessor[]> keyValueList =
-                PermutationAndCombination<UGFDataTableProcessor.DataProcessor>
+            List<DataTableProcessor.DataProcessor[]> keyValueList =
+                PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            foreach (UGFDataTableProcessor.DataProcessor dataProcessor in dataProcessors.Values)
+            foreach (DataTableProcessor.DataProcessor dataProcessor in dataProcessors.Values)
             {
                 keyValueList.Add(new[] {dataProcessor, dataProcessor});
             }
@@ -313,10 +299,10 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
-            foreach (UGFDataTableProcessor.DataProcessor[] item in keyValueList)
+            foreach (DataTableProcessor.DataProcessor[] item in keyValueList)
             {
-                UGFDataTableProcessor.DataProcessor dataProcessorT1 = item[0];
-                UGFDataTableProcessor.DataProcessor dataProcessorT2 = item[1];
+                DataTableProcessor.DataProcessor dataProcessorT1 = item[0];
+                DataTableProcessor.DataProcessor dataProcessorT2 = item[1];
                 sb.AppendLine(
                     $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Parse{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(string value)");
                 sb.AppendLine("\t\t{");
@@ -401,12 +387,12 @@ namespace DE.Editor
 
 
         private static void GenerateBinaryReaderExtensionDictionary(
-            IDictionary<string, UGFDataTableProcessor.DataProcessor> dataProcessors)
+            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
-            List<UGFDataTableProcessor.DataProcessor[]> keyValueList =
-                PermutationAndCombination<UGFDataTableProcessor.DataProcessor>
+            List<DataTableProcessor.DataProcessor[]> keyValueList =
+                PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            foreach (UGFDataTableProcessor.DataProcessor dataProcessor in dataProcessors.Values)
+            foreach (DataTableProcessor.DataProcessor dataProcessor in dataProcessors.Values)
             {
                 keyValueList.Add(new[] {dataProcessor, dataProcessor});
             }
@@ -420,10 +406,10 @@ namespace DE.Editor
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
-            foreach (UGFDataTableProcessor.DataProcessor[] item in keyValueList)
+            foreach (DataTableProcessor.DataProcessor[] item in keyValueList)
             {
-                UGFDataTableProcessor.DataProcessor dataProcessorT1 = item[0];
-                UGFDataTableProcessor.DataProcessor dataProcessorT2 = item[1];
+                DataTableProcessor.DataProcessor dataProcessorT1 = item[0];
+                DataTableProcessor.DataProcessor dataProcessorT2 = item[1];
                 sb.AppendLine(
                     $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)");
                 sb.AppendLine("\t\t{");
@@ -446,45 +432,10 @@ namespace DE.Editor
                                 sb.AppendLine(
                                     $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
                             }
-                            else if (t2LanguageKeyword == "string")
-                            {
-                                sb.Replace(
-                                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)",
-                                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader,string[] strings)");
-                                sb.AppendLine(
-                                    $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),strings[binaryReader.Read7BitEncodedInt32()]);");
-                            }
                             else
                             {
                                 sb.AppendLine(
                                     $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),binaryReader.Read{dataProcessorT2.Type.Name}());");
-                            }
-                        }
-                        else if (t1LanguageKeyword == "string")
-                        {
-                            sb.Replace(
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)",
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader,string[] strings)");
-
-                            if (t2LanguageKeyword == "int" || t2LanguageKeyword == "uint" ||
-                                t2LanguageKeyword == "long" ||
-                                t2LanguageKeyword == "ulong")
-                            {
-                                sb.AppendLine(
-                                    $"\t\t\t\tdictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
-                            }
-                            else if (t2LanguageKeyword == "string")
-                            {
-                                sb.Replace(
-                                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)",
-                                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader,string[] strings)");
-                                sb.AppendLine(
-                                    $"\t\t\t\tdictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],strings[binaryReader.Read7BitEncodedInt32()]);");
-                            }
-                            else
-                            {
-                                sb.AppendLine(
-                                    $"\t\t\t\tdictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],binaryReader.Read{dataProcessorT2.Type.Name}());");
                             }
                         }
                         else
@@ -500,14 +451,6 @@ namespace DE.Editor
                         {
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(), Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
-                        }
-                        else if (t1LanguageKeyword == "string")
-                        {
-                            sb.Replace(
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)",
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader,string[] strings)");
-                            sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
                         }
                         else
                         {
@@ -526,14 +469,6 @@ namespace DE.Editor
                         {
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
-                        }
-                        else if (t2LanguageKeyword == "string")
-                        {
-                            sb.Replace(
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)",
-                                $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader,string[] strings)");
-                            sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);");
                         }
                         else
                         {
@@ -557,8 +492,51 @@ namespace DE.Editor
             sb.AppendLine("}");
             GenerateCodeFile("BinaryReaderExtension.Dictionary", sb.ToString());
         }
+        
+        
+        private static readonly string[] EditorAssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Editor",
+            "DE.Editor",
+#endif
+            "Assembly-CSharp-Editor"
+        };
 
-        private static bool IsCustomType(Type type)
+        public static List<Type> GetTypeNames(System.Type typeBase)
+        {
+            List<Type> typeNames = new List<Type>();
+            foreach (string assemblyName in EditorAssemblyNames)
+            {
+                Assembly assembly = null;
+                try
+                {
+                    assembly = Assembly.Load(assemblyName);
+                }
+                catch
+                {
+                    continue;
+                }
+
+                if (assembly == null)
+                {
+                    continue;
+                }
+
+                System.Type[] types = assembly.GetTypes();
+                foreach (System.Type type in types)
+                {
+                    if (type.IsClass && !type.IsAbstract && typeBase.IsAssignableFrom(type))
+                    {
+                        typeNames.Add(type);
+                    }
+                }
+            }
+
+            return typeNames;
+        }
+        
+        public static bool IsCustomType(Type type)
         {
             return (type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object);
         }

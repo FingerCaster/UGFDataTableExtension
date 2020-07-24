@@ -56,13 +56,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,Vector4> ReadStringVector4Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,Vector4> ReadStringVector4Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,Vector4> dictionary = new Dictionary<string,Vector4>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],ReadVector4(binaryReader));
+				dictionary.Add(binaryReader.ReadString(),ReadVector4(binaryReader));
 			}
 			return dictionary;
 		}
@@ -256,13 +256,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,Vector3> ReadStringVector3Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,Vector3> ReadStringVector3Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,Vector3> dictionary = new Dictionary<string,Vector3>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],ReadVector3(binaryReader));
+				dictionary.Add(binaryReader.ReadString(),ReadVector3(binaryReader));
 			}
 			return dictionary;
 		}
@@ -446,13 +446,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,Vector2> ReadStringVector2Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,Vector2> ReadStringVector2Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,Vector2> dictionary = new Dictionary<string,Vector2>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],ReadVector2(binaryReader));
+				dictionary.Add(binaryReader.ReadString(),ReadVector2(binaryReader));
 			}
 			return dictionary;
 		}
@@ -626,13 +626,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,ushort> ReadStringUInt16Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,ushort> ReadStringUInt16Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,ushort> dictionary = new Dictionary<string,ushort>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],binaryReader.ReadUInt16());
+				dictionary.Add(binaryReader.ReadString(),binaryReader.ReadUInt16());
 			}
 			return dictionary;
 		}
@@ -796,13 +796,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,ulong> ReadStringUInt64Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,ulong> ReadStringUInt64Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,ulong> dictionary = new Dictionary<string,ulong>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],binaryReader.Read7BitEncodedUInt64());
+				dictionary.Add(binaryReader.ReadString(),binaryReader.ReadUInt64());
 			}
 			return dictionary;
 		}
@@ -956,13 +956,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,uint> ReadStringUInt32Dictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,uint> ReadStringUInt32Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,uint> dictionary = new Dictionary<string,uint>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],binaryReader.Read7BitEncodedUInt32());
+				dictionary.Add(binaryReader.ReadString(),binaryReader.ReadUInt32());
 			}
 			return dictionary;
 		}
@@ -1136,43 +1136,43 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Rect,string> ReadRectStringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<Rect,string> ReadRectStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<Rect,string> dictionary = new Dictionary<Rect,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadRect(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(ReadRect(binaryReader),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Quaternion,string> ReadQuaternionStringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<Quaternion,string> ReadQuaternionStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<Quaternion,string> dictionary = new Dictionary<Quaternion,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadQuaternion(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(ReadQuaternion(binaryReader),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<long,string> ReadInt64StringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<long,string> ReadInt64StringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<long,string> dictionary = new Dictionary<long,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedInt64(),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(binaryReader.Read7BitEncodedInt64(),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<int,string> ReadInt32StringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<int,string> ReadInt32StringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<int,string> dictionary = new Dictionary<int,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedInt32(),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(binaryReader.Read7BitEncodedInt32(),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
@@ -1206,33 +1206,33 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<DateTime,string> ReadDateTimeStringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<DateTime,string> ReadDateTimeStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<DateTime,string> dictionary = new Dictionary<DateTime,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadDateTime(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(ReadDateTime(binaryReader),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color32,string> ReadColor32StringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<Color32,string> ReadColor32StringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<Color32,string> dictionary = new Dictionary<Color32,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadColor32(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(ReadColor32(binaryReader),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color,string> ReadColorStringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<Color,string> ReadColorStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<Color,string> dictionary = new Dictionary<Color,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadColor(binaryReader),strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(ReadColor(binaryReader),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
@@ -2466,13 +2466,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,string> ReadStringStringDictionary(this BinaryReader binaryReader,string[] strings)
+		public static Dictionary<string,string> ReadStringStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			Dictionary<string,string> dictionary = new Dictionary<string,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(strings[binaryReader.Read7BitEncodedInt32()],strings[binaryReader.Read7BitEncodedInt32()]);
+				dictionary.Add(binaryReader.ReadString(),binaryReader.ReadString());
 			}
 			return dictionary;
 		}

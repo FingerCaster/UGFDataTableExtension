@@ -65,7 +65,7 @@ namespace DE
                     return;
                 }
             }
-
+            
             if (Input.GetKeyDown(KeyCode.A))
             {
                 IDataTable<DRTest> drTests = DataTable.GetDataTable<DRTest>();
@@ -92,7 +92,7 @@ namespace DE
                         $"{ArrayToString(drTest.SByteArray)}    {ArrayToString(drTest.ShortArray)}    {ArrayToString(drTest.StringArray)}    {ArrayToString(drTest.UIntArray)}    {ArrayToString(drTest.ULongArray)}    {ArrayToString(drTest.UShortArray)}    {ArrayToString(drTest.Vector2Array)}    " +
                         $"{ArrayToString(drTest.Vector3Array)}    {ArrayToString(drTest.Vector4Array)}");
                 }
-
+            
                 string ArrayToString<T>(T[] array)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -102,10 +102,10 @@ namespace DE
                         string separator = (i < array.Length - 1) ? comma : string.Empty;
                         stringBuilder.Append($"{array[i].ToString()}{separator}");
                     }
-
+            
                     return stringBuilder.ToString();
                 }
-
+            
                 string ListToString<T>(List<T> array)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -115,11 +115,11 @@ namespace DE
                         string separator = (i < array.Count - 1) ? comma : string.Empty;
                         stringBuilder.Append($"{array[i].ToString()}{separator}");
                     }
-
+            
                     return stringBuilder.ToString();
                 }
             }
-
+            
             if (Input.GetKeyDown(KeyCode.B))
             {
                 IDataTable<DRTestDictionary> drTestDictionaries = DataTable.GetDataTable<DRTestDictionary>();
@@ -132,7 +132,7 @@ namespace DE
                 {
                     Debug.Log($"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}");
                 }
-
+            
                 string DictionaryToString<K, V>(Dictionary<K, V> dictionary)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -143,12 +143,12 @@ namespace DE
                         string separator = (index < dictionary.Count - 1) ? comma : string.Empty;
                         stringBuilder.Append($"{{{keyValue.Key.ToString()},{keyValue.Value.ToString()}}}{separator}");
                     }
-
+            
                     return stringBuilder.ToString();
                 }
             }
         }
-
+        
         private void PreloadResources()
         {
             // Preload data tables
@@ -157,43 +157,44 @@ namespace DE
                 LoadDataTable(dataTableName);
             }
         }
-
+        
         private void LoadDataTable(string dataTableName)
         {
-            m_LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
+            string dataTableAssetName = Utility.Text.Format("Assets/Res/DataTables/{0}.bytes", dataTableName);
+            m_LoadedFlag.Add(dataTableAssetName,false);
             if (string.IsNullOrEmpty(dataTableName))
             {
                 Log.Warning("Data table name is invalid.");
                 return;
             }
-
-            string[] splitNames = dataTableName.Split('_');
-            if (splitNames.Length > 2)
+        
+            string[] splitedNames = dataTableName.Split('_');
+            if (splitedNames.Length > 2)
             {
                 Log.Warning("Data table name is invalid.");
                 return;
             }
-
-            string dataRowClassName = DataRowClassPrefixName + splitNames[0];
-
+        
+            string dataRowClassName = DataRowClassPrefixName + splitedNames[0];
+        
             Type dataRowType = Type.GetType(dataRowClassName);
             if (dataRowType == null)
             {
                 Log.Warning("Can not get data row type with class name '{0}'.", dataRowClassName);
                 return;
             }
-
-            string dataTableNameInType = splitNames.Length > 1 ? splitNames[1] : null;
-            DataTable.LoadDataTable(dataRowType, dataTableName, dataTableNameInType,
-                GetDataTableAsset(dataTableName, true), 100, this);
+        
+            string name = splitedNames.Length > 1 ? splitedNames[1] : null;
+            DataTableBase dataTable = DataTable.CreateDataTable(dataRowType, name);
+            dataTable.ReadData(dataTableAssetName, 100, this);
         }
-
-
+        
+        
         public static string GetDataTableAsset(string assetName, bool fromBytes)
         {
             return Utility.Text.Format("Assets/Res/DataTables/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
-
+        
         private void OnLoadDataTableSuccess(object sender, GameEventArgs e)
         {
             LoadDataTableSuccessEventArgs ne = (LoadDataTableSuccessEventArgs) e;
@@ -201,11 +202,11 @@ namespace DE
             {
                 return;
             }
-
-            m_LoadedFlag[Utility.Text.Format("DataTable.{0}", ne.DataTableName)] = true;
-            Log.Info("Load data table '{0}' OK.", ne.DataTableName);
+        
+            m_LoadedFlag[ne.DataTableAssetName] = true;
+            Log.Info("Load data table '{0}' OK.", ne.DataTableAssetName);
         }
-
+        
         private void OnLoadDataTableFailure(object sender, GameEventArgs e)
         {
             LoadDataTableFailureEventArgs ne = (LoadDataTableFailureEventArgs) e;
@@ -213,8 +214,8 @@ namespace DE
             {
                 return;
             }
-
-            Log.Error("Can not load data table '{0}' from '{1}' with error message '{2}'.", ne.DataTableName,
+        
+            Log.Error("Can not load data table '{0}' from '{1}' with error message '{2}'.", ne.DataTableAssetName,
                 ne.DataTableAssetName, ne.ErrorMessage);
         }
     }

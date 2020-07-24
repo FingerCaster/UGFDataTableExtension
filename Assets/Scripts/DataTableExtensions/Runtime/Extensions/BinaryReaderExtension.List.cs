@@ -156,13 +156,13 @@ namespace DE
 			}
 			return list;
 		}
-		public static List<string> ReadStringList(this BinaryReader binaryReader,string[] strings)
+		public static List<string> ReadStringList(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
 			List<string> list = new List<string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				list.Add(strings[binaryReader.Read7BitEncodedInt32()]);
+				list.Add(binaryReader.ReadString());
 			}
 			return list;
 		}

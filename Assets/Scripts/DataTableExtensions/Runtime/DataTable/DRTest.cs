@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-06-04 11:32:20.676
+// 生成时间：2020-07-24 17:16:12.921
 //------------------------------------------------------------
 
 using GameFramework;
@@ -625,170 +625,163 @@ namespace DE
             private set;
         }
 
-        public override bool ParseDataRow(GameFrameworkDataSegment dataRowSegment, object dataTableUserData)
+        public override bool ParseDataRow(string dataRowString, object userData)
         {
-            Type dataType = dataRowSegment.DataType;
-            if (dataType == typeof(string))
+            string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
+            for (int i = 0; i < columnStrings.Length; i++)
             {
-                string[] columnTexts = ((string)dataRowSegment.Data).Substring(dataRowSegment.Offset, dataRowSegment.Length).Split(DataTableExtension.DataSplitSeparators);
-                for (int i = 0; i < columnTexts.Length; i++)
-                {
-                    columnTexts[i] = columnTexts[i].Trim(DataTableExtension.DataTrimSeparators);
-                }
+                columnStrings[i] = columnStrings[i].Trim(DataTableExtension.DataTrimSeparators);
+            }
 
-                int index = 0;
-                index++;
-                m_Id = int.Parse(columnTexts[index++]);
-                index++;
-				BoolValue = bool.Parse(columnTexts[index++]);
-				ByteValue = byte.Parse(columnTexts[index++]);
-				CharValue = char.Parse(columnTexts[index++]);
-				Color32Value = DataTableExtension.ParseColor32(columnTexts[index++]);
-				ColorValue = DataTableExtension.ParseColor(columnTexts[index++]);
-                index++;
-				DateTimeValue = DateTime.Parse(columnTexts[index++]);
-				DecimalValue = decimal.Parse(columnTexts[index++]);
-				DoubleValue = double.Parse(columnTexts[index++]);
-				FloatValue = float.Parse(columnTexts[index++]);
-				IntValue = int.Parse(columnTexts[index++]);
-				LongValue = long.Parse(columnTexts[index++]);
-				QuaternionValue = DataTableExtension.ParseQuaternion(columnTexts[index++]);
-				RectValue = DataTableExtension.ParseRect(columnTexts[index++]);
-				SByteValue = sbyte.Parse(columnTexts[index++]);
-				ShortValue = short.Parse(columnTexts[index++]);
-				StringValue = columnTexts[index++];
-				UIntValue = uint.Parse(columnTexts[index++]);
-				ULongValue = ulong.Parse(columnTexts[index++]);
-				UShortValue = ushort.Parse(columnTexts[index++]);
-				Vector2Value = DataTableExtension.ParseVector2(columnTexts[index++]);
-				Vector3Value = DataTableExtension.ParseVector3(columnTexts[index++]);
-				Vector4Value = DataTableExtension.ParseVector4(columnTexts[index++]);
-				BoolList = DataTableExtension.ParseBooleanList(columnTexts[index++]);
-				ByteList = DataTableExtension.ParseByteList(columnTexts[index++]);
-				CharList = DataTableExtension.ParseCharList(columnTexts[index++]);
-				Color32List = DataTableExtension.ParseColor32List(columnTexts[index++]);
-				ColorList = DataTableExtension.ParseColorList(columnTexts[index++]);
-				DateTimeList = DataTableExtension.ParseDateTimeList(columnTexts[index++]);
-				DecimalList = DataTableExtension.ParseDecimalList(columnTexts[index++]);
-				DoubleList = DataTableExtension.ParseDoubleList(columnTexts[index++]);
-				FloatList = DataTableExtension.ParseSingleList(columnTexts[index++]);
-				IntList = DataTableExtension.ParseInt32List(columnTexts[index++]);
-				LongList = DataTableExtension.ParseInt64List(columnTexts[index++]);
-				QuaternionList = DataTableExtension.ParseQuaternionList(columnTexts[index++]);
-				RectList = DataTableExtension.ParseRectList(columnTexts[index++]);
-				SByteList = DataTableExtension.ParseSByteList(columnTexts[index++]);
-				ShortList = DataTableExtension.ParseInt16List(columnTexts[index++]);
-				StringList = DataTableExtension.ParseStringList(columnTexts[index++]);
-				UIntList = DataTableExtension.ParseUInt32List(columnTexts[index++]);
-				ULongList = DataTableExtension.ParseUInt64List(columnTexts[index++]);
-				UShortList = DataTableExtension.ParseUInt16List(columnTexts[index++]);
-				Vector2List = DataTableExtension.ParseVector2List(columnTexts[index++]);
-				Vector3List = DataTableExtension.ParseVector3List(columnTexts[index++]);
-				Vector4List = DataTableExtension.ParseVector4List(columnTexts[index++]);
-				BoolArray = DataTableExtension.ParseBooleanArray(columnTexts[index++]);
-				ByteArray = DataTableExtension.ParseByteArray(columnTexts[index++]);
-				CharArray = DataTableExtension.ParseCharArray(columnTexts[index++]);
-				Color32Array = DataTableExtension.ParseColor32Array(columnTexts[index++]);
-				ColorArray = DataTableExtension.ParseColorArray(columnTexts[index++]);
-				DateTimeArray = DataTableExtension.ParseDateTimeArray(columnTexts[index++]);
-				DecimalArray = DataTableExtension.ParseDecimalArray(columnTexts[index++]);
-				DoubleArray = DataTableExtension.ParseDoubleArray(columnTexts[index++]);
-				FloatArray = DataTableExtension.ParseSingleArray(columnTexts[index++]);
-				IntArray = DataTableExtension.ParseInt32Array(columnTexts[index++]);
-				LongArray = DataTableExtension.ParseInt64Array(columnTexts[index++]);
-				QuaternionArray = DataTableExtension.ParseQuaternionArray(columnTexts[index++]);
-				RectArray = DataTableExtension.ParseRectArray(columnTexts[index++]);
-				SByteArray = DataTableExtension.ParseSByteArray(columnTexts[index++]);
-				ShortArray = DataTableExtension.ParseInt16Array(columnTexts[index++]);
-				StringArray = DataTableExtension.ParseStringArray(columnTexts[index++]);
-				UIntArray = DataTableExtension.ParseUInt32Array(columnTexts[index++]);
-				ULongArray = DataTableExtension.ParseUInt64Array(columnTexts[index++]);
-				UShortArray = DataTableExtension.ParseUInt16Array(columnTexts[index++]);
-				Vector2Array = DataTableExtension.ParseVector2Array(columnTexts[index++]);
-				Vector3Array = DataTableExtension.ParseVector3Array(columnTexts[index++]);
-				Vector4Array = DataTableExtension.ParseVector4Array(columnTexts[index++]);
-            }
-            else if (dataType == typeof(byte[]))
+            int index = 0;
+            index++;
+            m_Id = int.Parse(columnStrings[index++]);
+            index++;
+			BoolValue = bool.Parse(columnStrings[index++]);
+			ByteValue = byte.Parse(columnStrings[index++]);
+			CharValue = char.Parse(columnStrings[index++]);
+			Color32Value = DataTableExtension.ParseColor32(columnStrings[index++]);
+			ColorValue = DataTableExtension.ParseColor(columnStrings[index++]);
+            index++;
+			DateTimeValue = DateTime.Parse(columnStrings[index++]);
+			DecimalValue = decimal.Parse(columnStrings[index++]);
+			DoubleValue = double.Parse(columnStrings[index++]);
+			FloatValue = float.Parse(columnStrings[index++]);
+			IntValue = int.Parse(columnStrings[index++]);
+			LongValue = long.Parse(columnStrings[index++]);
+			QuaternionValue = DataTableExtension.ParseQuaternion(columnStrings[index++]);
+			RectValue = DataTableExtension.ParseRect(columnStrings[index++]);
+			SByteValue = sbyte.Parse(columnStrings[index++]);
+			ShortValue = short.Parse(columnStrings[index++]);
+			StringValue = columnStrings[index++];
+			UIntValue = uint.Parse(columnStrings[index++]);
+			ULongValue = ulong.Parse(columnStrings[index++]);
+			UShortValue = ushort.Parse(columnStrings[index++]);
+			Vector2Value = DataTableExtension.ParseVector2(columnStrings[index++]);
+			Vector3Value = DataTableExtension.ParseVector3(columnStrings[index++]);
+			Vector4Value = DataTableExtension.ParseVector4(columnStrings[index++]);
+			BoolList = DataTableExtension.ParseBooleanList(columnStrings[index++]);
+			ByteList = DataTableExtension.ParseByteList(columnStrings[index++]);
+			CharList = DataTableExtension.ParseCharList(columnStrings[index++]);
+			Color32List = DataTableExtension.ParseColor32List(columnStrings[index++]);
+			ColorList = DataTableExtension.ParseColorList(columnStrings[index++]);
+			DateTimeList = DataTableExtension.ParseDateTimeList(columnStrings[index++]);
+			DecimalList = DataTableExtension.ParseDecimalList(columnStrings[index++]);
+			DoubleList = DataTableExtension.ParseDoubleList(columnStrings[index++]);
+			FloatList = DataTableExtension.ParseSingleList(columnStrings[index++]);
+			IntList = DataTableExtension.ParseInt32List(columnStrings[index++]);
+			LongList = DataTableExtension.ParseInt64List(columnStrings[index++]);
+			QuaternionList = DataTableExtension.ParseQuaternionList(columnStrings[index++]);
+			RectList = DataTableExtension.ParseRectList(columnStrings[index++]);
+			SByteList = DataTableExtension.ParseSByteList(columnStrings[index++]);
+			ShortList = DataTableExtension.ParseInt16List(columnStrings[index++]);
+			StringList = DataTableExtension.ParseStringList(columnStrings[index++]);
+			UIntList = DataTableExtension.ParseUInt32List(columnStrings[index++]);
+			ULongList = DataTableExtension.ParseUInt64List(columnStrings[index++]);
+			UShortList = DataTableExtension.ParseUInt16List(columnStrings[index++]);
+			Vector2List = DataTableExtension.ParseVector2List(columnStrings[index++]);
+			Vector3List = DataTableExtension.ParseVector3List(columnStrings[index++]);
+			Vector4List = DataTableExtension.ParseVector4List(columnStrings[index++]);
+			BoolArray = DataTableExtension.ParseBooleanArray(columnStrings[index++]);
+			ByteArray = DataTableExtension.ParseByteArray(columnStrings[index++]);
+			CharArray = DataTableExtension.ParseCharArray(columnStrings[index++]);
+			Color32Array = DataTableExtension.ParseColor32Array(columnStrings[index++]);
+			ColorArray = DataTableExtension.ParseColorArray(columnStrings[index++]);
+			DateTimeArray = DataTableExtension.ParseDateTimeArray(columnStrings[index++]);
+			DecimalArray = DataTableExtension.ParseDecimalArray(columnStrings[index++]);
+			DoubleArray = DataTableExtension.ParseDoubleArray(columnStrings[index++]);
+			FloatArray = DataTableExtension.ParseSingleArray(columnStrings[index++]);
+			IntArray = DataTableExtension.ParseInt32Array(columnStrings[index++]);
+			LongArray = DataTableExtension.ParseInt64Array(columnStrings[index++]);
+			QuaternionArray = DataTableExtension.ParseQuaternionArray(columnStrings[index++]);
+			RectArray = DataTableExtension.ParseRectArray(columnStrings[index++]);
+			SByteArray = DataTableExtension.ParseSByteArray(columnStrings[index++]);
+			ShortArray = DataTableExtension.ParseInt16Array(columnStrings[index++]);
+			StringArray = DataTableExtension.ParseStringArray(columnStrings[index++]);
+			UIntArray = DataTableExtension.ParseUInt32Array(columnStrings[index++]);
+			ULongArray = DataTableExtension.ParseUInt64Array(columnStrings[index++]);
+			UShortArray = DataTableExtension.ParseUInt16Array(columnStrings[index++]);
+			Vector2Array = DataTableExtension.ParseVector2Array(columnStrings[index++]);
+			Vector3Array = DataTableExtension.ParseVector3Array(columnStrings[index++]);
+			Vector4Array = DataTableExtension.ParseVector4Array(columnStrings[index++]);
+            GeneratePropertyArray();
+            return true;
+        }
+
+        public override bool ParseDataRow(byte[] dataRowBytes, int startIndex, int length, object userData)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(dataRowBytes, startIndex, length, false))
             {
-                string[] strings = (string[])dataTableUserData;
-                using (MemoryStream memoryStream = new MemoryStream((byte[])dataRowSegment.Data, dataRowSegment.Offset, dataRowSegment.Length, false))
+                using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
-                    using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
-                    {
-                        m_Id = binaryReader.Read7BitEncodedInt32();
-                        BoolValue = binaryReader.ReadBoolean();
-                        ByteValue = binaryReader.ReadByte();
-                        CharValue = binaryReader.ReadChar();
-                        Color32Value = binaryReader.ReadColor32();
-                        ColorValue = binaryReader.ReadColor();
-                        DateTimeValue = binaryReader.ReadDateTime();
-                        DecimalValue = binaryReader.ReadDecimal();
-                        DoubleValue = binaryReader.ReadDouble();
-                        FloatValue = binaryReader.ReadSingle();
-                        IntValue = binaryReader.Read7BitEncodedInt32();
-                        LongValue = binaryReader.Read7BitEncodedInt64();
-                        QuaternionValue = binaryReader.ReadQuaternion();
-                        RectValue = binaryReader.ReadRect();
-                        SByteValue = binaryReader.ReadSByte();
-                        ShortValue = binaryReader.ReadInt16();
-                        StringValue = strings[binaryReader.Read7BitEncodedInt32()];
-                        UIntValue = binaryReader.Read7BitEncodedUInt32();
-                        ULongValue = binaryReader.Read7BitEncodedUInt64();
-                        UShortValue = binaryReader.ReadUInt16();
-                        Vector2Value = binaryReader.ReadVector2();
-                        Vector3Value = binaryReader.ReadVector3();
-                        Vector4Value = binaryReader.ReadVector4();
-						BoolList = binaryReader.ReadBooleanList();
-						ByteList = binaryReader.ReadByteList();
-						CharList = binaryReader.ReadCharList();
-						Color32List = binaryReader.ReadColor32List();
-						ColorList = binaryReader.ReadColorList();
-						DateTimeList = binaryReader.ReadDateTimeList();
-						DecimalList = binaryReader.ReadDecimalList();
-						DoubleList = binaryReader.ReadDoubleList();
-						FloatList = binaryReader.ReadSingleList();
-						IntList = binaryReader.ReadInt32List();
-						LongList = binaryReader.ReadInt64List();
-						QuaternionList = binaryReader.ReadQuaternionList();
-						RectList = binaryReader.ReadRectList();
-						SByteList = binaryReader.ReadSByteList();
-						ShortList = binaryReader.ReadInt16List();
-						StringList = binaryReader.ReadStringList(strings);
-						UIntList = binaryReader.ReadUInt32List();
-						ULongList = binaryReader.ReadUInt64List();
-						UShortList = binaryReader.ReadUInt16List();
-						Vector2List = binaryReader.ReadVector2List();
-						Vector3List = binaryReader.ReadVector3List();
-						Vector4List = binaryReader.ReadVector4List();
-						BoolArray = binaryReader.ReadBooleanArray();
-						ByteArray = binaryReader.ReadByteArray();
-						CharArray = binaryReader.ReadCharArray();
-						Color32Array = binaryReader.ReadColor32Array();
-						ColorArray = binaryReader.ReadColorArray();
-						DateTimeArray = binaryReader.ReadDateTimeArray();
-						DecimalArray = binaryReader.ReadDecimalArray();
-						DoubleArray = binaryReader.ReadDoubleArray();
-						FloatArray = binaryReader.ReadSingleArray();
-						IntArray = binaryReader.ReadInt32Array();
-						LongArray = binaryReader.ReadInt64Array();
-						QuaternionArray = binaryReader.ReadQuaternionArray();
-						RectArray = binaryReader.ReadRectArray();
-						SByteArray = binaryReader.ReadSByteArray();
-						ShortArray = binaryReader.ReadInt16Array();
-						StringArray = binaryReader.ReadStringArray(strings);
-						UIntArray = binaryReader.ReadUInt32Array();
-						ULongArray = binaryReader.ReadUInt64Array();
-						UShortArray = binaryReader.ReadUInt16Array();
-						Vector2Array = binaryReader.ReadVector2Array();
-						Vector3Array = binaryReader.ReadVector3Array();
-						Vector4Array = binaryReader.ReadVector4Array();
-                    }
+                    m_Id = binaryReader.Read7BitEncodedInt32();
+                    BoolValue = binaryReader.ReadBoolean();
+                    ByteValue = binaryReader.ReadByte();
+                    CharValue = binaryReader.ReadChar();
+                    Color32Value = binaryReader.ReadColor32();
+                    ColorValue = binaryReader.ReadColor();
+                    DateTimeValue = binaryReader.ReadDateTime();
+                    DecimalValue = binaryReader.ReadDecimal();
+                    DoubleValue = binaryReader.ReadDouble();
+                    FloatValue = binaryReader.ReadSingle();
+                    IntValue = binaryReader.Read7BitEncodedInt32();
+                    LongValue = binaryReader.Read7BitEncodedInt64();
+                    QuaternionValue = binaryReader.ReadQuaternion();
+                    RectValue = binaryReader.ReadRect();
+                    SByteValue = binaryReader.ReadSByte();
+                    ShortValue = binaryReader.ReadInt16();
+                    StringValue = binaryReader.ReadString();
+                    UIntValue = binaryReader.Read7BitEncodedUInt32();
+                    ULongValue = binaryReader.Read7BitEncodedUInt64();
+                    UShortValue = binaryReader.ReadUInt16();
+                    Vector2Value = binaryReader.ReadVector2();
+                    Vector3Value = binaryReader.ReadVector3();
+                    Vector4Value = binaryReader.ReadVector4();
+					BoolList = binaryReader.ReadBooleanList();
+					ByteList = binaryReader.ReadByteList();
+					CharList = binaryReader.ReadCharList();
+					Color32List = binaryReader.ReadColor32List();
+					ColorList = binaryReader.ReadColorList();
+					DateTimeList = binaryReader.ReadDateTimeList();
+					DecimalList = binaryReader.ReadDecimalList();
+					DoubleList = binaryReader.ReadDoubleList();
+					FloatList = binaryReader.ReadSingleList();
+					IntList = binaryReader.ReadInt32List();
+					LongList = binaryReader.ReadInt64List();
+					QuaternionList = binaryReader.ReadQuaternionList();
+					RectList = binaryReader.ReadRectList();
+					SByteList = binaryReader.ReadSByteList();
+					ShortList = binaryReader.ReadInt16List();
+					StringList = binaryReader.ReadStringList();
+					UIntList = binaryReader.ReadUInt32List();
+					ULongList = binaryReader.ReadUInt64List();
+					UShortList = binaryReader.ReadUInt16List();
+					Vector2List = binaryReader.ReadVector2List();
+					Vector3List = binaryReader.ReadVector3List();
+					Vector4List = binaryReader.ReadVector4List();
+					BoolArray = binaryReader.ReadBooleanArray();
+					ByteArray = binaryReader.ReadByteArray();
+					CharArray = binaryReader.ReadCharArray();
+					Color32Array = binaryReader.ReadColor32Array();
+					ColorArray = binaryReader.ReadColorArray();
+					DateTimeArray = binaryReader.ReadDateTimeArray();
+					DecimalArray = binaryReader.ReadDecimalArray();
+					DoubleArray = binaryReader.ReadDoubleArray();
+					FloatArray = binaryReader.ReadSingleArray();
+					IntArray = binaryReader.ReadInt32Array();
+					LongArray = binaryReader.ReadInt64Array();
+					QuaternionArray = binaryReader.ReadQuaternionArray();
+					RectArray = binaryReader.ReadRectArray();
+					SByteArray = binaryReader.ReadSByteArray();
+					ShortArray = binaryReader.ReadInt16Array();
+					StringArray = binaryReader.ReadStringArray();
+					UIntArray = binaryReader.ReadUInt32Array();
+					ULongArray = binaryReader.ReadUInt64Array();
+					UShortArray = binaryReader.ReadUInt16Array();
+					Vector2Array = binaryReader.ReadVector2Array();
+					Vector3Array = binaryReader.ReadVector3Array();
+					Vector4Array = binaryReader.ReadVector4Array();
                 }
-            }
-            else
-            {
-                Log.Warning("Can not parse data row which type '{0}' is invalid.", dataType.FullName);
-                return false;
             }
 
             GeneratePropertyArray();
