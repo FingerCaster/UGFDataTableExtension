@@ -1,10 +1,9 @@
-﻿using GameFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using DE.Editor.DataTableTools;
+using GameFramework;
 using UnityEngine;
 
 namespace DE.Editor.DataTableTools
@@ -26,13 +25,10 @@ namespace DE.Editor.DataTableTools
 
         public static bool CheckRawData(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
-                string name = dataTableProcessor.GetName(i);
-                if (string.IsNullOrEmpty(name) || name == "#")
-                {
-                    continue;
-                }
+                var name = dataTableProcessor.GetName(i);
+                if (string.IsNullOrEmpty(name) || name == "#") continue;
 
                 if (!NameRegex.IsMatch(name))
                 {
@@ -47,12 +43,10 @@ namespace DE.Editor.DataTableTools
 
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            string binaryDataFileName =
+            var binaryDataFileName =
                 Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
-            {
                 File.Delete(binaryDataFileName);
-            }
         }
 
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)
@@ -60,19 +54,17 @@ namespace DE.Editor.DataTableTools
             dataTableProcessor.SetCodeTemplate(CSharpCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
-            string csharpCodeFileName =
+            var csharpCodeFileName =
                 Utility.Path.GetRegularPath(Path.Combine(CSharpCodePath, "DR" + dataTableName + ".cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) &&
                 File.Exists(csharpCodeFileName))
-            {
                 File.Delete(csharpCodeFileName);
-            }
         }
 
         private static void DataTableCodeGenerator(DataTableProcessor dataTableProcessor,
             StringBuilder codeContent, object userData)
         {
-            string dataTableName = (string) userData;
+            var dataTableName = (string) userData;
 
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "DE");
@@ -87,30 +79,22 @@ namespace DE.Editor.DataTableTools
 
         private static string GenerateDataTableProperties(DataTableProcessor dataTableProcessor)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            bool firstProperty = true;
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            var stringBuilder = new StringBuilder();
+            var firstProperty = true;
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
                 if (dataTableProcessor.IsCommentColumn(i))
-                {
                     // 注释列
                     continue;
-                }
 
                 if (dataTableProcessor.IsIdColumn(i))
-                {
                     // 编号列
                     continue;
-                }
 
                 if (firstProperty)
-                {
                     firstProperty = false;
-                }
                 else
-                {
                     stringBuilder.AppendLine().AppendLine();
-                }
 
                 stringBuilder
                     .AppendLine("        /// <summary>")
@@ -129,19 +113,21 @@ namespace DE.Editor.DataTableTools
 
         private static string GenerateDataTableParser(DataTableProcessor dataTableProcessor)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             stringBuilder
                 .AppendLine("        public override bool ParseDataRow(string dataRowString, object userData)")
                 .AppendLine("        {")
-                .AppendLine("            string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);")
+                .AppendLine(
+                    "            string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);")
                 .AppendLine("            for (int i = 0; i < columnStrings.Length; i++)")
                 .AppendLine("            {")
-                .AppendLine("                columnStrings[i] = columnStrings[i].Trim(DataTableExtension.DataTrimSeparators);")
+                .AppendLine(
+                    "                columnStrings[i] = columnStrings[i].Trim(DataTableExtension.DataTrimSeparators);")
                 .AppendLine("            }")
                 .AppendLine()
                 .AppendLine("            int index = 0;");
 
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
                 if (dataTableProcessor.IsCommentColumn(i))
                 {
@@ -159,27 +145,23 @@ namespace DE.Editor.DataTableTools
 
                 if (dataTableProcessor.IsSystem(i))
                 {
-                    string languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
+                    var languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
 
                     if (languageKeyword == "string")
-                    {
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = columnStrings[index++];", dataTableProcessor.GetName(i))
                             .AppendLine();
-                    }
                     else
-                    {
                         stringBuilder.AppendFormat("\t\t\t{0} = {1}.Parse(columnStrings[index++]);",
                             dataTableProcessor.GetName(i), languageKeyword).AppendLine();
-                    }
                 }
                 else
                 {
                     if (dataTableProcessor.IsListColumn(i))
                     {
-                        System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType()
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType()
                             .GetGenericArguments();
-                        DataTableProcessor.DataProcessor dataProcessor =
+                        var dataProcessor =
                             Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}List(columnStrings[index++]);",
@@ -189,8 +171,8 @@ namespace DE.Editor.DataTableTools
 
                     if (dataTableProcessor.IsArrayColumn(i))
                     {
-                        System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                        DataTableProcessor.DataProcessor dataProcessor =
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessor =
                             Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}Array(columnStrings[index++]);",
@@ -200,10 +182,10 @@ namespace DE.Editor.DataTableTools
 
                     if (dataTableProcessor.IsDictionaryColumn(i))
                     {
-                        System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                        DataTableProcessor.DataProcessor dataProcessorT1 =
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessorT1 =
                             Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
-                        DataTableProcessor.DataProcessor dataProcessorT2 =
+                        var dataProcessorT2 =
                             Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
                         stringBuilder.AppendFormat(
                                 "\t\t\t{0} = DataTableExtension.Parse{1}{2}Dictionary(columnStrings[index++]);",
@@ -232,13 +214,11 @@ namespace DE.Editor.DataTableTools
                     "                using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))")
                 .AppendLine("                {");
 
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
                 if (dataTableProcessor.IsCommentColumn(i))
-                {
                     // 注释列
                     continue;
-                }
 
                 if (dataTableProcessor.IsIdColumn(i))
                 {
@@ -254,21 +234,21 @@ namespace DE.Editor.DataTableTools
                     continue;
                 }
 
-                string languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
+                var languageKeyword = dataTableProcessor.GetLanguageKeyword(i);
                 if (dataTableProcessor.IsListColumn(i))
                 {
-                    System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                    DataTableProcessor.DataProcessor dataProcessor =
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessor =
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
-                            dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
+                        dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                     continue;
                 }
 
                 if (dataTableProcessor.IsArrayColumn(i))
                 {
-                    System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                    DataTableProcessor.DataProcessor dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
                         dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
                     continue;
@@ -276,29 +256,25 @@ namespace DE.Editor.DataTableTools
 
                 if (dataTableProcessor.IsDictionaryColumn(i))
                 {
-                    System.Type[] t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
-                    DataTableProcessor.DataProcessor dataProcessorT1 =
+                    var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                    var dataProcessorT1 =
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
-                    DataTableProcessor.DataProcessor dataProcessorT2 =
+                    var dataProcessorT2 =
                         Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
-                                dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
-                            .AppendLine();
+                            dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
+                        .AppendLine();
                     continue;
                 }
 
 
                 if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
                     languageKeyword == "ulong")
-                {
                     stringBuilder.AppendFormat("                    {0} = binaryReader.Read7BitEncoded{1}();",
                         dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
-                }
                 else
-                {
                     stringBuilder.AppendFormat("                    {0} = binaryReader.Read{1}();",
                         dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
-                }
             }
 
             stringBuilder
@@ -314,39 +290,30 @@ namespace DE.Editor.DataTableTools
 
         private static string GenerateDataTablePropertyArray(DataTableProcessor dataTableProcessor)
         {
-            List<PropertyCollection> propertyCollections = new List<PropertyCollection>();
-            for (int i = 0; i < dataTableProcessor.RawColumnCount; i++)
+            var propertyCollections = new List<PropertyCollection>();
+            for (var i = 0; i < dataTableProcessor.RawColumnCount; i++)
             {
                 if (dataTableProcessor.IsCommentColumn(i))
-                {
                     // 注释列
                     continue;
-                }
 
                 if (dataTableProcessor.IsIdColumn(i))
-                {
                     // 编号列
                     continue;
-                }
 
-                string name = dataTableProcessor.GetName(i);
-                if (!EndWithNumberRegex.IsMatch(name))
-                {
-                    continue;
-                }
+                var name = dataTableProcessor.GetName(i);
+                if (!EndWithNumberRegex.IsMatch(name)) continue;
 
-                string propertyCollectionName = EndWithNumberRegex.Replace(name, string.Empty);
-                int id = int.Parse(EndWithNumberRegex.Match(name).Value);
+                var propertyCollectionName = EndWithNumberRegex.Replace(name, string.Empty);
+                var id = int.Parse(EndWithNumberRegex.Match(name).Value);
 
                 PropertyCollection propertyCollection = null;
-                foreach (PropertyCollection pc in propertyCollections)
-                {
+                foreach (var pc in propertyCollections)
                     if (pc.Name == propertyCollectionName)
                     {
                         propertyCollection = pc;
                         break;
                     }
-                }
 
                 if (propertyCollection == null)
                 {
@@ -358,18 +325,14 @@ namespace DE.Editor.DataTableTools
                 propertyCollection.AddItem(id, name);
             }
 
-            StringBuilder stringBuilder = new StringBuilder();
-            bool firstProperty = true;
-            foreach (PropertyCollection propertyCollection in propertyCollections)
+            var stringBuilder = new StringBuilder();
+            var firstProperty = true;
+            foreach (var propertyCollection in propertyCollections)
             {
                 if (firstProperty)
-                {
                     firstProperty = false;
-                }
                 else
-                {
                     stringBuilder.AppendLine().AppendLine();
-                }
 
                 stringBuilder
                     .AppendFormat("        private KeyValuePair<int, {1}>[] m_{0} = null;", propertyCollection.Name,
@@ -415,36 +378,29 @@ namespace DE.Editor.DataTableTools
                     .Append("        }");
             }
 
-            if (propertyCollections.Count > 0)
-            {
-                stringBuilder.AppendLine().AppendLine();
-            }
+            if (propertyCollections.Count > 0) stringBuilder.AppendLine().AppendLine();
 
             stringBuilder
                 .AppendLine("        private void GeneratePropertyArray()")
                 .AppendLine("        {");
 
             firstProperty = true;
-            foreach (PropertyCollection propertyCollection in propertyCollections)
+            foreach (var propertyCollection in propertyCollections)
             {
                 if (firstProperty)
-                {
                     firstProperty = false;
-                }
                 else
-                {
                     stringBuilder.AppendLine().AppendLine();
-                }
 
                 stringBuilder
                     .AppendFormat("            m_{0} = new KeyValuePair<int, {1}>[]", propertyCollection.Name,
                         propertyCollection.LanguageKeyword).AppendLine()
                     .AppendLine("            {");
 
-                int itemCount = propertyCollection.ItemCount;
-                for (int i = 0; i < itemCount; i++)
+                var itemCount = propertyCollection.ItemCount;
+                for (var i = 0; i < itemCount; i++)
                 {
-                    KeyValuePair<int, string> item = propertyCollection.GetItem(i);
+                    var item = propertyCollection.GetItem(i);
                     stringBuilder.AppendFormat("                new KeyValuePair<int, {0}>({1}, {2}),",
                         propertyCollection.LanguageKeyword, item.Key.ToString(), item.Value).AppendLine();
                 }
@@ -461,39 +417,26 @@ namespace DE.Editor.DataTableTools
 
         private sealed class PropertyCollection
         {
-            private readonly string m_Name;
-            private readonly string m_LanguageKeyword;
             private readonly List<KeyValuePair<int, string>> m_Items;
 
             public PropertyCollection(string name, string languageKeyword)
             {
-                m_Name = name;
-                m_LanguageKeyword = languageKeyword;
+                Name = name;
+                LanguageKeyword = languageKeyword;
                 m_Items = new List<KeyValuePair<int, string>>();
             }
 
-            public string Name
-            {
-                get { return m_Name; }
-            }
+            public string Name { get; }
 
-            public string LanguageKeyword
-            {
-                get { return m_LanguageKeyword; }
-            }
+            public string LanguageKeyword { get; }
 
-            public int ItemCount
-            {
-                get { return m_Items.Count; }
-            }
+            public int ItemCount => m_Items.Count;
 
             public KeyValuePair<int, string> GetItem(int index)
             {
                 if (index < 0 || index >= m_Items.Count)
-                {
                     throw new GameFrameworkException(Utility.Text.Format("GetItem with invalid index '{0}'.",
                         index.ToString()));
-                }
 
                 return m_Items[index];
             }

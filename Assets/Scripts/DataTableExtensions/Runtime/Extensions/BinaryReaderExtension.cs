@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using System.IO;
-using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace DE
 {
@@ -9,12 +8,14 @@ namespace DE
     {
         public static Color32 ReadColor32(this BinaryReader binaryReader)
         {
-            return new Color32(binaryReader.ReadByte(), binaryReader.ReadByte(), binaryReader.ReadByte(), binaryReader.ReadByte());
+            return new Color32(binaryReader.ReadByte(), binaryReader.ReadByte(), binaryReader.ReadByte(),
+                binaryReader.ReadByte());
         }
 
         public static Color ReadColor(this BinaryReader binaryReader)
         {
-            return new Color(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle());
+            return new Color(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(),
+                binaryReader.ReadSingle());
         }
 
         public static DateTime ReadDateTime(this BinaryReader binaryReader)
@@ -24,12 +25,14 @@ namespace DE
 
         public static Quaternion ReadQuaternion(this BinaryReader binaryReader)
         {
-            return new Quaternion(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle());
+            return new Quaternion(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(),
+                binaryReader.ReadSingle());
         }
 
         public static Rect ReadRect(this BinaryReader binaryReader)
         {
-            return new Rect(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle());
+            return new Rect(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(),
+                binaryReader.ReadSingle());
         }
 
         public static Vector2 ReadVector2(this BinaryReader binaryReader)
@@ -44,9 +47,8 @@ namespace DE
 
         public static Vector4 ReadVector4(this BinaryReader binaryReader)
         {
-            return new Vector4(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle());
+            return new Vector4(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle(),
+                binaryReader.ReadSingle());
         }
-    
-    
     }
 }

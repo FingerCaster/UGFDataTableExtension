@@ -7,12 +7,12 @@ namespace DE.Editor
     public static class TypeExtensions
     {
         /// <summary>
-        /// 判断指定的类型 <paramref name="type"/> 是否是指定泛型类型的子类型，或实现了指定泛型接口。
+        ///     判断指定的类型 <paramref name="type" /> 是否是指定泛型类型的子类型，或实现了指定泛型接口。
         /// </summary>
         /// <param name="type">需要测试的类型。</param>
         /// <param name="generic">泛型接口类型，传入 typeof(IXxx&lt;&gt;)</param>
         /// <returns>如果是泛型接口的子类型，则返回 true，否则返回 false。</returns>
-        public static bool HasImplementedRawGeneric([NotNull] this System.Type type, [NotNull] System.Type generic)
+        public static bool HasImplementedRawGeneric([NotNull] this Type type, [NotNull] Type generic)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
             if (generic == null) throw new ArgumentNullException(nameof(generic));
@@ -33,7 +33,10 @@ namespace DE.Editor
             return false;
 
             // 测试某个类型是否是指定的原始接口。
-            bool IsTheRawGenericType(System.Type test) => generic == (test.IsGenericType ? test.GetGenericTypeDefinition() : test);
+            bool IsTheRawGenericType(Type test)
+            {
+                return generic == (test.IsGenericType ? test.GetGenericTypeDefinition() : test);
+            }
         }
     }
 }

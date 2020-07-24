@@ -2,21 +2,22 @@ using System.Collections.Generic;
 
 namespace DE.Editor
 {
-   public class PermutationAndCombination<T>
+    public class PermutationAndCombination<T>
     {
         /// <summary>
-        /// 交换两个变量
+        ///     交换两个变量
         /// </summary>
         /// <param name="a">变量1</param>
         /// <param name="b">变量2</param>
         public static void Swap(ref T a, ref T b)
         {
-            T temp = a;
+            var temp = a;
             a = b;
             b = temp;
         }
+
         /// <summary>
-        /// 递归算法求数组的组合(私有成员)
+        ///     递归算法求数组的组合(私有成员)
         /// </summary>
         /// <param name="list">返回的范型</param>
         /// <param name="t">所求数组</param>
@@ -26,7 +27,7 @@ namespace DE.Editor
         /// <param name="M">辅助变量M</param>
         private static void GetCombination(ref List<T[]> list, T[] t, int n, int m, int[] b, int M)
         {
-            for (int i = n; i >= m; i--)
+            for (var i = n; i >= m; i--)
             {
                 b[m - 1] = i - 1;
                 if (m > 1)
@@ -35,21 +36,16 @@ namespace DE.Editor
                 }
                 else
                 {
-                    if (list == null)
-                    {
-                        list = new List<T[]>();
-                    }
-                    T[] temp = new T[M];
-                    for (int j = 0; j < b.Length; j++)
-                    {
-                        temp[j] = t[b[j]];
-                    }
+                    if (list == null) list = new List<T[]>();
+                    var temp = new T[M];
+                    for (var j = 0; j < b.Length; j++) temp[j] = t[b[j]];
                     list.Add(temp);
                 }
             }
         }
+
         /// <summary>
-        /// 递归算法求排列(私有成员)
+        ///     递归算法求排列(私有成员)
         /// </summary>
         /// <param name="list">返回的列表</param>
         /// <param name="t">所求数组</param>
@@ -59,17 +55,14 @@ namespace DE.Editor
         {
             if (startIndex == endIndex)
             {
-                if (list == null)
-                {
-                    list = new List<T[]>();
-                }
-                T[] temp = new T[t.Length];
+                if (list == null) list = new List<T[]>();
+                var temp = new T[t.Length];
                 t.CopyTo(temp, 0);
                 list.Add(temp);
             }
             else
             {
-                for (int i = startIndex; i <= endIndex; i++)
+                for (var i = startIndex; i <= endIndex; i++)
                 {
                     Swap(ref t[startIndex], ref t[i]);
                     GetPermutation(ref list, t, startIndex + 1, endIndex);
@@ -77,8 +70,9 @@ namespace DE.Editor
                 }
             }
         }
+
         /// <summary>
-        /// 求从起始标号到结束标号的排列，其余元素不变
+        ///     求从起始标号到结束标号的排列，其余元素不变
         /// </summary>
         /// <param name="t">所求数组</param>
         /// <param name="startIndex">起始标号</param>
@@ -86,16 +80,14 @@ namespace DE.Editor
         /// <returns>从起始标号到结束标号排列的范型</returns>
         public static List<T[]> GetPermutation(T[] t, int startIndex, int endIndex)
         {
-            if (startIndex < 0 || endIndex > t.Length - 1)
-            {
-                return null;
-            }
-            List<T[]> list = new List<T[]>();
+            if (startIndex < 0 || endIndex > t.Length - 1) return null;
+            var list = new List<T[]>();
             GetPermutation(ref list, t, startIndex, endIndex);
             return list;
         }
+
         /// <summary>
-        /// 返回数组所有元素的全排列
+        ///     返回数组所有元素的全排列
         /// </summary>
         /// <param name="t">所求数组</param>
         /// <returns>全排列的范型</returns>
@@ -103,42 +95,39 @@ namespace DE.Editor
         {
             return GetPermutation(t, 0, t.Length - 1);
         }
+
         /// <summary>
-        /// 求数组中n个元素的排列
+        ///     求数组中n个元素的排列
         /// </summary>
         /// <param name="t">所求数组</param>
         /// <param name="n">元素个数</param>
         /// <returns>数组中n个元素的排列</returns>
         public static List<T[]> GetPermutation(T[] t, int n)
         {
-            if (n > t.Length)
+            if (n > t.Length) return null;
+            var list = new List<T[]>();
+            var c = GetCombination(t, n);
+            for (var i = 0; i < c.Count; i++)
             {
-                return null;
-            }
-            List<T[]> list = new List<T[]>();
-            List<T[]> c = GetCombination(t, n);
-            for (int i = 0; i < c.Count; i++)
-            {
-                List<T[]> l = new List<T[]>();
+                var l = new List<T[]>();
                 GetPermutation(ref l, c[i], 0, n - 1);
                 list.AddRange(l);
             }
+
             return list;
         }
+
         /// <summary>
-        /// 求数组中n个元素的组合
+        ///     求数组中n个元素的组合
         /// </summary>
         /// <param name="t">所求数组</param>
         /// <param name="n">元素个数</param>
         /// <returns>数组中n个元素的组合的范型</returns>
         public static List<T[]> GetCombination(T[] t, int n)
         {
-            if (t.Length < n)
-            {
-                return null;
-            }
-            int[] temp = new int[n];
-            List<T[]> list = new List<T[]>();
+            if (t.Length < n) return null;
+            var temp = new int[n];
+            var list = new List<T[]>();
             GetCombination(ref list, t, t.Length, n, temp, n);
             return list;
         }

@@ -1,4 +1,4 @@
-﻿﻿//------------------------------------------------------------
+﻿//------------------------------------------------------------
 // Game Framework
 // Copyright © 2013-2020 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
@@ -13,25 +13,13 @@ namespace DE.Editor.DataTableTools
     {
         private sealed class FloatProcessor : GenericDataProcessor<float>
         {
-            public override bool IsSystem
-            {
-                get
-                {
-                    return true;
-                }
-            }
+            public override bool IsSystem => true;
 
-            public override string LanguageKeyword
-            {
-                get
-                {
-                    return "float";
-                }
-            }
+            public override string LanguageKeyword => "float";
 
             public override string[] GetTypeStrings()
             {
-                return new string[]
+                return new[]
                 {
                     "float",
                     "single",
@@ -44,7 +32,8 @@ namespace DE.Editor.DataTableTools
                 return float.Parse(value);
             }
 
-            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter,
+                string value)
             {
                 binaryWriter.Write(Parse(value));
             }

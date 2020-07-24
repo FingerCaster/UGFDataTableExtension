@@ -1,4 +1,4 @@
-﻿﻿//------------------------------------------------------------
+﻿//------------------------------------------------------------
 // Game Framework
 // Copyright © 2013-2020 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
@@ -14,25 +14,13 @@ namespace DE.Editor.DataTableTools
     {
         private sealed class Vector2Processor : GenericDataProcessor<Vector2>
         {
-            public override bool IsSystem
-            {
-                get
-                {
-                    return false;
-                }
-            }
+            public override bool IsSystem => false;
 
-            public override string LanguageKeyword
-            {
-                get
-                {
-                    return "Vector2";
-                }
-            }
+            public override string LanguageKeyword => "Vector2";
 
             public override string[] GetTypeStrings()
             {
-                return new string[]
+                return new[]
                 {
                     "vector2",
                     "unityengine.vector2"
@@ -41,13 +29,14 @@ namespace DE.Editor.DataTableTools
 
             public override Vector2 Parse(string value)
             {
-                string[] splitedValue = value.Split(',');
+                var splitedValue = value.Split(',');
                 return new Vector2(float.Parse(splitedValue[0]), float.Parse(splitedValue[1]));
             }
 
-            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter,
+                string value)
             {
-                Vector2 vector2 = Parse(value);
+                var vector2 = Parse(value);
                 binaryWriter.Write(vector2.x);
                 binaryWriter.Write(vector2.y);
             }

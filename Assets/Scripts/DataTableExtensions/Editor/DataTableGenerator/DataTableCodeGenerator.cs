@@ -1,4 +1,4 @@
-﻿﻿//------------------------------------------------------------
+﻿//------------------------------------------------------------
 // Game Framework
 // Copyright © 2013-2020 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
@@ -9,5 +9,6 @@ using System.Text;
 
 namespace DE.Editor.DataTableTools
 {
-    public delegate void DataTableCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent, object userData);
+    public delegate void DataTableCodeGenerator(DataTableProcessor dataTableProcessor, StringBuilder codeContent,
+        object userData);
 }

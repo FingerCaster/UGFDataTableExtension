@@ -6,40 +6,19 @@ namespace DE.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
-        public sealed class ListProcessor<T, K> :DataProcessor, ICollectionProcessor
-            where T :GenericDataProcessor<K>, new()
+        private sealed class ListProcessor<T, K> : DataProcessor, ICollectionProcessor
+            where T : GenericDataProcessor<K>, new()
         {
             public override bool IsComment => false;
 
-            public override bool IsSystem
-            {
-                get { return false; }
-            }
+            public override bool IsSystem => false;
 
-            public Type ItemType
+            public override Type Type
             {
                 get
                 {
-                    T t = new T();
-                    return t.Type;
-                }
-            }
-
-            public string ItemLanguageKeyword
-            {
-                get
-                {
-                    T t = new T();
-                    return t.LanguageKeyword;
-                }
-            }
-
-            public override System.Type Type
-            {
-                get
-                {
-                    T t = new T();
-                    System.Type type = typeof(List<>);
+                    var t = new T();
+                    var type = typeof(List<>);
                     type = type.MakeGenericType(t.Type);
                     return type;
                 }
@@ -51,21 +30,40 @@ namespace DE.Editor.DataTableTools
             {
                 get
                 {
-                    T t = new T();
+                    var t = new T();
                     return $"List<{t.LanguageKeyword}>";
+                }
+            }
+
+            public Type ItemType
+            {
+                get
+                {
+                    var t = new T();
+                    return t.Type;
+                }
+            }
+
+            public string ItemLanguageKeyword
+            {
+                get
+                {
+                    var t = new T();
+                    return t.LanguageKeyword;
                 }
             }
 
             public override string[] GetTypeStrings()
             {
-                return new string[]
+                return new[]
                 {
                     "List<{0}>",
                     "System.Collections.Generic.List<{0}>"
                 };
             }
 
-            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter,
+                string value)
             {
                 if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
                 {
@@ -77,10 +75,8 @@ namespace DE.Editor.DataTableTools
                 string[] splitValues;
                 splitValues = value.Split(dataProcessor.IsSystem ? ',' : '|');
                 binaryWriter.Write7BitEncodedInt32(splitValues.Length);
-                foreach (string itemValue in splitValues)
-                {
+                foreach (var itemValue in splitValues)
                     dataProcessor.WriteToStream(dataTableProcessor, binaryWriter, itemValue);
-                }
             }
         }
     }

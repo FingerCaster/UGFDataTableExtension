@@ -1,12 +1,15 @@
 using System;
 
-namespace DE.Editor
+namespace DE.Editor.DataTableTools
 {
-    public interface IDictionaryProcessor
+    public sealed partial class DataTableProcessor
     {
-        Type KeyType { get; }
-        Type ValueType { get; }
-        string KeyLanguageKeyword { get; }
-        string ValueLanguageKeyword { get; }
+        public interface IDictionaryProcessor
+        {
+            Type KeyType { get; }
+            Type ValueType { get; }
+            string KeyLanguageKeyword { get; }
+            string ValueLanguageKeyword { get; }
+        }
     }
 }

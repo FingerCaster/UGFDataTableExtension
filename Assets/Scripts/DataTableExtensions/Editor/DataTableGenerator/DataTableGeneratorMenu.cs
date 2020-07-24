@@ -9,11 +9,11 @@ namespace DE.Editor.DataTableTools
     public sealed class DataTableGeneratorMenu
     {
         private const string DataTablePath = "Assets/Res/DataTables";
-        private static string[] DataTableNames;
+        private static readonly string[] DataTableNames;
 
         static DataTableGeneratorMenu()
         {
-            DirectoryInfo folder = new DirectoryInfo(DataTablePath);
+            var folder = new DirectoryInfo(DataTablePath);
             DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name))
                 .ToArray();
         }
@@ -21,9 +21,9 @@ namespace DE.Editor.DataTableTools
         [MenuItem("DataTable/Generate DataTables")]
         private static void GenerateDataTables()
         {
-            foreach (string dataTableName in DataTableNames)
+            foreach (var dataTableName in DataTableNames)
             {
-                DataTableProcessor dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);
+                var dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);
                 if (!DataTableGenerator.CheckRawData(dataTableProcessor, dataTableName))
                 {
                     Debug.LogError(Utility.Text.Format("Check raw data failure. DataTableName='{0}'", dataTableName));

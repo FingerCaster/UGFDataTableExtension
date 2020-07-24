@@ -1,9 +1,14 @@
-namespace DE.Editor
-{
-    public interface ICollectionProcessor
-    {
-        System.Type ItemType { get; }
+using System;
 
-        string ItemLanguageKeyword { get; }
+namespace DE.Editor.DataTableTools
+{
+    public sealed partial class DataTableProcessor
+    {
+        public interface ICollectionProcessor
+        {
+            Type ItemType { get; }
+
+            string ItemLanguageKeyword { get; }
+        }
     }
 }
