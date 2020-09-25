@@ -18,15 +18,18 @@ namespace DE.Editor.DataTableTools
                 var dataProcessorBaseType = typeof(DataProcessor);
 
                 var types = Assembly.GetExecutingAssembly().GetTypes();
-                ;
-                var addList = new List<Type>();
-
+                
+                var addList = new List<Type>(); 
                 for (var i = 0; i < types.Length; i++)
                 {
                     if (!types[i].IsClass || types[i].IsAbstract || types[i].ContainsGenericParameters) continue;
-
+                    if (types[i] == typeof(EnumProcessor))
+                    {
+                        continue;
+                    }
                     if (dataProcessorBaseType.IsAssignableFrom(types[i]))
                     {
+                        
                         DataProcessor dataProcessor = null;
                         dataProcessor = (DataProcessor) Activator.CreateInstance(types[i]);
                         foreach (var typeString in dataProcessor.GetTypeStrings())
@@ -36,10 +39,47 @@ namespace DE.Editor.DataTableTools
                     }
                 }
 
-
+                AddEnumType();
                 AddListType(addList);
                 AddArrayType(addList);
                 AddDictionary(addList);
+            }
+            private static readonly string[] EditorAssemblyNames =
+            {
+#if UNITY_2017_3_OR_NEWER
+#endif
+                "Assembly-CSharp"
+            };
+            private static void AddEnumType()
+            {
+          
+
+                foreach (var assemblyName in EditorAssemblyNames)
+                {
+                    Assembly assembly = null;
+                    try
+                    {
+                        assembly = Assembly.Load(assemblyName);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    if (assembly == null) continue;
+
+                    var types = assembly.GetTypes();
+                    foreach (var type in types)
+                    {
+                        if (type.IsEnum)
+                        {
+                            EnumProcessor dataProcessor = new EnumProcessor();
+                            dataProcessor.EnumType = type;
+                            foreach (var typeString in dataProcessor.GetTypeStrings())
+                                s_DataProcessors.Add(typeString.ToLower(), dataProcessor);
+                        }
+                    }
+                }
             }
 
             private static void AddArrayType(List<Type> addList)

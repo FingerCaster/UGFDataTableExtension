@@ -113,7 +113,7 @@ namespace DE
                 if (drTestDictionary == null)
                     return;
                 Debug.Log(
-                    $"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}");
+                    $"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}  TestEnum:{drTestDictionary.TestEnum}");
 
                 string DictionaryToString<K, V>(Dictionary<K, V> dictionary)
                 {
