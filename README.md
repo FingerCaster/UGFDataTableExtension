@@ -1,5 +1,6 @@
 # UGFDataTableExtension
-对[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework)中DataTable模块的扩展  支持List,数组,字典  不支持嵌套 只支持一维
+对[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework)中DataTable模块的扩展  支持List,数组,字典  不支持嵌套   只支持一维
+新增对枚举的支持
 
 # 使用教程
 使用本工具需要熟悉[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework) 框架中DataTable模块 
@@ -8,15 +9,20 @@
 
 List在数据表中的类型为配置 list\<type> （不区分大小写） type为实现了GenericDataProcessor的类型 list
 内置类型使用 ,进行分割   其他类型使用 | 进行分割
-例：list<int> 1,2,3   list<vector3> 12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
+例：list\<int> 1,2,3   
+list\<vector3> 12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
 
 数组在数据表中的类型为配置 type[] （不区分大小写） type为实现了GenericDataProcessor的类型
 内置类型使用 ,进行分割   其他类型使用 | 进行分割
-例：int[] 1,2,3   vector3[]   12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
+例：int[] 1,2,3   
+vector3[]   12.34,23.22,34.22|12.34,23.22,34.22|12.34,23.22,34.22
 
 Dictionary在数据表中的类型为配置 dictionary\<keyType,valueType> （不区分大小写） 键值类型为实现了GenericDataProcessor的类型 不同元素在表中使用 | 进行分割 key value 使用# 进行分割
 例：dictionary\<int,int> {1#1}|{2#2}|{3#3}     dictionary\<int,vector3>
  {1#0.2,1.5,100}|{2#222,444,111}|{3#3.15,385.123,123}
+
+枚举类型在数据表中的类型为 枚举名称 值为枚举对应的int值 不支持使用枚举元素名
+例: TestEnum  1
 
 <font color=#FF0000>注意:string类型不能在字符串中出现分隔符 不然会导致分割出错。</font>
 
