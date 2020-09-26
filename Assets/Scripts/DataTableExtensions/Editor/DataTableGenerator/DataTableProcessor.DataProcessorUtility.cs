@@ -44,9 +44,10 @@ namespace DE.Editor.DataTableTools
                 AddArrayType(addList);
                 AddDictionary(addList);
             }
-            private static readonly string[] EditorAssemblyNames =
+            private static readonly string[] AssemblyNames =
             {
 #if UNITY_2017_3_OR_NEWER
+                //asmdef
 #endif
                 "Assembly-CSharp"
             };
@@ -54,7 +55,7 @@ namespace DE.Editor.DataTableTools
             {
           
 
-                foreach (var assemblyName in EditorAssemblyNames)
+                foreach (var assemblyName in AssemblyNames)
                 {
                     Assembly assembly = null;
                     try
