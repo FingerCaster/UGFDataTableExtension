@@ -187,6 +187,14 @@ namespace DE.Editor.DataTableTools
 
             return m_DataProcessor[rawColumn].GetTypeStrings()[0].Equals("{0}[]");
         }
+        public bool IsEnumrColumn(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= RawColumnCount)
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
+                    rawColumn.ToString()));
+
+            return m_DataProcessor[rawColumn] is EnumProcessor;
+        }
 
         public bool IsDictionaryColumn(int rawColumn)
         {
@@ -448,6 +456,12 @@ namespace DE.Editor.DataTableTools
         public DataProcessor GetDataProcessor(int rawColumn)
         {
             return m_DataProcessor[rawColumn];
+        }
+        public string GetNameSpace(int rawColumn)
+        {
+            
+            return m_DataProcessor[rawColumn].GetType().GetProperty("NameSpace")
+                ?.GetValue(m_DataProcessor[rawColumn]) as string;
         }
     }
 }

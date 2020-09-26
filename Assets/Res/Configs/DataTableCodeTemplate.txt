@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+__DATA_TABLE_PROPERTIES_NAMESPACE__
 
 namespace __DATA_TABLE_NAME_SPACE__
 {

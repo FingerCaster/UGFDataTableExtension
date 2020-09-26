@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-09-25 18:34:59.813
+// 生成时间：2020-09-26 12:52:46.168
 //------------------------------------------------------------
 
 using GameFramework;
@@ -8,9 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Test;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using Test;
+
 
 namespace DE
 {
@@ -87,7 +88,7 @@ namespace DE
                     m_Id = binaryReader.Read7BitEncodedInt32();
 					TestIntIntDictionary = binaryReader.ReadInt32Int32Dictionary();
 					TestIntVector3Dictionary = binaryReader.ReadInt32Vector3Dictionary();
-                    TestEnum =  (TestEnum)binaryReader.Read7BitEncodedInt32();
+					TestEnum = (TestEnum)binaryReader.Read7BitEncodedInt32();
                 }
             }
 

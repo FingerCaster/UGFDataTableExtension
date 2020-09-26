@@ -8,17 +8,24 @@ namespace DE.Editor.DataTableTools
         private sealed class EnumProcessor : GenericDataProcessor<int>
         {
             public Type EnumType { get; set; }
-            public override bool IsSystem => true;
-
+            public override bool IsSystem => false;
+            public string NameSpace => EnumType.Namespace;
             public override string LanguageKeyword => EnumType.Name;
 
             public override string[] GetTypeStrings()
             {
-                return new[]
+                if (string.IsNullOrEmpty(EnumType.FullName) || EnumType.FullName == EnumType.Name)
                 {
-                    EnumType.Name.ToLower(),
-                    EnumType?.FullName?.ToLower()
-                };
+                    return new[] {EnumType.Name.ToLower()};
+                }
+                else
+                {
+                    return new[]
+                    {
+                        EnumType.Name.ToLower(),
+                        EnumType.FullName.ToLower()
+                    };
+                }
             }
 
             public override int Parse(string value)

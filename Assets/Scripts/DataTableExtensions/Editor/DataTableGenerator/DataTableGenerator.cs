@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using GameFramework;
@@ -15,7 +16,7 @@ namespace DE.Editor.DataTableTools
         private const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
         private static readonly Regex NameRegex = new Regex(@"^[A-Z][A-Za-z0-9_]*$");
-
+        private static List<string> _nameSpace = new List<string>();
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
             return new DataTableProcessor(
@@ -65,16 +66,22 @@ namespace DE.Editor.DataTableTools
             StringBuilder codeContent, object userData)
         {
             var dataTableName = (string) userData;
-
+            
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "DE");
             codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
-            codeContent.Replace("__DATA_TABLE_ID_COMMENT__",
-                "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
+            codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
             codeContent.Replace("__DATA_TABLE_PROPERTIES__", GenerateDataTableProperties(dataTableProcessor));
             codeContent.Replace("__DATA_TABLE_PARSER__", GenerateDataTableParser(dataTableProcessor));
             codeContent.Replace("__DATA_TABLE_PROPERTY_ARRAY__", GenerateDataTablePropertyArray(dataTableProcessor));
+            _nameSpace = _nameSpace.Distinct().ToList();
+            StringBuilder nameSpaceBuilder = new StringBuilder();
+            foreach (string nameSpace in _nameSpace)
+            {
+                nameSpaceBuilder.AppendLine($"using {nameSpace};");
+            }
+            codeContent.Replace("__DATA_TABLE_PROPERTIES_NAMESPACE__", nameSpaceBuilder.ToString());
         }
 
         private static string GenerateDataTableProperties(DataTableProcessor dataTableProcessor)
@@ -194,6 +201,17 @@ namespace DE.Editor.DataTableTools
                         continue;
                     }
 
+                    if (dataTableProcessor.IsEnumrColumn(i))
+                    {
+                        if (!string.IsNullOrEmpty(dataTableProcessor.GetNameSpace(i)))
+                        {
+                            _nameSpace.Add(dataTableProcessor.GetNameSpace(i));
+                        }
+                        stringBuilder.AppendFormat("\t\t\t{0} = ({0})int.Parse(columnStrings[index++]);",
+                            dataTableProcessor.GetName(i)).AppendLine();
+                        continue;
+                    }
+
                     stringBuilder.AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}(columnStrings[index++]);",
                         dataTableProcessor.GetName(i), dataTableProcessor.GetType(i).Name).AppendLine();
                 }
@@ -264,6 +282,17 @@ namespace DE.Editor.DataTableTools
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
                             dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
                         .AppendLine();
+                    continue;
+                }
+                
+                if (dataTableProcessor.IsEnumrColumn(i))
+                {
+                    if (!string.IsNullOrEmpty(dataTableProcessor.GetNameSpace(i)))
+                    {
+                        _nameSpace.Add(dataTableProcessor.GetNameSpace(i));
+                    }
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = ({0})binaryReader.Read7BitEncodedInt32();",
+                        dataTableProcessor.GetName(i)).AppendLine();;
                     continue;
                 }
 
