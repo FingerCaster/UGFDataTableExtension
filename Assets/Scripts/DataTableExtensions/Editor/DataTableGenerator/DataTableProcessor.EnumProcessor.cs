@@ -5,9 +5,18 @@ namespace DE.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
-        private sealed class EnumProcessor : GenericDataProcessor<int>
+        private sealed class EnumProcessor<T> : GenericDataProcessor<int>
+            where T : struct
         {
-            public Type EnumType { get; set; }
+            static EnumProcessor()
+            {
+                if (!typeof(T).IsEnum)
+                {
+                    throw new ArgumentException("T must be an enumerated type");
+                }
+            }
+
+            public Type EnumType => typeof(T);
             public override bool IsSystem => false;
             public override bool IsEnum => true;
             public string NameSpace => EnumType.Namespace;

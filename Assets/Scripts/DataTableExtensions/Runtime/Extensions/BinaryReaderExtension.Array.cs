@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using Test;
 using System;
+using System.IO;
 using System.Collections.Generic;
+using UnityEngine;
 namespace DE
 {
 	public static partial class BinaryReaderExtension
@@ -163,6 +164,16 @@ namespace DE
 			for (int i = 0; i < count; i++)
 			{
 				array[i] = binaryReader.ReadString();
+			}
+			return array;
+		}
+		public static TestEnum[] ReadTestEnumArray(this BinaryReader binaryReader)
+		{
+			int count = binaryReader.Read7BitEncodedInt32();
+			TestEnum[] array = new TestEnum[count];
+			for (int i = 0; i < count; i++)
+			{
+				array[i] = (TestEnum)binaryReader.Read7BitEncodedInt32();
 			}
 			return array;
 		}

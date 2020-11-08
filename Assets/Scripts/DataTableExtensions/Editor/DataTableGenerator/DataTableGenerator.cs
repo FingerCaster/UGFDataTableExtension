@@ -166,13 +166,25 @@ namespace DE.Editor.DataTableTools
                 {
                     if (dataTableProcessor.IsListColumn(i))
                     {
-                        var t = dataTableProcessor.GetDataProcessor(i).GetType()
-                            .GetGenericArguments();
-                        var dataProcessor =
-                            Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
+                        var dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        string typeName = dataProcessor.Type.Name;
+
+                        if (dataProcessor.IsEnum)
+                        {
+                            Debug.Log(dataProcessor.GetType().FullName);
+                            string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
+                                ?.GetValue(dataProcessor) as string;
+                            if (!string.IsNullOrEmpty(nameSpace))
+                            {
+                                _nameSpace.Add(nameSpace);
+                            }
+                            typeName = dataProcessor.LanguageKeyword;
+                        }
+
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}List(columnStrings[index++]);",
-                                dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
+                                dataTableProcessor.GetName(i), typeName).AppendLine();
                         continue;
                     }
 
@@ -181,9 +193,21 @@ namespace DE.Editor.DataTableTools
                         var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
                         var dataProcessor =
                             Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                        string typeName = dataProcessor.Type.Name;
+
+                        if (dataProcessor.IsEnum)
+                        {
+                            string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
+                                ?.GetValue(dataProcessor) as string;
+                            if (!string.IsNullOrEmpty(nameSpace))
+                            {
+                                _nameSpace.Add(nameSpace);
+                            }
+                            typeName = dataProcessor.LanguageKeyword;
+                        }
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}Array(columnStrings[index++]);",
-                                dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
+                                dataTableProcessor.GetName(i), typeName).AppendLine();
                         continue;
                     }
 
@@ -194,9 +218,32 @@ namespace DE.Editor.DataTableTools
                             Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                         var dataProcessorT2 =
                             Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
+                        var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
+                        if (dataProcessorT1.IsEnum)
+                        {
+                            string nameSpace = dataProcessorT1.GetType().GetProperty("NameSpace")
+                                ?.GetValue(dataProcessorT1) as string;
+                            if (!string.IsNullOrEmpty(nameSpace))
+                            {
+                                _nameSpace.Add(nameSpace);
+                            }
+                            dataProcessorT1TypeName = dataProcessorT1.LanguageKeyword;
+                        }
+
+                        var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
+                        if (dataProcessorT2.IsEnum)
+                        {
+                            string nameSpace = dataProcessorT2.GetType().GetProperty("NameSpace")
+                                ?.GetValue(dataProcessorT2) as string;
+                            if (!string.IsNullOrEmpty(nameSpace))
+                            {
+                                _nameSpace.Add(nameSpace);
+                            }
+                            dataProcessorT2TypeName = dataProcessorT2.LanguageKeyword;
+                        }
                         stringBuilder.AppendFormat(
                                 "\t\t\t{0} = DataTableExtension.Parse{1}{2}Dictionary(columnStrings[index++]);",
-                                dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
+                                dataTableProcessor.GetName(i), dataProcessorT1TypeName, dataProcessorT2TypeName)
                             .AppendLine();
                         continue;
                     }
@@ -258,8 +305,19 @@ namespace DE.Editor.DataTableTools
                     var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
                     var dataProcessor =
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    string typeName = dataProcessor.Type.Name;
+                    if (dataProcessor.IsEnum)
+                    {
+                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
+                            ?.GetValue(dataProcessor) as string;
+                        if (!string.IsNullOrEmpty(nameSpace))
+                        {
+                            _nameSpace.Add(nameSpace);
+                        }
+                        typeName = dataProcessor.LanguageKeyword;
+                    }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
-                        dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
+                        dataTableProcessor.GetName(i), typeName).AppendLine();
                     continue;
                 }
 
@@ -267,8 +325,20 @@ namespace DE.Editor.DataTableTools
                 {
                     var t = dataTableProcessor.GetDataProcessor(i).GetType().GetGenericArguments();
                     var dataProcessor = Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
+                    string typeName = dataProcessor.Type.Name;
+
+                    if (dataProcessor.IsEnum)
+                    {
+                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
+                            ?.GetValue(dataProcessor) as string;
+                        if (!string.IsNullOrEmpty(nameSpace))
+                        {
+                            _nameSpace.Add(nameSpace);
+                        }
+                        typeName = dataProcessor.LanguageKeyword;
+                    }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
-                        dataTableProcessor.GetName(i), dataProcessor.Type.Name).AppendLine();
+                        dataTableProcessor.GetName(i),typeName).AppendLine();
                     continue;
                 }
 
@@ -279,8 +349,31 @@ namespace DE.Editor.DataTableTools
                         Activator.CreateInstance(t[0]) as DataTableProcessor.DataProcessor;
                     var dataProcessorT2 =
                         Activator.CreateInstance(t[1]) as DataTableProcessor.DataProcessor;
+                    var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
+                    if (dataProcessorT1.IsEnum)
+                    {
+                        string nameSpace = dataProcessorT1.GetType().GetProperty("NameSpace")
+                            ?.GetValue(dataProcessorT1) as string;
+                        if (!string.IsNullOrEmpty(nameSpace))
+                        {
+                            _nameSpace.Add(nameSpace);
+                        }
+                        dataProcessorT1TypeName = dataProcessorT1.LanguageKeyword;
+                    }
+
+                    var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
+                    if (dataProcessorT2.IsEnum)
+                    {
+                        string nameSpace = dataProcessorT2.GetType().GetProperty("NameSpace")
+                            ?.GetValue(dataProcessorT2) as string;
+                        if (!string.IsNullOrEmpty(nameSpace))
+                        {
+                            _nameSpace.Add(nameSpace);
+                        }
+                        dataProcessorT2TypeName = dataProcessorT2.LanguageKeyword;
+                    }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
-                            dataTableProcessor.GetName(i), dataProcessorT1.Type.Name, dataProcessorT2.Type.Name)
+                            dataTableProcessor.GetName(i),dataProcessorT1TypeName,dataProcessorT2TypeName)
                         .AppendLine();
                     continue;
                 }

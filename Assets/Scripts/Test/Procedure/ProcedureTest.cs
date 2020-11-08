@@ -17,7 +17,8 @@ namespace DE
         public static readonly string[] DataTableNames =
         {
             "Test", // 测试 
-            "TestDictionary" // 测试字典
+            "TestDictionary", // 测试字典
+            "TestEnum" // 测试枚举
         };
 
         private readonly Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -48,7 +49,44 @@ namespace DE
             Event.Unsubscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
             Event.Unsubscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
         }
-
+        string ArrayToString<T>(T[] array)
+        {
+            var stringBuilder = new StringBuilder();
+            var comma = ",";
+            for (var i = 0; i < array.Length; i++)
+            {
+                var separator = i < array.Length - 1 ? comma : string.Empty;
+                stringBuilder.Append($"{array[i].ToString()}{separator}");
+            }
+            
+            return stringBuilder.ToString();
+        }
+            
+        string ListToString<T>(List<T> array)
+        {
+            var stringBuilder = new StringBuilder();
+            var comma = ",";
+            for (var i = 0; i < array.Count; i++)
+            {
+                var separator = i < array.Count - 1 ? comma : string.Empty;
+                stringBuilder.Append($"{array[i].ToString()}{separator}");
+            }
+            
+            return stringBuilder.ToString();
+        }
+        string DictionaryToString<K, V>(Dictionary<K, V> dictionary)
+        {
+            var stringBuilder = new StringBuilder();
+            var comma = ",";
+            var index = 0;
+            foreach (var keyValue in dictionary)
+            {
+                var separator = index < dictionary.Count - 1 ? comma : string.Empty;
+                stringBuilder.Append($"{{{keyValue.Key.ToString()},{keyValue.Value.ToString()}}}{separator}");
+            }
+            
+            return stringBuilder.ToString();
+        }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds,
             float realElapseSeconds)
         {
@@ -62,7 +100,7 @@ namespace DE
                 var drTests = DataTable.GetDataTable<DRTest>();
                 var drTest = drTests.GetDataRow(1);
                 if (drTest == null) return;
-
+            
                 Debug.Log(
                     $"{drTest.Id}    {drTest.BoolValue}    {drTest.ByteValue}    {drTest.CharValue}    {drTest.Color32Value}    {drTest.ColorValue}    {drTest.DateTimeValue}    " +
                     $"{drTest.DecimalValue}    {drTest.DoubleValue}    {drTest.FloatValue}    {drTest.IntValue}    {drTest.LongValue}    {drTest.QuaternionValue}    {drTest.RectValue}    " +
@@ -78,34 +116,10 @@ namespace DE
                     $"{ArrayToString(drTest.DecimalArray)}    {ArrayToString(drTest.DoubleArray)}    {ArrayToString(drTest.FloatArray)}    {ArrayToString(drTest.IntArray)}    {ArrayToString(drTest.LongArray)}    {ArrayToString(drTest.QuaternionArray)}    {ArrayToString(drTest.RectArray)}    " +
                     $"{ArrayToString(drTest.SByteArray)}    {ArrayToString(drTest.ShortArray)}    {ArrayToString(drTest.StringArray)}    {ArrayToString(drTest.UIntArray)}    {ArrayToString(drTest.ULongArray)}    {ArrayToString(drTest.UShortArray)}    {ArrayToString(drTest.Vector2Array)}    " +
                     $"{ArrayToString(drTest.Vector3Array)}    {ArrayToString(drTest.Vector4Array)}");
-
-                string ArrayToString<T>(T[] array)
-                {
-                    var stringBuilder = new StringBuilder();
-                    var comma = ",";
-                    for (var i = 0; i < array.Length; i++)
-                    {
-                        var separator = i < array.Length - 1 ? comma : string.Empty;
-                        stringBuilder.Append($"{array[i].ToString()}{separator}");
-                    }
-
-                    return stringBuilder.ToString();
-                }
-
-                string ListToString<T>(List<T> array)
-                {
-                    var stringBuilder = new StringBuilder();
-                    var comma = ",";
-                    for (var i = 0; i < array.Count; i++)
-                    {
-                        var separator = i < array.Count - 1 ? comma : string.Empty;
-                        stringBuilder.Append($"{array[i].ToString()}{separator}");
-                    }
-
-                    return stringBuilder.ToString();
-                }
+            
+                
             }
-
+            
             if (Input.GetKeyDown(KeyCode.B))
             {
                 var drTestDictionaries = DataTable.GetDataTable<DRTestDictionary>();
@@ -113,21 +127,21 @@ namespace DE
                 if (drTestDictionary == null)
                     return;
                 Debug.Log(
-                    $"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}  TestEnum:{drTestDictionary.TestEnum}");
+                    $"{drTestDictionary.Id}    TestIntIntDictionary:{DictionaryToString(drTestDictionary.TestIntIntDictionary)}    TestIntVector3Dictionary:{DictionaryToString(drTestDictionary.TestIntVector3Dictionary)}");
+            
+               
+            }
 
-                string DictionaryToString<K, V>(Dictionary<K, V> dictionary)
-                {
-                    var stringBuilder = new StringBuilder();
-                    var comma = ",";
-                    var index = 0;
-                    foreach (var keyValue in dictionary)
-                    {
-                        var separator = index < dictionary.Count - 1 ? comma : string.Empty;
-                        stringBuilder.Append($"{{{keyValue.Key.ToString()},{keyValue.Value.ToString()}}}{separator}");
-                    }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                var drTestEnums = DataTable.GetDataTable<DRTestEnum>();
+                var drTestEnum = drTestEnums.GetDataRow(1);
+                if (drTestEnum == null)
+                    return;
+                Debug.Log(
+                    $"{drTestEnum.Id}    TestEnum:{drTestEnum.TestEnum}  TestEnumList:{ListToString(drTestEnum.TestEnumList)} " +
+                    $"TestEnumArray:{ArrayToString(drTestEnum.TestEnumArray)}   TestEnumDic:{DictionaryToString(drTestEnum.TestEnumDic)}");
 
-                    return stringBuilder.ToString();
-                }
             }
         }
 

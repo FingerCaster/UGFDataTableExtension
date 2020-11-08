@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using Test;
 using System;
+using System.IO;
 using System.Collections.Generic;
+using UnityEngine;
 namespace DE
 {
 	public static partial class DataTableExtension
@@ -195,6 +196,18 @@ namespace DE
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				list.Add(splitValue[i]);
+			}
+			return list;
+		}
+		public static List<TestEnum> ParseTestEnumList(string value)
+		{
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
+				return null;
+			string[] splitValue = value.Split('|');
+			List<TestEnum> list = new List<TestEnum>(splitValue.Length);
+			for (int i = 0; i < splitValue.Length; i++)
+			{
+				list.Add((TestEnum)Int32.Parse(splitValue[i]));
 			}
 			return list;
 		}

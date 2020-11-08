@@ -73,7 +73,7 @@ namespace DE.Editor.DataTableTools
 
                 DataProcessor dataProcessor = new T();
                 string[] splitValues;
-                splitValues = value.Split(dataProcessor.IsSystem ? ',' : '|');
+                splitValues = value.Split(dataProcessor.IsSystem|| dataProcessor.IsEnum ? ',' : '|');
 
                 binaryWriter.Write7BitEncodedInt32(splitValues.Length);
                 foreach (var itemValue in splitValues)

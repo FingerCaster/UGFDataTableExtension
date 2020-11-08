@@ -193,7 +193,7 @@ namespace DE.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.",
                     rawColumn.ToString()));
 
-            return m_DataProcessor[rawColumn] is EnumProcessor;
+            return m_DataProcessor[rawColumn].IsEnum;
         }
 
         public bool IsDictionaryColumn(int rawColumn)

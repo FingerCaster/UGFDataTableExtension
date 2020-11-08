@@ -46,6 +46,12 @@ namespace DE.Editor.DataTableTools
                 }
             }
 
+            AddEnumType(datableDataProcessors);
+            NameSpaces.Add("System");
+            NameSpaces.Add("System.IO");
+            NameSpaces.Add("System.Collections.Generic");
+            NameSpaces.Add("UnityEngine");
+            NameSpaces = NameSpaces.Distinct().ToList();
             GenerateDataTableExtensionArray(datableDataProcessors);
             GenerateDataTableExtensionList(datableDataProcessors);
             GenerateBinaryReaderExtensionList(datableDataProcessors);
@@ -60,17 +66,23 @@ namespace DE.Editor.DataTableTools
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
             foreach (var item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Value.Type.Name}Array(string value)");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Parse{item.Value.LanguageKeyword}Array(string value)");
+                }
+                else
+                {
+                    sb.AppendLine($"\t\tpublic static {item.Key}[] Parse{item.Value.Type.Name}Array(string value)");
+                }
+
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
@@ -78,7 +90,17 @@ namespace DE.Editor.DataTableTools
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
                 else
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
-                sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[splitValue.Length];");
+
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\t\t{item.Value.LanguageKeyword}[] array = new {item.Value.LanguageKeyword}[splitValue.Length];");
+                }
+                else
+                {
+                    sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[splitValue.Length];");
+                }
+
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
                 if (item.Value.IsSystem)
@@ -90,7 +112,14 @@ namespace DE.Editor.DataTableTools
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\t\tarray[i] = Parse{item.Value.Type.Name}(splitValue[i]);");
+                    if (item.Value.IsEnum)
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = ({item.Value.LanguageKeyword})int.Parse(splitValue[i]);");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tarray[i] = Parse{item.Value.Type.Name}(splitValue[i]);");
+                    }
                 }
 
                 sb.AppendLine("\t\t\t}");
@@ -108,17 +137,22 @@ namespace DE.Editor.DataTableTools
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
+
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
             foreach (var item in dataProcessors)
             {
-                sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Parse{item.Value.LanguageKeyword}List(string value)");
+                }
+                else
+                    sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
+
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
@@ -126,7 +160,14 @@ namespace DE.Editor.DataTableTools
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
                 else
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
-                sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(splitValue.Length);");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\t\tList<{item.Value.LanguageKeyword}> list = new List<{item.Value.LanguageKeyword}>(splitValue.Length);");
+                }
+                else
+                    sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(splitValue.Length);");
+
                 sb.AppendLine("\t\t\tfor (int i = 0; i < splitValue.Length; i++)");
                 sb.AppendLine("\t\t\t{");
                 if (item.Value.IsSystem)
@@ -138,7 +179,15 @@ namespace DE.Editor.DataTableTools
                 }
                 else
                 {
-                    sb.AppendLine($"\t\t\t\tlist.Add(Parse{item.Value.Type.Name}(splitValue[i]));");
+                    if (item.Value.IsEnum)
+                    {
+                        sb.AppendLine(
+                            $"\t\t\t\tlist.Add(({item.Value.LanguageKeyword}){item.Value.Type.Name}.Parse(splitValue[i]));");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\t\t\t\tlist.Add(Parse{item.Value.Type.Name}(splitValue[i]));");
+                    }
                 }
 
                 sb.AppendLine("\t\t\t}");
@@ -155,21 +204,33 @@ namespace DE.Editor.DataTableTools
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
+
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
             foreach (var item in dataProcessors)
             {
-                sb.AppendLine(
-                    $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Read{item.Value.LanguageKeyword}List(this BinaryReader binaryReader)");
+                }
+                else
+                    sb.AppendLine(
+                        $"\t\tpublic static List<{item.Key}> Read{item.Value.Type.Name}List(this BinaryReader binaryReader)");
+
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tint count = binaryReader.Read7BitEncodedInt32();");
-                sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(count);");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\t\tList<{item.Value.LanguageKeyword}> list = new List<{item.Value.LanguageKeyword}>(count);");
+                }
+                else
+                    sb.AppendLine($"\t\t\tList<{item.Key}> list = new List<{item.Key}>(count);");
+
                 sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
                 sb.AppendLine("\t\t\t{");
                 if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
@@ -182,6 +243,11 @@ namespace DE.Editor.DataTableTools
                     if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
                         languageKeyword == "ulong")
                         sb.AppendLine($"\t\t\t\tlist.Add(binaryReader.Read7BitEncoded{item.Value.Type.Name}());");
+                    else if (item.Value.IsEnum)
+                    {
+                        sb.AppendLine(
+                            $"\t\t\t\tlist.Add(({item.Value.LanguageKeyword})binaryReader.Read7BitEncoded{item.Value.Type.Name}());");
+                    }
                     else
                         sb.AppendLine($"\t\t\t\tlist.Add(binaryReader.Read{item.Value.Type.Name}());");
                 }
@@ -200,21 +266,33 @@ namespace DE.Editor.DataTableTools
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
+
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
             foreach (var item in dataProcessors)
             {
-                sb.AppendLine(
-                    $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Read{item.Value.LanguageKeyword}Array(this BinaryReader binaryReader)");
+                }
+                else
+                    sb.AppendLine(
+                        $"\t\tpublic static {item.Key}[] Read{item.Value.Type.Name}Array(this BinaryReader binaryReader)");
+
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tint count = binaryReader.Read7BitEncodedInt32();");
-                sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[count];");
+                if (item.Value.IsEnum)
+                {
+                    sb.AppendLine(
+                        $"\t\t\t{item.Value.LanguageKeyword}[] array = new {item.Value.LanguageKeyword}[count];");
+                }
+                else
+                    sb.AppendLine($"\t\t\t{item.Key}[] array = new {item.Key}[count];");
+
                 sb.AppendLine("\t\t\tfor (int i = 0; i < count; i++)");
                 sb.AppendLine("\t\t\t{");
                 if (IsCustomType(item.Value.Type) || item.Value.Type == typeof(DateTime))
@@ -227,6 +305,11 @@ namespace DE.Editor.DataTableTools
                     if (languageKeyword == "int" || languageKeyword == "uint" || languageKeyword == "long" ||
                         languageKeyword == "ulong")
                         sb.AppendLine($"\t\t\t\tarray[i] = binaryReader.Read7BitEncoded{item.Value.Type.Name}();");
+                    else if (item.Value.IsEnum)
+                    {
+                        sb.AppendLine(
+                            $"\t\t\t\tarray[i] = ({item.Value.LanguageKeyword})binaryReader.Read7BitEncoded{item.Value.Type.Name}();");
+                    }
                     else
                         sb.AppendLine($"\t\t\t\tarray[i] = binaryReader.Read{item.Value.Type.Name}();");
                 }
@@ -261,15 +344,13 @@ namespace DE.Editor.DataTableTools
             var keyValueList =
                 PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
+            var reverseList = keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
             keyValueList.AddRange(reverseList);
             foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
 
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
+
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
@@ -278,8 +359,10 @@ namespace DE.Editor.DataTableTools
             {
                 var dataProcessorT1 = item[0];
                 var dataProcessorT2 = item[1];
+                (string, string) names = GetNames(dataProcessorT1, dataProcessorT2);
                 sb.AppendLine(
-                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Parse{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(string value)");
+                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Parse{names.Item1}{names.Item2}Dictionary(string value)");
+
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
@@ -309,8 +392,17 @@ namespace DE.Editor.DataTableTools
                     else
                     {
                         if (dataProcessorT1.LanguageKeyword == "string")
+                            if (dataProcessorT2.IsEnum)
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(keyValue[0].Substring(1),({dataProcessorT2.LanguageKeyword})int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                            else
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(keyValue[0].Substring(1),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        else if (dataProcessorT2.IsEnum)
+                        {
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(keyValue[0].Substring(1),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                                $"\t\t\t\tdictionary.Add({dataProcessorT1.Type.Name}.Parse(keyValue[0].Substring(1)),({dataProcessorT2.LanguageKeyword}) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        }
                         else
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add({dataProcessorT1.Type.Name}.Parse(keyValue[0].Substring(1)),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
@@ -321,16 +413,40 @@ namespace DE.Editor.DataTableTools
                     if (dataProcessorT2.IsSystem)
                     {
                         if (dataProcessorT2.LanguageKeyword == "string")
+                            if (dataProcessorT1.IsEnum)
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) int.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));");
+                            else
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));");
+                        else if (dataProcessorT1.IsEnum)
+                        {
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));");
+                                $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) int.Parse(keyValue[0].Substring(1)),{dataProcessorT2.Type.Name}.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        }
                         else
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),{dataProcessorT2.Type.Name}.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
                     }
                     else
                     {
-                        sb.AppendLine(
-                            $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        if (dataProcessorT2.IsEnum)
+                        {
+                            sb.AppendLine(
+                                dataProcessorT1.IsEnum
+                                    ? $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),({dataProcessorT2.LanguageKeyword}) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));"
+                                    : $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),({dataProcessorT2.LanguageKeyword}) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        }
+                        else if (dataProcessorT1.IsEnum)
+                        {
+                            sb.AppendLine(
+                                $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),Parse{dataProcessorT2.Type.Name}(keyValue[0].Substring(1)));");
+                        }
+                        else
+                        {
+                            sb.AppendLine(
+                                $"\t\t\t\tdictionary.Add(Parse{dataProcessorT1.Type.Name}(keyValue[0].Substring(1)),Parse{dataProcessorT2.Type.Name}(keyValue[1].Substring(0, keyValue[1].Length - 1)));");
+                        }
                     }
                 }
 
@@ -343,7 +459,12 @@ namespace DE.Editor.DataTableTools
             sb.AppendLine("}");
             GenerateCodeFile("DataTableExtension.Dictionary", sb.ToString());
         }
-
+       static  (string, string) GetNames(DataTableProcessor.DataProcessor t1, DataTableProcessor.DataProcessor t2)
+        {
+            string t1Name = t1.IsEnum ? t1.LanguageKeyword : t1.Type.Name;
+            string t2Name = t2.IsEnum ? t2.LanguageKeyword : t2.Type.Name;
+            return (t1Name, t2Name);
+        }
 
         private static void GenerateBinaryReaderExtensionDictionary(
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
@@ -351,25 +472,27 @@ namespace DE.Editor.DataTableTools
             var keyValueList =
                 PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
+            var reverseList = keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
             keyValueList.AddRange(reverseList);
             foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
 
             var sb = new StringBuilder();
-            sb.AppendLine("using UnityEngine;");
-            sb.AppendLine("using System.IO;");
-            sb.AppendLine("using System;");
-            sb.AppendLine("using System.Collections.Generic;");
+            AddNameSpaces(sb);
+
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
+
+           
+
             foreach (var item in keyValueList)
             {
                 var dataProcessorT1 = item[0];
                 var dataProcessorT2 = item[1];
+                (string, string) names = GetNames(dataProcessorT1, dataProcessorT2);
                 sb.AppendLine(
-                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{dataProcessorT1.Type.Name}{dataProcessorT2.Type.Name}Dictionary(this BinaryReader binaryReader)");
+                    $"\t\tpublic static Dictionary<{dataProcessorT1.LanguageKeyword},{dataProcessorT2.LanguageKeyword}> Read{names.Item1}{names.Item2}Dictionary(this BinaryReader binaryReader)");
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tint count = binaryReader.Read7BitEncodedInt32();");
                 sb.AppendLine(
@@ -404,8 +527,21 @@ namespace DE.Editor.DataTableTools
                     {
                         if (t1LanguageKeyword == "int" || t1LanguageKeyword == "uint" || t1LanguageKeyword == "long" ||
                             t1LanguageKeyword == "ulong")
+                            if (dataProcessorT2.IsEnum)
+                            {
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),({dataProcessorT2.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                            }
+                            else
+                            {
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(), Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                            }
+                        else if (dataProcessorT2.IsEnum)
+                        {
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(), Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                                $"\t\t\t\tdictionary.Add(binaryReader.Read{dataProcessorT1.Type.Name}(),({dataProcessorT2.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                        }
                         else
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(binaryReader.Read{dataProcessorT1.Type.Name}(),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
@@ -418,16 +554,46 @@ namespace DE.Editor.DataTableTools
                         if (t2LanguageKeyword == "int" || t2LanguageKeyword == "uint" ||
                             t2LanguageKeyword == "long" ||
                             t2LanguageKeyword == "ulong")
+                            if (dataProcessorT1.IsEnum)
+                            {
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),({dataProcessorT2.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                            }
+                            else
+                            {
+                                sb.AppendLine(
+                                    $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                            }
+
+                        else if (dataProcessorT1.IsEnum)
+                        {
                             sb.AppendLine(
-                                $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                                $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),binaryReader.Read{dataProcessorT2.Type.Name}());");
+                        }
                         else
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),binaryReader.Read{dataProcessorT2.Type.Name}());");
                     }
                     else
                     {
-                        sb.AppendLine(
-                            $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                        if (dataProcessorT2.IsEnum)
+                        {
+                            sb.AppendLine(
+                                dataProcessorT1.IsEnum
+                                    ? $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),({dataProcessorT2.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());"
+                                    : $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),({dataProcessorT2.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT2.Type.Name}());");
+                        }
+                        else if (dataProcessorT1.IsEnum)
+                        {
+                            sb.AppendLine(
+                                $"\t\t\t\tdictionary.Add(({dataProcessorT1.LanguageKeyword}) binaryReader.Read7BitEncoded{dataProcessorT1.Type.Name}(),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                        }
+                        else
+                        {
+                            sb.AppendLine(
+                                $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
+                        }
+                      
                     }
                 }
 
@@ -470,6 +636,62 @@ namespace DE.Editor.DataTableTools
         public static bool IsCustomType(Type type)
         {
             return type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object;
+        }
+
+        private static readonly string[] AssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            //asmdef
+#endif
+            "Assembly-CSharp"
+        };
+
+        private static List<string> NameSpaces = new List<string>();
+
+        private static void AddNameSpaces(StringBuilder stringBuilder)
+        {
+            foreach (var nameSpace in NameSpaces)
+            {
+                stringBuilder.AppendLine($"using {nameSpace};");
+            }
+        }
+
+        private static void AddEnumType(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        {
+            Type enumProcessorTypeBase = Type.GetType("DE.Editor.DataTableTools.DataTableProcessor+EnumProcessor`1");
+
+            foreach (var assemblyName in AssemblyNames)
+            {
+                Assembly assembly = null;
+                try
+                {
+                    assembly = Assembly.Load(assemblyName);
+                }
+                catch
+                {
+                    continue;
+                }
+
+                if (assembly == null) continue;
+
+                var types = assembly.GetTypes();
+                foreach (var type in types)
+                {
+                    if (type.IsEnum)
+                    {
+                        Type enumProcessorType = enumProcessorTypeBase.MakeGenericType(type);
+                        DataTableProcessor.DataProcessor dataProcessor =
+                            (DataTableProcessor.DataProcessor) Activator.CreateInstance(enumProcessorType);
+                        dataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
+                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
+                            ?.GetValue(dataProcessor) as string;
+                        if (!string.IsNullOrEmpty(nameSpace))
+                        {
+                            NameSpaces.Add(nameSpace);
+                        }
+                    }
+                }
+            }
         }
     }
 }
