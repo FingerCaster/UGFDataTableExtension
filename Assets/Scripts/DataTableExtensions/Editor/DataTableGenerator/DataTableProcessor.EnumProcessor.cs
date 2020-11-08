@@ -9,6 +9,7 @@ namespace DE.Editor.DataTableTools
         {
             public Type EnumType { get; set; }
             public override bool IsSystem => false;
+            public override bool IsEnum => true;
             public string NameSpace => EnumType.Namespace;
             public override string LanguageKeyword => EnumType.Name;
 

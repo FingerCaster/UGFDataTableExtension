@@ -17,6 +17,7 @@ namespace DE.Editor.DataTableTools
             public override Type Type => null;
 
             public override bool IsId => false;
+            public override bool IsEnum => false;
 
             public override bool IsComment => true;
 

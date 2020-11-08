@@ -18,6 +18,7 @@ namespace DE.Editor.DataTableTools
             public override bool IsId => false;
 
             public override bool IsComment => false;
+            public override bool IsEnum => false;
 
             public abstract T Parse(string value);
         }

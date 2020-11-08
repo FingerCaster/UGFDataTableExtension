@@ -174,6 +174,8 @@ namespace DE.Editor.DataTableTools
 
 
                 var keyValueList = PermutationAndCombination<Type>.GetCombination(list.ToArray(), 2).ToList();
+                var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
+                keyValueList.AddRange(reverseList);
                 foreach (var value in list) keyValueList.Add(new[] {value, value});
 
                 foreach (var keyValue in keyValueList)

@@ -41,7 +41,7 @@ namespace DE.Editor.DataTableTools
                 {
                     DataTableProcessor.DataProcessor dataProcessor = null;
                     dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
-                    if (dataProcessor.IsComment || dataProcessor.IsId) continue;
+                    if (dataProcessor.IsComment || dataProcessor.IsId || dataProcessor.IsEnum) continue;
                     datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
                 }
             }
@@ -261,6 +261,8 @@ namespace DE.Editor.DataTableTools
             var keyValueList =
                 PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
+            var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
+            keyValueList.AddRange(reverseList);
             foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
 
             var sb = new StringBuilder();
@@ -349,6 +351,8 @@ namespace DE.Editor.DataTableTools
             var keyValueList =
                 PermutationAndCombination<DataTableProcessor.DataProcessor>
                     .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
+            var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
+            keyValueList.AddRange(reverseList);
             foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
 
             var sb = new StringBuilder();

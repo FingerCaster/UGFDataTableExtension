@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2020-09-26 12:52:46.168
+// 生成时间：2020-11-07 20:15:13.876
 //------------------------------------------------------------
 
 using GameFramework;
@@ -60,6 +60,15 @@ namespace DE
             private set;
         }
 
+        /// <summary>
+        /// 获取listvalue值。
+        /// </summary>
+        public List<int> Dictionaryintintvalue
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -75,6 +84,7 @@ namespace DE
 			TestIntIntDictionary = DataTableExtension.ParseInt32Int32Dictionary(columnStrings[index++]);
 			TestIntVector3Dictionary = DataTableExtension.ParseInt32Vector3Dictionary(columnStrings[index++]);
 			TestEnum = (TestEnum)int.Parse(columnStrings[index++]);
+			Dictionaryintintvalue = DataTableExtension.ParseInt32List(columnStrings[index++]);
             GeneratePropertyArray();
             return true;
         }
@@ -89,6 +99,7 @@ namespace DE
 					TestIntIntDictionary = binaryReader.ReadInt32Int32Dictionary();
 					TestIntVector3Dictionary = binaryReader.ReadInt32Vector3Dictionary();
 					TestEnum = (TestEnum)binaryReader.Read7BitEncodedInt32();
+					Dictionaryintintvalue = binaryReader.ReadInt32List();
                 }
             }
 

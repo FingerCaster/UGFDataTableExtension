@@ -21,6 +21,7 @@ namespace DE.Editor.DataTableTools
             public abstract bool IsComment { get; }
 
             public abstract bool IsSystem { get; }
+            public abstract bool IsEnum { get; }
 
             public abstract string LanguageKeyword { get; }
 

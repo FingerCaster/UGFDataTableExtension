@@ -21,6 +21,7 @@ namespace DE.Editor.DataTableTools
                     return type;
                 }
             }
+            public override bool IsEnum => false;
 
             public override bool IsId => false;
 
