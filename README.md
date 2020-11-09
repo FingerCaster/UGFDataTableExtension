@@ -26,6 +26,8 @@ Dictionary在数据表中的类型为配置 dictionary\<keyType,valueType> （�
 
 <font color=#FF0000>注意:string类型不能在字符串中出现分隔符 不然会导致分割出错。</font>
 
+<font color=#FF0000>枚举类型在作为集合中的元素时 需要生成Extension 否则会导致找不到解析函数问题</font>
+
 GF中实现了GenericDataProcessor的类型有22中 为Boolean,Byte,Char,Color,Color32,DateTime,Decimal,Double,Single,Int32,Int64,Quaternion,Rect,SByte,Int16,String,UInt32,UInt64,UInt16,Vector2,Vector3,Vector4 
 自定义类型可以自行扩展。
 
