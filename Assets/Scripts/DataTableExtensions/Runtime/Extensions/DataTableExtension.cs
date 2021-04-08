@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DE
 {
@@ -52,6 +53,25 @@ namespace DE
             var splitValue = value.Split(',');
             return new Vector4(float.Parse(splitValue[0]), float.Parse(splitValue[1]), float.Parse(splitValue[2]),
                 float.Parse(splitValue[3]));
+        }
+        
+        public static bool EnumParse<TE>(string value,out TE defaultValue) where TE : struct, IConvertible 
+        {
+            if (!typeof(TE).IsEnum) throw new ArgumentException("T must be an enumerated type");
+            if (string.IsNullOrEmpty(value))
+            {
+                defaultValue = default;
+                return false;
+            }
+            foreach (TE item in Enum.GetValues(typeof(TE)))
+            {
+                if (!item.ToString().ToLowerInvariant().Equals(value.Trim().ToLowerInvariant())) continue;
+                defaultValue = item;
+                return true;
+            }
+
+            defaultValue = default;
+            return false;
         }
     }
 }

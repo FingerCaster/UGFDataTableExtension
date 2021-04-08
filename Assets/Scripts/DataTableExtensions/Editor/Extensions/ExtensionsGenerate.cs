@@ -86,7 +86,7 @@ namespace DE.Editor.DataTableTools
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                if (item.Value.IsSystem)
+                if (item.Value.IsSystem || item.Value.IsEnum)
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
                 else
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
@@ -114,7 +114,15 @@ namespace DE.Editor.DataTableTools
                 {
                     if (item.Value.IsEnum)
                     {
-                        sb.AppendLine($"\t\t\t\tarray[i] = ({item.Value.LanguageKeyword})int.Parse(splitValue[i]);");
+                        sb.AppendLine($"\t\t\t\tbool isInt = int.TryParse(splitValue[i], out int v);");
+                        sb.AppendLine($"\t\t\t\tif (isInt)\n\t\t\t\t{{");
+                        sb.AppendLine($"\t\t\t\t\tarray[i] = ({item.Value.LanguageKeyword})v;");
+                        sb.AppendLine("\t\t\t\t\tcontinue;");
+                        sb.AppendLine("\t\t\t\t}");
+                        sb.AppendLine($"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
+                        sb.AppendLine($"\t\t\t\tif (isString)\n\t\t\t\t{{");
+                        sb.AppendLine($"\t\t\t\t\tarray[i] = v1;");
+                        sb.AppendLine("\t\t\t\t}");
                     }
                     else
                     {
@@ -156,7 +164,7 @@ namespace DE.Editor.DataTableTools
                 sb.AppendLine("\t\t{");
                 sb.AppendLine("\t\t\tif (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals(\"null\"))");
                 sb.AppendLine("\t\t\t\treturn null;");
-                if (item.Value.IsSystem)
+                if (item.Value.IsSystem || item.Value.IsEnum)
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split(',');");
                 else
                     sb.AppendLine("\t\t\tstring[] splitValue = value.Split('|');");
@@ -181,8 +189,15 @@ namespace DE.Editor.DataTableTools
                 {
                     if (item.Value.IsEnum)
                     {
-                        sb.AppendLine(
-                            $"\t\t\t\tlist.Add(({item.Value.LanguageKeyword}){item.Value.Type.Name}.Parse(splitValue[i]));");
+                        sb.AppendLine($"\t\t\t\tbool isInt = int.TryParse(splitValue[i], out int v);");
+                        sb.AppendLine($"\t\t\t\tif (isInt)\n\t\t\t\t{{");
+                        sb.AppendLine($"\t\t\t\t\tlist.Add(({item.Value.LanguageKeyword})v);");
+                        sb.AppendLine("\t\t\t\t\tcontinue;");
+                        sb.AppendLine("\t\t\t\t}");
+                        sb.AppendLine($"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
+                        sb.AppendLine($"\t\t\t\tif (isString)\n\t\t\t\t{{");
+                        sb.AppendLine($"\t\t\t\t\tlist.Add(v1);");
+                        sb.AppendLine("\t\t\t\t}");
                     }
                     else
                     {

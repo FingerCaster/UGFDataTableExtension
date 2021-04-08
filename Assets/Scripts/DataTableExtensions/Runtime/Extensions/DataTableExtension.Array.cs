@@ -219,11 +219,21 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			TestEnum[] array = new TestEnum[splitValue.Length];
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				array[i] = (TestEnum)int.Parse(splitValue[i]);
+				bool isInt = int.TryParse(splitValue[i], out int v);
+				if (isInt)
+				{
+					array[i] = (TestEnum)v;
+					continue;
+				}
+				bool isString = EnumParse(splitValue[i], out TestEnum v1);
+				if (isString)
+				{
+					array[i] = v1;
+				}
 			}
 
 			return array;

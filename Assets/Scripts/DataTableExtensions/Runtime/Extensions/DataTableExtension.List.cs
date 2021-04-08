@@ -203,11 +203,21 @@ namespace DE
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
-			string[] splitValue = value.Split('|');
+			string[] splitValue = value.Split(',');
 			List<TestEnum> list = new List<TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
-				list.Add((TestEnum)Int32.Parse(splitValue[i]));
+				bool isInt = int.TryParse(splitValue[i], out int v);
+				if (isInt)
+				{
+					list.Add((TestEnum)v);
+					continue;
+				}
+				bool isString = EnumParse(splitValue[i], out TestEnum v1);
+				if (isString)
+				{
+					list.Add(v1);
+				}
 			}
 			return list;
 		}

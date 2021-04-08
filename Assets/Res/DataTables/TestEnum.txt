@@ -2,4 +2,4 @@
 #	Id	TestEnum	TestEnumList	TestEnumArray	TestEnumDic
 #	int	TestEnum	list<TestEnum>	TestEnum[]	dictionary<testenum,int>
 #	编号	测试枚举	测试枚举list	测试枚举Array	测试枚举字典
-	1	1	1,2,3	1,2,3	{1#1}|{2#2}|{3#3}
+	1	1	Test3,2,Test4	1,2,3	{1#1}|{2#2}|{3#3}

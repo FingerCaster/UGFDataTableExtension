@@ -153,7 +153,7 @@ namespace DE
 
         private void LoadDataTable(string dataTableName)
         {
-            var dataTableAssetName = Utility.Text.Format("Assets/Res/DataTables/{0}.bytes", dataTableName);
+            var dataTableAssetName = Utility.Text.Format("Assets/Res/DataTables/{0}.txt", dataTableName);
             m_LoadedFlag.Add(dataTableAssetName, false);
             if (string.IsNullOrEmpty(dataTableName))
             {
