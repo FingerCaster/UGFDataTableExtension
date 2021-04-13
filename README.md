@@ -52,7 +52,19 @@ GF中实现了GenericDataProcessor的类型有22中 为Boolean,Byte,Char,Color,C
 ## 生成数据实体类
 配置好的数据表放入Assets/Res/DataTables 文件夹中   文件夹路径定义再[DataTableGeneratorMenu.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGeneratorMenu.cs) 和 [DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGenerator.cs) 中DataTablePath字段 可自行修改。
 
-如果添加了自定义类型Processor 需要先执行Unity菜单栏中 DataTable/GenerateExtension 生成解析扩展类否则无法解析自定义类型  扩展类存放位置[DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/Extensions/ExtensionsGenerate.cs) ExtensionDirectoryPath字段。
+如果添加了自定义类型Processor 需要先执行Unity菜单栏中 
+
+~~DataTable/GenerateAllExtension~~ [^生成全部类型扩展]
+
+[^生成全部类型扩展]: 生成所有类型扩展 会有大量冗余代码 不推荐使用
+
+ DataTable/GenerateExtensionByAnalysis [^自动分析生成扩展]
+
+[^自动分析生成扩展]: 根据数据表自动分析生成扩展 推荐使用
+
+生成解析扩展类否则无法解析自定义类型. 
+
+扩展类存放位置[DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/Extensions/ExtensionsGenerate.cs) ExtensionDirectoryPath字段。
 其中 [BinaryReaderExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/BinaryReaderExtension.cs) 和 [DataTableExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/DataTableExtension.cs) 为默认解析类 不会自动生成 如更改扩展类路径 请自行拷贝。
 
 使用Unity菜单栏中 DataTable/Generate DataTables 生成数据实体类 数据实体类存放路径为[DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGenerator.cs) CSharpCodePath字段。
