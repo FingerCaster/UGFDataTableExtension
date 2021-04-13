@@ -45,19 +45,6 @@ namespace DE
 
 			return array;
 		}
-		public static Color[] ParseColorArray(string value)
-		{
-			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
-				return null;
-			string[] splitValue = value.Split('|');
-			Color[] array = new Color[splitValue.Length];
-			for (int i = 0; i < splitValue.Length; i++)
-			{
-				array[i] = ParseColor(splitValue[i]);
-			}
-
-			return array;
-		}
 		public static Color32[] ParseColor32Array(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
@@ -67,6 +54,19 @@ namespace DE
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				array[i] = ParseColor32(splitValue[i]);
+			}
+
+			return array;
+		}
+		public static Color[] ParseColorArray(string value)
+		{
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
+				return null;
+			string[] splitValue = value.Split('|');
+			Color[] array = new Color[splitValue.Length];
+			for (int i = 0; i < splitValue.Length; i++)
+			{
+				array[i] = ParseColor(splitValue[i]);
 			}
 
 			return array;
@@ -214,29 +214,6 @@ namespace DE
 
 			return array;
 		}
-		public static Test.TestEnum[] ParseTestTestEnumArray(string value)
-		{
-			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
-				return null;
-			string[] splitValue = value.Split(',');
-			Test.TestEnum[] array = new Test.TestEnum[splitValue.Length];
-			for (int i = 0; i < splitValue.Length; i++)
-			{
-				bool isInt = int.TryParse(splitValue[i], out int v);
-				if (isInt)
-				{
-					array[i] = (Test.TestEnum)v;
-					continue;
-				}
-				bool isString = EnumParse(splitValue[i], out Test.TestEnum v1);
-				if (isString)
-				{
-					array[i] = v1;
-				}
-			}
-
-			return array;
-		}
 		public static uint[] ParseUInt32Array(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
@@ -311,6 +288,29 @@ namespace DE
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				array[i] = ParseVector4(splitValue[i]);
+			}
+
+			return array;
+		}
+		public static Test.TestEnum[] ParseTestTestEnumArray(string value)
+		{
+			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
+				return null;
+			string[] splitValue = value.Split(',');
+			Test.TestEnum[] array = new Test.TestEnum[splitValue.Length];
+			for (int i = 0; i < splitValue.Length; i++)
+			{
+				bool isInt = int.TryParse(splitValue[i], out int v);
+				if (isInt)
+				{
+					array[i] = (Test.TestEnum)v;
+					continue;
+				}
+				bool isString = EnumParse(splitValue[i], out Test.TestEnum v1);
+				if (isString)
+				{
+					array[i] = v1;
+				}
 			}
 
 			return array;

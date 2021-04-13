@@ -36,16 +36,6 @@ namespace DE
 			}
 			return array;
 		}
-		public static Color[] ReadColorArray(this BinaryReader binaryReader)
-		{
-			int count = binaryReader.Read7BitEncodedInt32();
-			Color[] array = new Color[count];
-			for (int i = 0; i < count; i++)
-			{
-				array[i] = ReadColor(binaryReader);
-			}
-			return array;
-		}
 		public static Color32[] ReadColor32Array(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
@@ -53,6 +43,16 @@ namespace DE
 			for (int i = 0; i < count; i++)
 			{
 				array[i] = ReadColor32(binaryReader);
+			}
+			return array;
+		}
+		public static Color[] ReadColorArray(this BinaryReader binaryReader)
+		{
+			int count = binaryReader.Read7BitEncodedInt32();
+			Color[] array = new Color[count];
+			for (int i = 0; i < count; i++)
+			{
+				array[i] = ReadColor(binaryReader);
 			}
 			return array;
 		}
@@ -166,16 +166,6 @@ namespace DE
 			}
 			return array;
 		}
-		public static Test.TestEnum[] ReadTestTestEnumArray(this BinaryReader binaryReader)
-		{
-			int count = binaryReader.Read7BitEncodedInt32();
-			Test.TestEnum[] array = new Test.TestEnum[count];
-			for (int i = 0; i < count; i++)
-			{
-				array[i] = (Test.TestEnum)binaryReader.Read7BitEncodedInt32();
-			}
-			return array;
-		}
 		public static uint[] ReadUInt32Array(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
@@ -233,6 +223,16 @@ namespace DE
 			for (int i = 0; i < count; i++)
 			{
 				array[i] = ReadVector4(binaryReader);
+			}
+			return array;
+		}
+		public static Test.TestEnum[] ReadTestTestEnumArray(this BinaryReader binaryReader)
+		{
+			int count = binaryReader.Read7BitEncodedInt32();
+			Test.TestEnum[] array = new Test.TestEnum[count];
+			for (int i = 0; i < count; i++)
+			{
+				array[i] = (Test.TestEnum)binaryReader.Read7BitEncodedInt32();
 			}
 			return array;
 		}

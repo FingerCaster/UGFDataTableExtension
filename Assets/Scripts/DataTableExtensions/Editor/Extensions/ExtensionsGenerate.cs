@@ -15,15 +15,101 @@ namespace DE.Editor.DataTableTools
         private static readonly string ExtensionDirectoryPath = "Assets/Scripts/DataTableExtensions/Runtime/Extensions";
         private static readonly string NameSpace = "DE";
 
+        [MenuItem("DataTable/GenerateExtensionByAnalysis")]
+        private static void GenerateExtensionByAnalysis()
+        {
+            List<string> types = new List<string>(32);
+            foreach (var dataTableFileName in DataTableProcessorExtensions.DataTablePaths)
+            {
+                var lines = File.ReadAllLines(dataTableFileName, Encoding.UTF8);
+                var rawRowCount = lines.Length;
 
+                var rawColumnCount = 0;
+                var rawValues = new List<string[]>();
+                for (var i = 0; i < lines.Length; i++)
+                {
+                    var rawValue = lines[i].Split('\t');
+                    for (var j = 0; j < rawValue.Length; j++) rawValue[j] = rawValue[j].Trim('\"');
 
+                    if (i == 0)
+                        rawColumnCount = rawValue.Length;
+                    else if (rawValue.Length != rawColumnCount)
+                        throw new GameFrameworkException(Utility.Text.Format(
+                            "Data table file '{0}', raw Column is '{2}', but line '{1}' column is '{3}'.",
+                            dataTableFileName, i.ToString(), rawColumnCount.ToString(), rawValue.Length.ToString()));
 
-        [MenuItem("DataTable/GenerateExtension")]
-        private static void GenerateExtension()
+                    rawValues.Add(rawValue);
+                }
+
+                types.AddRange(rawValues.ToArray()[2]);
+                types = types.Distinct().ToList();
+            }
+
+            types.Remove("Id");
+            types.Remove("#");
+            types.Remove("");
+            types.Remove("comment");
+
+            List<DataTableProcessor.DataProcessor> datableDataProcessors =
+                types.Select(DataTableProcessor.DataProcessorUtility.GetDataProcessor).ToList();
+
+            NameSpaces.Add("System");
+            NameSpaces.Add("System.IO");
+            NameSpaces.Add("System.Collections.Generic");
+            NameSpaces.Add("UnityEngine");
+            NameSpaces = NameSpaces.Distinct().ToList();
+            var dataProcessorsArray = datableDataProcessors
+                .Where(_ => _.LanguageKeyword.ToLower().EndsWith("[]"))
+                .Select(_ =>
+                    DataTableProcessor.DataProcessorUtility.GetDataProcessor(_.LanguageKeyword.ToLower()
+                        .Replace("[]", "")))
+                .ToDictionary(_ => _.LanguageKeyword, _ => _);
+            
+            var dataProcessorsList = datableDataProcessors
+                .Where(_ => _.LanguageKeyword.ToLower().StartsWith("list"))
+                .Select(_ => DataTableProcessor.DataProcessorUtility.GetDataProcessor(_.LanguageKeyword.ToLower()
+                    .Replace("list", "").Replace("<", "").Replace(">", "")))
+                .ToDictionary(_ => _.LanguageKeyword, _ => _);
+
+            var dataProcessorsDictionary = datableDataProcessors
+                .Where(_ => _.LanguageKeyword.ToLower().StartsWith("dictionary"))
+                .Select(_ =>
+                    {
+                        var keyValue = _.LanguageKeyword.ToLower()
+                            .Replace("dictionary", "").Replace("<", "").Replace(">", "").Split(',');
+                        return new[]
+                        {
+                            DataTableProcessor.DataProcessorUtility.GetDataProcessor(keyValue[0]),
+                            DataTableProcessor.DataProcessorUtility.GetDataProcessor(keyValue[1])
+                        };
+                    }
+                ).ToList();
+            GenerateDataTableExtensionArray(dataProcessorsArray);
+            GenerateDataTableExtensionList(dataProcessorsList);
+            GenerateBinaryReaderExtensionList(dataProcessorsList);
+            GenerateBinaryReaderExtensionArray(dataProcessorsArray);
+            GenerateDataTableExtensionDictionary(dataProcessorsDictionary);
+            GenerateBinaryReaderExtensionDictionary(dataProcessorsDictionary);
+            AssetDatabase.Refresh();
+        }
+
+        static string ListToString<T>(List<T> array)
+        {
+            var stringBuilder = new StringBuilder();
+            var comma = ",";
+            for (var i = 0; i < array.Count; i++)
+            {
+                var separator = i < array.Count - 1 ? comma : string.Empty;
+                stringBuilder.Append($"{array[i].ToString()}{separator}");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        [MenuItem("DataTable/GenerateAllExtension")]
+        private static void GenerateAllExtension()
         {
             IDictionary<string, DataTableProcessor.DataProcessor> datableDataProcessors =
-                new SortedDictionary<string, DataTableProcessor.DataProcessor>();
-            IDictionary<string, DataTableProcessor.DataProcessor> binaryReaderDataProcessors =
                 new SortedDictionary<string, DataTableProcessor.DataProcessor>();
             var dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
             var types = GetTypeNames(dataProcessorBaseType);
@@ -50,8 +136,17 @@ namespace DE.Editor.DataTableTools
             GenerateDataTableExtensionList(datableDataProcessors);
             GenerateBinaryReaderExtensionList(datableDataProcessors);
             GenerateBinaryReaderExtensionArray(datableDataProcessors);
-            GenerateDataTableExtensionDictionary(datableDataProcessors);
-            GenerateBinaryReaderExtensionDictionary(datableDataProcessors);
+
+            List<DataTableProcessor.DataProcessor[]> keyValueList =
+                PermutationAndCombination<DataTableProcessor.DataProcessor>
+                    .GetCombination(datableDataProcessors.Values.ToArray(), 2).ToList();
+            List<DataTableProcessor.DataProcessor[]> reverseList =
+                keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
+            keyValueList.AddRange(reverseList);
+            foreach (var dataProcessor in datableDataProcessors.Values)
+                keyValueList.Add(new[] {dataProcessor, dataProcessor});
+            GenerateDataTableExtensionDictionary(keyValueList);
+            GenerateBinaryReaderExtensionDictionary(keyValueList);
             AssetDatabase.Refresh();
         }
 
@@ -70,7 +165,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Parse{item.Value.LanguageKeyword.Replace(".","")}Array(string value)");
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Parse{item.Value.LanguageKeyword.Replace(".", "")}Array(string value)");
                 }
                 else
                 {
@@ -113,7 +208,8 @@ namespace DE.Editor.DataTableTools
                         sb.AppendLine($"\t\t\t\t\tarray[i] = ({item.Value.LanguageKeyword})v;");
                         sb.AppendLine("\t\t\t\t\tcontinue;");
                         sb.AppendLine("\t\t\t\t}");
-                        sb.AppendLine($"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
+                        sb.AppendLine(
+                            $"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
                         sb.AppendLine($"\t\t\t\tif (isString)\n\t\t\t\t{{");
                         sb.AppendLine($"\t\t\t\t\tarray[i] = v1;");
                         sb.AppendLine("\t\t\t\t}");
@@ -149,7 +245,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Parse{item.Value.LanguageKeyword.Replace(".","")}List(string value)");
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Parse{item.Value.LanguageKeyword.Replace(".", "")}List(string value)");
                 }
                 else
                     sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
@@ -187,7 +283,8 @@ namespace DE.Editor.DataTableTools
                         sb.AppendLine($"\t\t\t\t\tlist.Add(({item.Value.LanguageKeyword})v);");
                         sb.AppendLine("\t\t\t\t\tcontinue;");
                         sb.AppendLine("\t\t\t\t}");
-                        sb.AppendLine($"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
+                        sb.AppendLine(
+                            $"\t\t\t\tbool isString = EnumParse(splitValue[i], out {item.Value.LanguageKeyword} v1);");
                         sb.AppendLine($"\t\t\t\tif (isString)\n\t\t\t\t{{");
                         sb.AppendLine($"\t\t\t\t\tlist.Add(v1);");
                         sb.AppendLine("\t\t\t\t}");
@@ -223,7 +320,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Read{item.Value.LanguageKeyword.Replace(".","")}List(this BinaryReader binaryReader)");
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Read{item.Value.LanguageKeyword.Replace(".", "")}List(this BinaryReader binaryReader)");
                 }
                 else
                     sb.AppendLine(
@@ -285,7 +382,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Read{item.Value.LanguageKeyword.Replace(".","")}Array(this BinaryReader binaryReader)");
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Read{item.Value.LanguageKeyword.Replace(".", "")}Array(this BinaryReader binaryReader)");
                 }
                 else
                     sb.AppendLine(
@@ -346,16 +443,8 @@ namespace DE.Editor.DataTableTools
             }
         }
 
-        private static void GenerateDataTableExtensionDictionary(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+        private static void GenerateDataTableExtensionDictionary(List<DataTableProcessor.DataProcessor[]> keyValueList)
         {
-            var keyValueList =
-                PermutationAndCombination<DataTableProcessor.DataProcessor>
-                    .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            var reverseList = keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
-            keyValueList.AddRange(reverseList);
-            foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
-
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
@@ -467,23 +556,17 @@ namespace DE.Editor.DataTableTools
             sb.AppendLine("}");
             GenerateCodeFile("DataTableExtension.Dictionary", sb.ToString());
         }
-       static  (string, string) GetNames(DataTableProcessor.DataProcessor t1, DataTableProcessor.DataProcessor t2)
+
+        static (string, string) GetNames(DataTableProcessor.DataProcessor t1, DataTableProcessor.DataProcessor t2)
         {
-            string t1Name = t1.IsEnum ? t1.LanguageKeyword.Replace(".","") : t1.Type.Name;
-            string t2Name = t2.IsEnum ? t2.LanguageKeyword.Replace(".",""): t2.Type.Name;
+            string t1Name = t1.IsEnum ? t1.LanguageKeyword.Replace(".", "") : t1.Type.Name;
+            string t2Name = t2.IsEnum ? t2.LanguageKeyword.Replace(".", "") : t2.Type.Name;
             return (t1Name, t2Name);
         }
 
         private static void GenerateBinaryReaderExtensionDictionary(
-            IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
+            List<DataTableProcessor.DataProcessor[]> keyValueList)
         {
-            var keyValueList =
-                PermutationAndCombination<DataTableProcessor.DataProcessor>
-                    .GetCombination(dataProcessors.Values.ToArray(), 2).ToList();
-            var reverseList = keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
-            keyValueList.AddRange(reverseList);
-            foreach (var dataProcessor in dataProcessors.Values) keyValueList.Add(new[] {dataProcessor, dataProcessor});
-
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
@@ -492,7 +575,6 @@ namespace DE.Editor.DataTableTools
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
 
-           
 
             foreach (var item in keyValueList)
             {
@@ -601,7 +683,6 @@ namespace DE.Editor.DataTableTools
                             sb.AppendLine(
                                 $"\t\t\t\tdictionary.Add(Read{dataProcessorT1.LanguageKeyword}(binaryReader),Read{dataProcessorT2.LanguageKeyword}(binaryReader));");
                         }
-                      
                     }
                 }
 
@@ -645,7 +726,7 @@ namespace DE.Editor.DataTableTools
         {
             return type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object;
         }
-        
+
         private static List<string> NameSpaces = new List<string>();
 
         private static void AddNameSpaces(StringBuilder stringBuilder)
@@ -681,10 +762,8 @@ namespace DE.Editor.DataTableTools
                     enumTypes.Add(type);
                 }
             }
-
-            var groupBy = enumTypes.GroupBy(_ => _.FullName).ToArray();
             var equalElements = enumTypes.GroupBy(_ => _.FullName)
-                .Where(_=>_.Count()>1).SelectMany(_=>_).ToArray();
+                .Where(_ => _.Count() > 1).SelectMany(_ => _).ToArray();
             if (equalElements.Length > 0)
             {
                 StringBuilder stringBuilder = new StringBuilder(256);
@@ -692,7 +771,8 @@ namespace DE.Editor.DataTableTools
                 {
                     stringBuilder.AppendLine($"程序集:{type.Assembly.GetName().Name} 存在同名枚举:{type.FullName}");
                 }
-                throw new Exception("不同程序集中存在同名枚举,请修改后重试.\n"+stringBuilder);
+
+                throw new Exception("不同程序集中存在同名枚举,请修改后重试.\n" + stringBuilder);
             }
 
             foreach (var assemblyName in DataTableProcessorExtensions.AssemblyNames)
