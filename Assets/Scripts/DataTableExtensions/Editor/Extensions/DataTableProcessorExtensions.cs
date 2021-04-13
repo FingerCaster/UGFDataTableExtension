@@ -4,8 +4,25 @@ using JetBrains.Annotations;
 
 namespace DE.Editor
 {
-    public static class TypeExtensions
+    public static class DataTableProcessorExtensions
     {
+        public static readonly string[] AssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            //asmdef
+             "Test",
+#endif
+            "Assembly-CSharp"
+        };
+        public static readonly string[] EditorAssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Editor",
+            "DE.Editor",
+#endif
+            "Assembly-CSharp-Editor"
+        };
+
         /// <summary>
         ///     判断指定的类型 <paramref name="type" /> 是否是指定泛型类型的子类型，或实现了指定泛型接口。
         /// </summary>
@@ -37,6 +54,16 @@ namespace DE.Editor
             {
                 return generic == (test.IsGenericType ? test.GetGenericTypeDefinition() : test);
             }
+        }
+
+        
+        public static string GetFullNameWithNotDot(Type type)
+        {
+            return type.FullName?.Replace(".","");
+        }
+        public static string GetFullNameWithNotDot(string fullName)
+        {
+            return fullName?.Replace(".","");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Test;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,16 +71,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector4> ParseTestEnumVector4Dictionary(string value)
+		public static Dictionary<Test.TestEnum,Vector4> ParseTestTestEnumVector4Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Vector4> dictionary = new Dictionary<TestEnum,Vector4>(splitValue.Length);
+			Dictionary<Test.TestEnum,Vector4> dictionary = new Dictionary<Test.TestEnum,Vector4>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector4(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector4(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
@@ -345,16 +344,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector3> ParseTestEnumVector3Dictionary(string value)
+		public static Dictionary<Test.TestEnum,Vector3> ParseTestTestEnumVector3Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Vector3> dictionary = new Dictionary<TestEnum,Vector3>(splitValue.Length);
+			Dictionary<Test.TestEnum,Vector3> dictionary = new Dictionary<Test.TestEnum,Vector3>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector3(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector3(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
@@ -605,16 +604,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector2> ParseTestEnumVector2Dictionary(string value)
+		public static Dictionary<Test.TestEnum,Vector2> ParseTestTestEnumVector2Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Vector2> dictionary = new Dictionary<TestEnum,Vector2>(splitValue.Length);
+			Dictionary<Test.TestEnum,Vector2> dictionary = new Dictionary<Test.TestEnum,Vector2>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector2(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseVector2(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
@@ -852,16 +851,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,ushort> ParseTestEnumUInt16Dictionary(string value)
+		public static Dictionary<Test.TestEnum,ushort> ParseTestTestEnumUInt16Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,ushort> dictionary = new Dictionary<TestEnum,ushort>(splitValue.Length);
+			Dictionary<Test.TestEnum,ushort> dictionary = new Dictionary<Test.TestEnum,ushort>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),UInt16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -1086,16 +1085,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,ulong> ParseTestEnumUInt64Dictionary(string value)
+		public static Dictionary<Test.TestEnum,ulong> ParseTestTestEnumUInt64Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,ulong> dictionary = new Dictionary<TestEnum,ulong>(splitValue.Length);
+			Dictionary<Test.TestEnum,ulong> dictionary = new Dictionary<Test.TestEnum,ulong>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),UInt64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -1307,16 +1306,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,uint> ParseTestEnumUInt32Dictionary(string value)
+		public static Dictionary<Test.TestEnum,uint> ParseTestTestEnumUInt32Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,uint> dictionary = new Dictionary<TestEnum,uint>(splitValue.Length);
+			Dictionary<Test.TestEnum,uint> dictionary = new Dictionary<Test.TestEnum,uint>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),UInt32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -1528,211 +1527,211 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,TestEnum> ParseStringTestEnumDictionary(string value)
+		public static Dictionary<string,Test.TestEnum> ParseStringTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<string,TestEnum> dictionary = new Dictionary<string,TestEnum>(splitValue.Length);
+			Dictionary<string,Test.TestEnum> dictionary = new Dictionary<string,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(keyValue[0].Substring(1),(TestEnum)int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(keyValue[0].Substring(1),(Test.TestEnum)int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<short,TestEnum> ParseInt16TestEnumDictionary(string value)
+		public static Dictionary<short,Test.TestEnum> ParseInt16TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<short,TestEnum> dictionary = new Dictionary<short,TestEnum>(splitValue.Length);
+			Dictionary<short,Test.TestEnum> dictionary = new Dictionary<short,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Int16.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<sbyte,TestEnum> ParseSByteTestEnumDictionary(string value)
+		public static Dictionary<sbyte,Test.TestEnum> ParseSByteTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<sbyte,TestEnum> dictionary = new Dictionary<sbyte,TestEnum>(splitValue.Length);
+			Dictionary<sbyte,Test.TestEnum> dictionary = new Dictionary<sbyte,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(SByte.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<Rect,TestEnum> ParseRectTestEnumDictionary(string value)
+		public static Dictionary<Rect,Test.TestEnum> ParseRectTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Rect,TestEnum> dictionary = new Dictionary<Rect,TestEnum>(splitValue.Length);
+			Dictionary<Rect,Test.TestEnum> dictionary = new Dictionary<Rect,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseRect(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseRect(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<Quaternion,TestEnum> ParseQuaternionTestEnumDictionary(string value)
+		public static Dictionary<Quaternion,Test.TestEnum> ParseQuaternionTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Quaternion,TestEnum> dictionary = new Dictionary<Quaternion,TestEnum>(splitValue.Length);
+			Dictionary<Quaternion,Test.TestEnum> dictionary = new Dictionary<Quaternion,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseQuaternion(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<long,TestEnum> ParseInt64TestEnumDictionary(string value)
+		public static Dictionary<long,Test.TestEnum> ParseInt64TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<long,TestEnum> dictionary = new Dictionary<long,TestEnum>(splitValue.Length);
+			Dictionary<long,Test.TestEnum> dictionary = new Dictionary<long,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Int64.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<int,TestEnum> ParseInt32TestEnumDictionary(string value)
+		public static Dictionary<int,Test.TestEnum> ParseInt32TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<int,TestEnum> dictionary = new Dictionary<int,TestEnum>(splitValue.Length);
+			Dictionary<int,Test.TestEnum> dictionary = new Dictionary<int,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Int32.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<float,TestEnum> ParseSingleTestEnumDictionary(string value)
+		public static Dictionary<float,Test.TestEnum> ParseSingleTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<float,TestEnum> dictionary = new Dictionary<float,TestEnum>(splitValue.Length);
+			Dictionary<float,Test.TestEnum> dictionary = new Dictionary<float,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Single.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<double,TestEnum> ParseDoubleTestEnumDictionary(string value)
+		public static Dictionary<double,Test.TestEnum> ParseDoubleTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<double,TestEnum> dictionary = new Dictionary<double,TestEnum>(splitValue.Length);
+			Dictionary<double,Test.TestEnum> dictionary = new Dictionary<double,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Double.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<decimal,TestEnum> ParseDecimalTestEnumDictionary(string value)
+		public static Dictionary<decimal,Test.TestEnum> ParseDecimalTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<decimal,TestEnum> dictionary = new Dictionary<decimal,TestEnum>(splitValue.Length);
+			Dictionary<decimal,Test.TestEnum> dictionary = new Dictionary<decimal,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Decimal.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<DateTime,TestEnum> ParseDateTimeTestEnumDictionary(string value)
+		public static Dictionary<DateTime,Test.TestEnum> ParseDateTimeTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<DateTime,TestEnum> dictionary = new Dictionary<DateTime,TestEnum>(splitValue.Length);
+			Dictionary<DateTime,Test.TestEnum> dictionary = new Dictionary<DateTime,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(DateTime.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color32,TestEnum> ParseColor32TestEnumDictionary(string value)
+		public static Dictionary<Color32,Test.TestEnum> ParseColor32TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Color32,TestEnum> dictionary = new Dictionary<Color32,TestEnum>(splitValue.Length);
+			Dictionary<Color32,Test.TestEnum> dictionary = new Dictionary<Color32,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseColor32(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color,TestEnum> ParseColorTestEnumDictionary(string value)
+		public static Dictionary<Color,Test.TestEnum> ParseColorTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Color,TestEnum> dictionary = new Dictionary<Color,TestEnum>(splitValue.Length);
+			Dictionary<Color,Test.TestEnum> dictionary = new Dictionary<Color,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseColor(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseColor(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<char,TestEnum> ParseCharTestEnumDictionary(string value)
+		public static Dictionary<char,Test.TestEnum> ParseCharTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<char,TestEnum> dictionary = new Dictionary<char,TestEnum>(splitValue.Length);
+			Dictionary<char,Test.TestEnum> dictionary = new Dictionary<char,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Char.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<byte,TestEnum> ParseByteTestEnumDictionary(string value)
+		public static Dictionary<byte,Test.TestEnum> ParseByteTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<byte,TestEnum> dictionary = new Dictionary<byte,TestEnum>(splitValue.Length);
+			Dictionary<byte,Test.TestEnum> dictionary = new Dictionary<byte,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Byte.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<bool,TestEnum> ParseBooleanTestEnumDictionary(string value)
+		public static Dictionary<bool,Test.TestEnum> ParseBooleanTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<bool,TestEnum> dictionary = new Dictionary<bool,TestEnum>(splitValue.Length);
+			Dictionary<bool,Test.TestEnum> dictionary = new Dictionary<bool,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(Boolean.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -3361,16 +3360,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector4,TestEnum> ParseVector4TestEnumDictionary(string value)
+		public static Dictionary<Vector4,Test.TestEnum> ParseVector4TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Vector4,TestEnum> dictionary = new Dictionary<Vector4,TestEnum>(splitValue.Length);
+			Dictionary<Vector4,Test.TestEnum> dictionary = new Dictionary<Vector4,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseVector4(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseVector4(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -3634,16 +3633,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector3,TestEnum> ParseVector3TestEnumDictionary(string value)
+		public static Dictionary<Vector3,Test.TestEnum> ParseVector3TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Vector3,TestEnum> dictionary = new Dictionary<Vector3,TestEnum>(splitValue.Length);
+			Dictionary<Vector3,Test.TestEnum> dictionary = new Dictionary<Vector3,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseVector3(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseVector3(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -3894,16 +3893,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector2,TestEnum> ParseVector2TestEnumDictionary(string value)
+		public static Dictionary<Vector2,Test.TestEnum> ParseVector2TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<Vector2,TestEnum> dictionary = new Dictionary<Vector2,TestEnum>(splitValue.Length);
+			Dictionary<Vector2,Test.TestEnum> dictionary = new Dictionary<Vector2,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(ParseVector2(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(ParseVector2(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -4141,16 +4140,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<ushort,TestEnum> ParseUInt16TestEnumDictionary(string value)
+		public static Dictionary<ushort,Test.TestEnum> ParseUInt16TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<ushort,TestEnum> dictionary = new Dictionary<ushort,TestEnum>(splitValue.Length);
+			Dictionary<ushort,Test.TestEnum> dictionary = new Dictionary<ushort,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(UInt16.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -4375,16 +4374,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<ulong,TestEnum> ParseUInt64TestEnumDictionary(string value)
+		public static Dictionary<ulong,Test.TestEnum> ParseUInt64TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<ulong,TestEnum> dictionary = new Dictionary<ulong,TestEnum>(splitValue.Length);
+			Dictionary<ulong,Test.TestEnum> dictionary = new Dictionary<ulong,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(UInt64.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -4596,16 +4595,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<uint,TestEnum> ParseUInt32TestEnumDictionary(string value)
+		public static Dictionary<uint,Test.TestEnum> ParseUInt32TestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<uint,TestEnum> dictionary = new Dictionary<uint,TestEnum>(splitValue.Length);
+			Dictionary<uint,Test.TestEnum> dictionary = new Dictionary<uint,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add(UInt32.Parse(keyValue[0].Substring(1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -4817,211 +4816,211 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,string> ParseTestEnumStringDictionary(string value)
+		public static Dictionary<Test.TestEnum,string> ParseTestTestEnumStringDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,string> dictionary = new Dictionary<TestEnum,string>(splitValue.Length);
+			Dictionary<Test.TestEnum,string> dictionary = new Dictionary<Test.TestEnum,string>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),keyValue[1].Substring(0, keyValue[1].Length - 1));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,short> ParseTestEnumInt16Dictionary(string value)
+		public static Dictionary<Test.TestEnum,short> ParseTestTestEnumInt16Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,short> dictionary = new Dictionary<TestEnum,short>(splitValue.Length);
+			Dictionary<Test.TestEnum,short> dictionary = new Dictionary<Test.TestEnum,short>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Int16.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,sbyte> ParseTestEnumSByteDictionary(string value)
+		public static Dictionary<Test.TestEnum,sbyte> ParseTestTestEnumSByteDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,sbyte> dictionary = new Dictionary<TestEnum,sbyte>(splitValue.Length);
+			Dictionary<Test.TestEnum,sbyte> dictionary = new Dictionary<Test.TestEnum,sbyte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),SByte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Rect> ParseTestEnumRectDictionary(string value)
+		public static Dictionary<Test.TestEnum,Rect> ParseTestTestEnumRectDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Rect> dictionary = new Dictionary<TestEnum,Rect>(splitValue.Length);
+			Dictionary<Test.TestEnum,Rect> dictionary = new Dictionary<Test.TestEnum,Rect>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseRect(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseRect(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Quaternion> ParseTestEnumQuaternionDictionary(string value)
+		public static Dictionary<Test.TestEnum,Quaternion> ParseTestTestEnumQuaternionDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Quaternion> dictionary = new Dictionary<TestEnum,Quaternion>(splitValue.Length);
+			Dictionary<Test.TestEnum,Quaternion> dictionary = new Dictionary<Test.TestEnum,Quaternion>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseQuaternion(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseQuaternion(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,long> ParseTestEnumInt64Dictionary(string value)
+		public static Dictionary<Test.TestEnum,long> ParseTestTestEnumInt64Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,long> dictionary = new Dictionary<TestEnum,long>(splitValue.Length);
+			Dictionary<Test.TestEnum,long> dictionary = new Dictionary<Test.TestEnum,long>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Int64.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,int> ParseTestEnumInt32Dictionary(string value)
+		public static Dictionary<Test.TestEnum,int> ParseTestTestEnumInt32Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,int> dictionary = new Dictionary<TestEnum,int>(splitValue.Length);
+			Dictionary<Test.TestEnum,int> dictionary = new Dictionary<Test.TestEnum,int>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Int32.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,float> ParseTestEnumSingleDictionary(string value)
+		public static Dictionary<Test.TestEnum,float> ParseTestTestEnumSingleDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,float> dictionary = new Dictionary<TestEnum,float>(splitValue.Length);
+			Dictionary<Test.TestEnum,float> dictionary = new Dictionary<Test.TestEnum,float>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Single.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,double> ParseTestEnumDoubleDictionary(string value)
+		public static Dictionary<Test.TestEnum,double> ParseTestTestEnumDoubleDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,double> dictionary = new Dictionary<TestEnum,double>(splitValue.Length);
+			Dictionary<Test.TestEnum,double> dictionary = new Dictionary<Test.TestEnum,double>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Double.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,decimal> ParseTestEnumDecimalDictionary(string value)
+		public static Dictionary<Test.TestEnum,decimal> ParseTestTestEnumDecimalDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,decimal> dictionary = new Dictionary<TestEnum,decimal>(splitValue.Length);
+			Dictionary<Test.TestEnum,decimal> dictionary = new Dictionary<Test.TestEnum,decimal>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Decimal.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,DateTime> ParseTestEnumDateTimeDictionary(string value)
+		public static Dictionary<Test.TestEnum,DateTime> ParseTestTestEnumDateTimeDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,DateTime> dictionary = new Dictionary<TestEnum,DateTime>(splitValue.Length);
+			Dictionary<Test.TestEnum,DateTime> dictionary = new Dictionary<Test.TestEnum,DateTime>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),DateTime.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Color32> ParseTestEnumColor32Dictionary(string value)
+		public static Dictionary<Test.TestEnum,Color32> ParseTestTestEnumColor32Dictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Color32> dictionary = new Dictionary<TestEnum,Color32>(splitValue.Length);
+			Dictionary<Test.TestEnum,Color32> dictionary = new Dictionary<Test.TestEnum,Color32>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseColor32(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseColor32(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Color> ParseTestEnumColorDictionary(string value)
+		public static Dictionary<Test.TestEnum,Color> ParseTestTestEnumColorDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,Color> dictionary = new Dictionary<TestEnum,Color>(splitValue.Length);
+			Dictionary<Test.TestEnum,Color> dictionary = new Dictionary<Test.TestEnum,Color>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseColor(keyValue[0].Substring(1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),ParseColor(keyValue[0].Substring(1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,char> ParseTestEnumCharDictionary(string value)
+		public static Dictionary<Test.TestEnum,char> ParseTestTestEnumCharDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,char> dictionary = new Dictionary<TestEnum,char>(splitValue.Length);
+			Dictionary<Test.TestEnum,char> dictionary = new Dictionary<Test.TestEnum,char>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Char.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Char.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,byte> ParseTestEnumByteDictionary(string value)
+		public static Dictionary<Test.TestEnum,byte> ParseTestTestEnumByteDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,byte> dictionary = new Dictionary<TestEnum,byte>(splitValue.Length);
+			Dictionary<Test.TestEnum,byte> dictionary = new Dictionary<Test.TestEnum,byte>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Byte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Byte.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,bool> ParseTestEnumBooleanDictionary(string value)
+		public static Dictionary<Test.TestEnum,bool> ParseTestTestEnumBooleanDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,bool> dictionary = new Dictionary<TestEnum,bool>(splitValue.Length);
+			Dictionary<Test.TestEnum,bool> dictionary = new Dictionary<Test.TestEnum,bool>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[0].Substring(1)),Boolean.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[0].Substring(1)),Boolean.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}
@@ -6793,16 +6792,16 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,TestEnum> ParseTestEnumTestEnumDictionary(string value)
+		public static Dictionary<Test.TestEnum,Test.TestEnum> ParseTestTestEnumTestTestEnumDictionary(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split('|');
-			Dictionary<TestEnum,TestEnum> dictionary = new Dictionary<TestEnum,TestEnum>(splitValue.Length);
+			Dictionary<Test.TestEnum,Test.TestEnum> dictionary = new Dictionary<Test.TestEnum,Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				string[] keyValue = splitValue[i].Split('#');
-				dictionary.Add((TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),(TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
+				dictionary.Add((Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)),(Test.TestEnum) int.Parse(keyValue[1].Substring(0, keyValue[1].Length - 1)));
 			}
 			return dictionary;
 		}

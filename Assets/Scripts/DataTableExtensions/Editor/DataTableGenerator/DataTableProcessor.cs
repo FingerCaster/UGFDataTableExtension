@@ -132,9 +132,7 @@ namespace DE.Editor.DataTableTools
 
                 for (var j = 0; j < rawColumnCount; j++)
                 {
-                    var collectionProcessor = m_DataProcessor[j] as ICollectionProcessor;
-
-                    if (collectionProcessor != null)
+                    if (m_DataProcessor[j] is ICollectionProcessor collectionProcessor)
                     {
                         if (collectionProcessor.ItemLanguageKeyword != "string") continue;
                     }
@@ -153,7 +151,7 @@ namespace DE.Editor.DataTableTools
                 }
             }
 
-            m_Strings = strings.OrderBy(value => value.Key).OrderByDescending(value => value.Value)
+            m_Strings = strings.OrderBy(value => value.Key).ThenByDescending(value => value.Value)
                 .Select(value => value.Key).ToArray();
 
             m_CodeTemplate = null;

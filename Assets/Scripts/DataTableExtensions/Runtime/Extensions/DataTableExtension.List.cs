@@ -1,5 +1,4 @@
-﻿using Test;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -199,21 +198,21 @@ namespace DE
 			}
 			return list;
 		}
-		public static List<TestEnum> ParseTestEnumList(string value)
+		public static List<Test.TestEnum> ParseTestTestEnumList(string value)
 		{
 			if (string.IsNullOrEmpty(value) || value.ToLowerInvariant().Equals("null"))
 				return null;
 			string[] splitValue = value.Split(',');
-			List<TestEnum> list = new List<TestEnum>(splitValue.Length);
+			List<Test.TestEnum> list = new List<Test.TestEnum>(splitValue.Length);
 			for (int i = 0; i < splitValue.Length; i++)
 			{
 				bool isInt = int.TryParse(splitValue[i], out int v);
 				if (isInt)
 				{
-					list.Add((TestEnum)v);
+					list.Add((Test.TestEnum)v);
 					continue;
 				}
-				bool isString = EnumParse(splitValue[i], out TestEnum v1);
+				bool isString = EnumParse(splitValue[i], out Test.TestEnum v1);
 				if (isString)
 				{
 					list.Add(v1);

@@ -1,5 +1,4 @@
-﻿using Test;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -167,13 +166,13 @@ namespace DE
 			}
 			return array;
 		}
-		public static TestEnum[] ReadTestEnumArray(this BinaryReader binaryReader)
+		public static Test.TestEnum[] ReadTestTestEnumArray(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			TestEnum[] array = new TestEnum[count];
+			Test.TestEnum[] array = new Test.TestEnum[count];
 			for (int i = 0; i < count; i++)
 			{
-				array[i] = (TestEnum)binaryReader.Read7BitEncodedInt32();
+				array[i] = (Test.TestEnum)binaryReader.Read7BitEncodedInt32();
 			}
 			return array;
 		}

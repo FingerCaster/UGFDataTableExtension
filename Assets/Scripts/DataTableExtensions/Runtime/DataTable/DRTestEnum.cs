@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-04-08 09:58:28.321
+// 生成时间：2021-04-13 17:07:01.828
 //------------------------------------------------------------
 
 using GameFramework;
@@ -10,7 +10,6 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using Test;
 
 
 namespace DE
@@ -36,7 +35,7 @@ namespace DE
         /// <summary>
         /// 获取测试枚举。
         /// </summary>
-        public TestEnum TestEnum
+        public Test.TestEnum TestEnum
         {
             get;
             private set;
@@ -45,7 +44,7 @@ namespace DE
         /// <summary>
         /// 获取测试枚举list。
         /// </summary>
-        public List<TestEnum> TestEnumList
+        public List<Test.TestEnum> TestEnumList
         {
             get;
             private set;
@@ -54,7 +53,7 @@ namespace DE
         /// <summary>
         /// 获取测试枚举Array。
         /// </summary>
-        public TestEnum[] TestEnumArray
+        public Test.TestEnum[] TestEnumArray
         {
             get;
             private set;
@@ -63,7 +62,7 @@ namespace DE
         /// <summary>
         /// 获取测试枚举字典。
         /// </summary>
-        public Dictionary<TestEnum,int> TestEnumDic
+        public Dictionary<Test.TestEnum,int> TestEnumDic
         {
             get;
             private set;
@@ -80,10 +79,10 @@ namespace DE
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
-			TestEnum = (TestEnum)int.Parse(columnStrings[index++]);
-			TestEnumList = DataTableExtension.ParseTestEnumList(columnStrings[index++]);
-			TestEnumArray = DataTableExtension.ParseTestEnumArray(columnStrings[index++]);
-			TestEnumDic = DataTableExtension.ParseTestEnumInt32Dictionary(columnStrings[index++]);
+			TestEnum = (Test.TestEnum)int.Parse(columnStrings[index++]);
+			TestEnumList = DataTableExtension.ParseTestTestEnumList(columnStrings[index++]);
+			TestEnumArray = DataTableExtension.ParseTestTestEnumArray(columnStrings[index++]);
+			TestEnumDic = DataTableExtension.ParseTestTestEnumInt32Dictionary(columnStrings[index++]);
             GeneratePropertyArray();
             return true;
         }
@@ -95,10 +94,10 @@ namespace DE
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-					TestEnum = (TestEnum)binaryReader.Read7BitEncodedInt32();
-					TestEnumList = binaryReader.ReadTestEnumList();
-					TestEnumArray = binaryReader.ReadTestEnumArray();
-					TestEnumDic = binaryReader.ReadTestEnumInt32Dictionary();
+					TestEnum = (Test.TestEnum)binaryReader.Read7BitEncodedInt32();
+					TestEnumList = binaryReader.ReadTestTestEnumList();
+					TestEnumArray = binaryReader.ReadTestTestEnumArray();
+					TestEnumDic = binaryReader.ReadTestTestEnumInt32Dictionary();
                 }
             }
 

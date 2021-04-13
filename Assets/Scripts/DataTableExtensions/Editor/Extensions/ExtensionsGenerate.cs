@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using GameFramework;
 using UnityEditor;
+using UnityEngine;
 
 namespace DE.Editor.DataTableTools
 {
@@ -15,14 +16,7 @@ namespace DE.Editor.DataTableTools
         private static readonly string NameSpace = "DE";
 
 
-        private static readonly string[] EditorAssemblyNames =
-        {
-#if UNITY_2017_3_OR_NEWER
-            "UnityGameFramework.Editor",
-            "DE.Editor",
-#endif
-            "Assembly-CSharp-Editor"
-        };
+
 
         [MenuItem("DataTable/GenerateExtension")]
         private static void GenerateExtension()
@@ -76,7 +70,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Parse{item.Value.LanguageKeyword}Array(string value)");
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Parse{item.Value.LanguageKeyword.Replace(".","")}Array(string value)");
                 }
                 else
                 {
@@ -146,7 +140,6 @@ namespace DE.Editor.DataTableTools
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
-
             sb.AppendLine($"namespace {NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
@@ -156,7 +149,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Parse{item.Value.LanguageKeyword}List(string value)");
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Parse{item.Value.LanguageKeyword.Replace(".","")}List(string value)");
                 }
                 else
                     sb.AppendLine($"\t\tpublic static List<{item.Key}> Parse{item.Value.Type.Name}List(string value)");
@@ -230,7 +223,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Read{item.Value.LanguageKeyword}List(this BinaryReader binaryReader)");
+                        $"\t\tpublic static List<{item.Value.LanguageKeyword}> Read{item.Value.LanguageKeyword.Replace(".","")}List(this BinaryReader binaryReader)");
                 }
                 else
                     sb.AppendLine(
@@ -292,7 +285,7 @@ namespace DE.Editor.DataTableTools
                 if (item.Value.IsEnum)
                 {
                     sb.AppendLine(
-                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Read{item.Value.LanguageKeyword}Array(this BinaryReader binaryReader)");
+                        $"\t\tpublic static {item.Value.LanguageKeyword}[] Read{item.Value.LanguageKeyword.Replace(".","")}Array(this BinaryReader binaryReader)");
                 }
                 else
                     sb.AppendLine(
@@ -476,8 +469,8 @@ namespace DE.Editor.DataTableTools
         }
        static  (string, string) GetNames(DataTableProcessor.DataProcessor t1, DataTableProcessor.DataProcessor t2)
         {
-            string t1Name = t1.IsEnum ? t1.LanguageKeyword : t1.Type.Name;
-            string t2Name = t2.IsEnum ? t2.LanguageKeyword : t2.Type.Name;
+            string t1Name = t1.IsEnum ? t1.LanguageKeyword.Replace(".","") : t1.Type.Name;
+            string t2Name = t2.IsEnum ? t2.LanguageKeyword.Replace(".",""): t2.Type.Name;
             return (t1Name, t2Name);
         }
 
@@ -625,7 +618,7 @@ namespace DE.Editor.DataTableTools
         public static List<Type> GetTypeNames(Type typeBase)
         {
             var typeNames = new List<Type>();
-            foreach (var assemblyName in EditorAssemblyNames)
+            foreach (var assemblyName in DataTableProcessorExtensions.EditorAssemblyNames)
             {
                 Assembly assembly = null;
                 try
@@ -652,15 +645,7 @@ namespace DE.Editor.DataTableTools
         {
             return type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object;
         }
-
-        private static readonly string[] AssemblyNames =
-        {
-#if UNITY_2017_3_OR_NEWER
-            //asmdef
-#endif
-            "Assembly-CSharp"
-        };
-
+        
         private static List<string> NameSpaces = new List<string>();
 
         private static void AddNameSpaces(StringBuilder stringBuilder)
@@ -674,8 +659,43 @@ namespace DE.Editor.DataTableTools
         private static void AddEnumType(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             Type enumProcessorTypeBase = Type.GetType("DE.Editor.DataTableTools.DataTableProcessor+EnumProcessor`1");
+            List<Type> enumTypes = new List<Type>();
+            foreach (var assemblyName in DataTableProcessorExtensions.AssemblyNames)
+            {
+                Assembly assembly = null;
+                try
+                {
+                    assembly = Assembly.Load(assemblyName);
+                }
+                catch
+                {
+                    continue;
+                }
 
-            foreach (var assemblyName in AssemblyNames)
+                if (assembly == null) continue;
+
+                var types = assembly.GetTypes();
+                foreach (var type in types)
+                {
+                    if (!type.IsEnum) continue;
+                    enumTypes.Add(type);
+                }
+            }
+
+            var groupBy = enumTypes.GroupBy(_ => _.FullName).ToArray();
+            var equalElements = enumTypes.GroupBy(_ => _.FullName)
+                .Where(_=>_.Count()>1).SelectMany(_=>_).ToArray();
+            if (equalElements.Length > 0)
+            {
+                StringBuilder stringBuilder = new StringBuilder(256);
+                foreach (var type in equalElements)
+                {
+                    stringBuilder.AppendLine($"程序集:{type.Assembly.GetName().Name} 存在同名枚举:{type.FullName}");
+                }
+                throw new Exception("不同程序集中存在同名枚举,请修改后重试.\n"+stringBuilder);
+            }
+
+            foreach (var assemblyName in DataTableProcessorExtensions.AssemblyNames)
             {
                 Assembly assembly = null;
                 try
@@ -700,10 +720,6 @@ namespace DE.Editor.DataTableTools
                         dataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
                         string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
                             ?.GetValue(dataProcessor) as string;
-                        if (!string.IsNullOrEmpty(nameSpace))
-                        {
-                            NameSpaces.Add(nameSpace);
-                        }
                     }
                 }
             }

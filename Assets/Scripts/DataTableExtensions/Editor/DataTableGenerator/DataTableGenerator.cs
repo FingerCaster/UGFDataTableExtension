@@ -172,14 +172,7 @@ namespace DE.Editor.DataTableTools
 
                         if (dataProcessor.IsEnum)
                         {
-                            Debug.Log(dataProcessor.GetType().FullName);
-                            string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
-                                ?.GetValue(dataProcessor) as string;
-                            if (!string.IsNullOrEmpty(nameSpace))
-                            {
-                                _nameSpace.Add(nameSpace);
-                            }
-                            typeName = dataProcessor.LanguageKeyword;
+                            typeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessor.LanguageKeyword);
                         }
 
                         stringBuilder
@@ -197,13 +190,7 @@ namespace DE.Editor.DataTableTools
 
                         if (dataProcessor.IsEnum)
                         {
-                            string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
-                                ?.GetValue(dataProcessor) as string;
-                            if (!string.IsNullOrEmpty(nameSpace))
-                            {
-                                _nameSpace.Add(nameSpace);
-                            }
-                            typeName = dataProcessor.LanguageKeyword;
+                            typeName =  DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessor.LanguageKeyword);
                         }
                         stringBuilder
                             .AppendFormat("\t\t\t{0} = DataTableExtension.Parse{1}Array(columnStrings[index++]);",
@@ -221,25 +208,13 @@ namespace DE.Editor.DataTableTools
                         var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
                         if (dataProcessorT1.IsEnum)
                         {
-                            string nameSpace = dataProcessorT1.GetType().GetProperty("NameSpace")
-                                ?.GetValue(dataProcessorT1) as string;
-                            if (!string.IsNullOrEmpty(nameSpace))
-                            {
-                                _nameSpace.Add(nameSpace);
-                            }
-                            dataProcessorT1TypeName = dataProcessorT1.LanguageKeyword;
+                            dataProcessorT1TypeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessorT1.LanguageKeyword);
                         }
 
                         var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
                         if (dataProcessorT2.IsEnum)
                         {
-                            string nameSpace = dataProcessorT2.GetType().GetProperty("NameSpace")
-                                ?.GetValue(dataProcessorT2) as string;
-                            if (!string.IsNullOrEmpty(nameSpace))
-                            {
-                                _nameSpace.Add(nameSpace);
-                            }
-                            dataProcessorT2TypeName = dataProcessorT2.LanguageKeyword;
+                            dataProcessorT2TypeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessorT2.LanguageKeyword);
                         }
                         stringBuilder.AppendFormat(
                                 "\t\t\t{0} = DataTableExtension.Parse{1}{2}Dictionary(columnStrings[index++]);",
@@ -250,12 +225,8 @@ namespace DE.Editor.DataTableTools
 
                     if (dataTableProcessor.IsEnumrColumn(i))
                     {
-                        if (!string.IsNullOrEmpty(dataTableProcessor.GetNameSpace(i)))
-                        {
-                            _nameSpace.Add(dataTableProcessor.GetNameSpace(i));
-                        }
-                        stringBuilder.AppendFormat("\t\t\t{0} = ({0})int.Parse(columnStrings[index++]);",
-                            dataTableProcessor.GetName(i)).AppendLine();
+                        stringBuilder.AppendFormat("\t\t\t{0} = ({1})int.Parse(columnStrings[index++]);",
+                            dataTableProcessor.GetName(i), dataTableProcessor.GetLanguageKeyword(i)).AppendLine();
                         continue;
                     }
 
@@ -308,13 +279,7 @@ namespace DE.Editor.DataTableTools
                     string typeName = dataProcessor.Type.Name;
                     if (dataProcessor.IsEnum)
                     {
-                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
-                            ?.GetValue(dataProcessor) as string;
-                        if (!string.IsNullOrEmpty(nameSpace))
-                        {
-                            _nameSpace.Add(nameSpace);
-                        }
-                        typeName = dataProcessor.LanguageKeyword;
+                        typeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessor.LanguageKeyword);
                     }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}List();",
                         dataTableProcessor.GetName(i), typeName).AppendLine();
@@ -329,13 +294,7 @@ namespace DE.Editor.DataTableTools
 
                     if (dataProcessor.IsEnum)
                     {
-                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
-                            ?.GetValue(dataProcessor) as string;
-                        if (!string.IsNullOrEmpty(nameSpace))
-                        {
-                            _nameSpace.Add(nameSpace);
-                        }
-                        typeName = dataProcessor.LanguageKeyword;
+                        typeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessor.LanguageKeyword);
                     }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}Array();",
                         dataTableProcessor.GetName(i),typeName).AppendLine();
@@ -352,25 +311,13 @@ namespace DE.Editor.DataTableTools
                     var dataProcessorT1TypeName = dataProcessorT1.Type.Name;
                     if (dataProcessorT1.IsEnum)
                     {
-                        string nameSpace = dataProcessorT1.GetType().GetProperty("NameSpace")
-                            ?.GetValue(dataProcessorT1) as string;
-                        if (!string.IsNullOrEmpty(nameSpace))
-                        {
-                            _nameSpace.Add(nameSpace);
-                        }
-                        dataProcessorT1TypeName = dataProcessorT1.LanguageKeyword;
+                        dataProcessorT1TypeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessorT1.LanguageKeyword);
                     }
 
                     var dataProcessorT2TypeName = dataProcessorT2.Type.Name;
                     if (dataProcessorT2.IsEnum)
                     {
-                        string nameSpace = dataProcessorT2.GetType().GetProperty("NameSpace")
-                            ?.GetValue(dataProcessorT2) as string;
-                        if (!string.IsNullOrEmpty(nameSpace))
-                        {
-                            _nameSpace.Add(nameSpace);
-                        }
-                        dataProcessorT2TypeName = dataProcessorT2.LanguageKeyword;
+                        dataProcessorT2TypeName = DataTableProcessorExtensions.GetFullNameWithNotDot(dataProcessorT2.LanguageKeyword);
                     }
                     stringBuilder.AppendFormat("\t\t\t\t\t{0} = binaryReader.Read{1}{2}Dictionary();",
                             dataTableProcessor.GetName(i),dataProcessorT1TypeName,dataProcessorT2TypeName)
@@ -380,12 +327,8 @@ namespace DE.Editor.DataTableTools
                 
                 if (dataTableProcessor.IsEnumrColumn(i))
                 {
-                    if (!string.IsNullOrEmpty(dataTableProcessor.GetNameSpace(i)))
-                    {
-                        _nameSpace.Add(dataTableProcessor.GetNameSpace(i));
-                    }
-                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = ({0})binaryReader.Read7BitEncodedInt32();",
-                        dataTableProcessor.GetName(i)).AppendLine();;
+                    stringBuilder.AppendFormat("\t\t\t\t\t{0} = ({1})binaryReader.Read7BitEncodedInt32();",
+                        dataTableProcessor.GetName(i), dataTableProcessor.GetLanguageKeyword(i)).AppendLine();;
                     continue;
                 }
 
@@ -536,6 +479,7 @@ namespace DE.Editor.DataTableTools
 
             return stringBuilder.ToString();
         }
+        
 
         private sealed class PropertyCollection
         {

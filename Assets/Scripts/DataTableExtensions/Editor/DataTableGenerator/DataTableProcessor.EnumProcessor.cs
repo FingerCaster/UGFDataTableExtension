@@ -20,7 +20,7 @@ namespace DE.Editor.DataTableTools
             public override bool IsSystem => false;
             public override bool IsEnum => true;
             public string NameSpace => EnumType.Namespace;
-            public override string LanguageKeyword => EnumType.Name;
+            public override string LanguageKeyword => EnumType.FullName;
 
             public override string[] GetTypeStrings()
             {
@@ -32,7 +32,7 @@ namespace DE.Editor.DataTableTools
                 {
                     return new[]
                     {
-                        EnumType.Name.ToLower(),
+                        //EnumType.Name.ToLower(),
                         EnumType.FullName.ToLower()
                     };
                 }

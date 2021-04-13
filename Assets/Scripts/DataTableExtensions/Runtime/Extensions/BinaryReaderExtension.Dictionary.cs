@@ -1,5 +1,4 @@
-﻿using Test;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,13 +56,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector4> ReadTestEnumVector4Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Vector4> ReadTestTestEnumVector4Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Vector4> dictionary = new Dictionary<TestEnum,Vector4>(count);
+			Dictionary<Test.TestEnum,Vector4> dictionary = new Dictionary<Test.TestEnum,Vector4>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector4(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector4(binaryReader));
 			}
 			return dictionary;
 		}
@@ -267,13 +266,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector3> ReadTestEnumVector3Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Vector3> ReadTestTestEnumVector3Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Vector3> dictionary = new Dictionary<TestEnum,Vector3>(count);
+			Dictionary<Test.TestEnum,Vector3> dictionary = new Dictionary<Test.TestEnum,Vector3>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector3(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector3(binaryReader));
 			}
 			return dictionary;
 		}
@@ -467,13 +466,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Vector2> ReadTestEnumVector2Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Vector2> ReadTestTestEnumVector2Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Vector2> dictionary = new Dictionary<TestEnum,Vector2>(count);
+			Dictionary<Test.TestEnum,Vector2> dictionary = new Dictionary<Test.TestEnum,Vector2>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector2(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadVector2(binaryReader));
 			}
 			return dictionary;
 		}
@@ -657,13 +656,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,ushort> ReadTestEnumUInt16Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,ushort> ReadTestTestEnumUInt16Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,ushort> dictionary = new Dictionary<TestEnum,ushort>(count);
+			Dictionary<Test.TestEnum,ushort> dictionary = new Dictionary<Test.TestEnum,ushort>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadUInt16());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadUInt16());
 			}
 			return dictionary;
 		}
@@ -837,13 +836,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,ulong> ReadTestEnumUInt64Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,ulong> ReadTestTestEnumUInt64Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,ulong> dictionary = new Dictionary<TestEnum,ulong>(count);
+			Dictionary<Test.TestEnum,ulong> dictionary = new Dictionary<Test.TestEnum,ulong>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),(ulong) binaryReader.Read7BitEncodedUInt64());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),(ulong) binaryReader.Read7BitEncodedUInt64());
 			}
 			return dictionary;
 		}
@@ -1007,13 +1006,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,uint> ReadTestEnumUInt32Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,uint> ReadTestTestEnumUInt32Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,uint> dictionary = new Dictionary<TestEnum,uint>(count);
+			Dictionary<Test.TestEnum,uint> dictionary = new Dictionary<Test.TestEnum,uint>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),(uint) binaryReader.Read7BitEncodedUInt32());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),(uint) binaryReader.Read7BitEncodedUInt32());
 			}
 			return dictionary;
 		}
@@ -1177,163 +1176,163 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<string,TestEnum> ReadStringTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<string,Test.TestEnum> ReadStringTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<string,TestEnum> dictionary = new Dictionary<string,TestEnum>(count);
+			Dictionary<string,Test.TestEnum> dictionary = new Dictionary<string,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadString(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadString(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<short,TestEnum> ReadInt16TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<short,Test.TestEnum> ReadInt16TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<short,TestEnum> dictionary = new Dictionary<short,TestEnum>(count);
+			Dictionary<short,Test.TestEnum> dictionary = new Dictionary<short,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadInt16(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadInt16(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<sbyte,TestEnum> ReadSByteTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<sbyte,Test.TestEnum> ReadSByteTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<sbyte,TestEnum> dictionary = new Dictionary<sbyte,TestEnum>(count);
+			Dictionary<sbyte,Test.TestEnum> dictionary = new Dictionary<sbyte,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadSByte(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadSByte(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Rect,TestEnum> ReadRectTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Rect,Test.TestEnum> ReadRectTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Rect,TestEnum> dictionary = new Dictionary<Rect,TestEnum>(count);
+			Dictionary<Rect,Test.TestEnum> dictionary = new Dictionary<Rect,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadRect(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadRect(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Quaternion,TestEnum> ReadQuaternionTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Quaternion,Test.TestEnum> ReadQuaternionTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Quaternion,TestEnum> dictionary = new Dictionary<Quaternion,TestEnum>(count);
+			Dictionary<Quaternion,Test.TestEnum> dictionary = new Dictionary<Quaternion,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadQuaternion(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadQuaternion(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<long,TestEnum> ReadInt64TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<long,Test.TestEnum> ReadInt64TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<long,TestEnum> dictionary = new Dictionary<long,TestEnum>(count);
+			Dictionary<long,Test.TestEnum> dictionary = new Dictionary<long,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedInt64(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.Read7BitEncodedInt64(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<int,TestEnum> ReadInt32TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<int,Test.TestEnum> ReadInt32TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<int,TestEnum> dictionary = new Dictionary<int,TestEnum>(count);
+			Dictionary<int,Test.TestEnum> dictionary = new Dictionary<int,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedInt32(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.Read7BitEncodedInt32(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<float,TestEnum> ReadSingleTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<float,Test.TestEnum> ReadSingleTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<float,TestEnum> dictionary = new Dictionary<float,TestEnum>(count);
+			Dictionary<float,Test.TestEnum> dictionary = new Dictionary<float,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadSingle(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadSingle(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<double,TestEnum> ReadDoubleTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<double,Test.TestEnum> ReadDoubleTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<double,TestEnum> dictionary = new Dictionary<double,TestEnum>(count);
+			Dictionary<double,Test.TestEnum> dictionary = new Dictionary<double,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadDouble(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadDouble(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<decimal,TestEnum> ReadDecimalTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<decimal,Test.TestEnum> ReadDecimalTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<decimal,TestEnum> dictionary = new Dictionary<decimal,TestEnum>(count);
+			Dictionary<decimal,Test.TestEnum> dictionary = new Dictionary<decimal,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadDecimal(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadDecimal(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<DateTime,TestEnum> ReadDateTimeTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<DateTime,Test.TestEnum> ReadDateTimeTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<DateTime,TestEnum> dictionary = new Dictionary<DateTime,TestEnum>(count);
+			Dictionary<DateTime,Test.TestEnum> dictionary = new Dictionary<DateTime,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadDateTime(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadDateTime(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color32,TestEnum> ReadColor32TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Color32,Test.TestEnum> ReadColor32TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Color32,TestEnum> dictionary = new Dictionary<Color32,TestEnum>(count);
+			Dictionary<Color32,Test.TestEnum> dictionary = new Dictionary<Color32,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadColor32(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadColor32(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<Color,TestEnum> ReadColorTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Color,Test.TestEnum> ReadColorTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Color,TestEnum> dictionary = new Dictionary<Color,TestEnum>(count);
+			Dictionary<Color,Test.TestEnum> dictionary = new Dictionary<Color,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadColor(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadColor(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<char,TestEnum> ReadCharTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<char,Test.TestEnum> ReadCharTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<char,TestEnum> dictionary = new Dictionary<char,TestEnum>(count);
+			Dictionary<char,Test.TestEnum> dictionary = new Dictionary<char,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadChar(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadChar(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<byte,TestEnum> ReadByteTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<byte,Test.TestEnum> ReadByteTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<byte,TestEnum> dictionary = new Dictionary<byte,TestEnum>(count);
+			Dictionary<byte,Test.TestEnum> dictionary = new Dictionary<byte,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadByte(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadByte(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<bool,TestEnum> ReadBooleanTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<bool,Test.TestEnum> ReadBooleanTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<bool,TestEnum> dictionary = new Dictionary<bool,TestEnum>(count);
+			Dictionary<bool,Test.TestEnum> dictionary = new Dictionary<bool,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadBoolean(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadBoolean(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -2587,13 +2586,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector4,TestEnum> ReadVector4TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Vector4,Test.TestEnum> ReadVector4TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Vector4,TestEnum> dictionary = new Dictionary<Vector4,TestEnum>(count);
+			Dictionary<Vector4,Test.TestEnum> dictionary = new Dictionary<Vector4,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadVector4(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadVector4(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -2797,13 +2796,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector3,TestEnum> ReadVector3TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Vector3,Test.TestEnum> ReadVector3TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Vector3,TestEnum> dictionary = new Dictionary<Vector3,TestEnum>(count);
+			Dictionary<Vector3,Test.TestEnum> dictionary = new Dictionary<Vector3,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadVector3(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadVector3(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -2997,13 +2996,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<Vector2,TestEnum> ReadVector2TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Vector2,Test.TestEnum> ReadVector2TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<Vector2,TestEnum> dictionary = new Dictionary<Vector2,TestEnum>(count);
+			Dictionary<Vector2,Test.TestEnum> dictionary = new Dictionary<Vector2,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(ReadVector2(binaryReader),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(ReadVector2(binaryReader),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -3187,13 +3186,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<ushort,TestEnum> ReadUInt16TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<ushort,Test.TestEnum> ReadUInt16TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<ushort,TestEnum> dictionary = new Dictionary<ushort,TestEnum>(count);
+			Dictionary<ushort,Test.TestEnum> dictionary = new Dictionary<ushort,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.ReadUInt16(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.ReadUInt16(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -3367,13 +3366,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<ulong,TestEnum> ReadUInt64TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<ulong,Test.TestEnum> ReadUInt64TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<ulong,TestEnum> dictionary = new Dictionary<ulong,TestEnum>(count);
+			Dictionary<ulong,Test.TestEnum> dictionary = new Dictionary<ulong,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedUInt64(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.Read7BitEncodedUInt64(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -3537,13 +3536,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<uint,TestEnum> ReadUInt32TestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<uint,Test.TestEnum> ReadUInt32TestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<uint,TestEnum> dictionary = new Dictionary<uint,TestEnum>(count);
+			Dictionary<uint,Test.TestEnum> dictionary = new Dictionary<uint,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add(binaryReader.Read7BitEncodedUInt32(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add(binaryReader.Read7BitEncodedUInt32(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
@@ -3707,163 +3706,163 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,string> ReadTestEnumStringDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,string> ReadTestTestEnumStringDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,string> dictionary = new Dictionary<TestEnum,string>(count);
+			Dictionary<Test.TestEnum,string> dictionary = new Dictionary<Test.TestEnum,string>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadString());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadString());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,short> ReadTestEnumInt16Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,short> ReadTestTestEnumInt16Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,short> dictionary = new Dictionary<TestEnum,short>(count);
+			Dictionary<Test.TestEnum,short> dictionary = new Dictionary<Test.TestEnum,short>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadInt16());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadInt16());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,sbyte> ReadTestEnumSByteDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,sbyte> ReadTestTestEnumSByteDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,sbyte> dictionary = new Dictionary<TestEnum,sbyte>(count);
+			Dictionary<Test.TestEnum,sbyte> dictionary = new Dictionary<Test.TestEnum,sbyte>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadSByte());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadSByte());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Rect> ReadTestEnumRectDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Rect> ReadTestTestEnumRectDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Rect> dictionary = new Dictionary<TestEnum,Rect>(count);
+			Dictionary<Test.TestEnum,Rect> dictionary = new Dictionary<Test.TestEnum,Rect>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadRect(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadRect(binaryReader));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Quaternion> ReadTestEnumQuaternionDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Quaternion> ReadTestTestEnumQuaternionDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Quaternion> dictionary = new Dictionary<TestEnum,Quaternion>(count);
+			Dictionary<Test.TestEnum,Quaternion> dictionary = new Dictionary<Test.TestEnum,Quaternion>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadQuaternion(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadQuaternion(binaryReader));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,long> ReadTestEnumInt64Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,long> ReadTestTestEnumInt64Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,long> dictionary = new Dictionary<TestEnum,long>(count);
+			Dictionary<Test.TestEnum,long> dictionary = new Dictionary<Test.TestEnum,long>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),(long) binaryReader.Read7BitEncodedInt64());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),(long) binaryReader.Read7BitEncodedInt64());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,int> ReadTestEnumInt32Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,int> ReadTestTestEnumInt32Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,int> dictionary = new Dictionary<TestEnum,int>(count);
+			Dictionary<Test.TestEnum,int> dictionary = new Dictionary<Test.TestEnum,int>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),(int) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),(int) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,float> ReadTestEnumSingleDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,float> ReadTestTestEnumSingleDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,float> dictionary = new Dictionary<TestEnum,float>(count);
+			Dictionary<Test.TestEnum,float> dictionary = new Dictionary<Test.TestEnum,float>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadSingle());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadSingle());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,double> ReadTestEnumDoubleDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,double> ReadTestTestEnumDoubleDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,double> dictionary = new Dictionary<TestEnum,double>(count);
+			Dictionary<Test.TestEnum,double> dictionary = new Dictionary<Test.TestEnum,double>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadDouble());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadDouble());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,decimal> ReadTestEnumDecimalDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,decimal> ReadTestTestEnumDecimalDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,decimal> dictionary = new Dictionary<TestEnum,decimal>(count);
+			Dictionary<Test.TestEnum,decimal> dictionary = new Dictionary<Test.TestEnum,decimal>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadDecimal());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadDecimal());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,DateTime> ReadTestEnumDateTimeDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,DateTime> ReadTestTestEnumDateTimeDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,DateTime> dictionary = new Dictionary<TestEnum,DateTime>(count);
+			Dictionary<Test.TestEnum,DateTime> dictionary = new Dictionary<Test.TestEnum,DateTime>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadDateTime(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadDateTime(binaryReader));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Color32> ReadTestEnumColor32Dictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Color32> ReadTestTestEnumColor32Dictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Color32> dictionary = new Dictionary<TestEnum,Color32>(count);
+			Dictionary<Test.TestEnum,Color32> dictionary = new Dictionary<Test.TestEnum,Color32>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadColor32(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadColor32(binaryReader));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,Color> ReadTestEnumColorDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Color> ReadTestTestEnumColorDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,Color> dictionary = new Dictionary<TestEnum,Color>(count);
+			Dictionary<Test.TestEnum,Color> dictionary = new Dictionary<Test.TestEnum,Color>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),ReadColor(binaryReader));
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),ReadColor(binaryReader));
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,char> ReadTestEnumCharDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,char> ReadTestTestEnumCharDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,char> dictionary = new Dictionary<TestEnum,char>(count);
+			Dictionary<Test.TestEnum,char> dictionary = new Dictionary<Test.TestEnum,char>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadChar());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadChar());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,byte> ReadTestEnumByteDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,byte> ReadTestTestEnumByteDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,byte> dictionary = new Dictionary<TestEnum,byte>(count);
+			Dictionary<Test.TestEnum,byte> dictionary = new Dictionary<Test.TestEnum,byte>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadByte());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadByte());
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,bool> ReadTestEnumBooleanDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,bool> ReadTestTestEnumBooleanDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,bool> dictionary = new Dictionary<TestEnum,bool>(count);
+			Dictionary<Test.TestEnum,bool> dictionary = new Dictionary<Test.TestEnum,bool>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadBoolean());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),binaryReader.ReadBoolean());
 			}
 			return dictionary;
 		}
@@ -5227,13 +5226,13 @@ namespace DE
 			}
 			return dictionary;
 		}
-		public static Dictionary<TestEnum,TestEnum> ReadTestEnumTestEnumDictionary(this BinaryReader binaryReader)
+		public static Dictionary<Test.TestEnum,Test.TestEnum> ReadTestTestEnumTestTestEnumDictionary(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
-			Dictionary<TestEnum,TestEnum> dictionary = new Dictionary<TestEnum,TestEnum>(count);
+			Dictionary<Test.TestEnum,Test.TestEnum> dictionary = new Dictionary<Test.TestEnum,Test.TestEnum>(count);
 			for (int i = 0; i < count; i++)
 			{
-				dictionary.Add((TestEnum) binaryReader.Read7BitEncodedInt32(),(TestEnum) binaryReader.Read7BitEncodedInt32());
+				dictionary.Add((Test.TestEnum) binaryReader.Read7BitEncodedInt32(),(Test.TestEnum) binaryReader.Read7BitEncodedInt32());
 			}
 			return dictionary;
 		}

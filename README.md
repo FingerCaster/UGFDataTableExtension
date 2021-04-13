@@ -21,12 +21,30 @@ Dictionary在数据表中的类型为配置 dictionary\<keyType,valueType> （�
 例：dictionary\<int,int> {1#1}|{2#2}|{3#3}     dictionary\<int,vector3>
  {1#0.2,1.5,100}|{2#222,444,111}|{3#3.15,385.123,123}
 
-枚举类型在数据表中的类型为 枚举名称 值为枚举对应的int值 不支持使用枚举元素名
-例: TestEnum  1
+枚举类型在数据表中的类型为 枚举全名 值为枚举对应的int值 或  string 枚举项名称 
+
+例如：
+
+```C#
+namespace Test
+{
+    public enum TestEnum
+    {
+        None = 0,
+        Test1 = 1,
+        Test2 = 2
+    }
+}
+```
+
+| 数据表中类型 | Test.TestEnum |
+| ------------ | ------------- |
+| 值           | 0             |
+| 值           | Test1         |
+
+<font color=#FF0000>注意:枚举类型在作为集合中的元素时 需要生成Extension 否则会导致找不到解析函数问题枚举类型不支持在不同Assembly 下 存在同名枚举  在生成扩展过程中会 报异常提醒 请注意修改。 </font>
 
 <font color=#FF0000>注意:string类型不能在字符串中出现分隔符 不然会导致分割出错。</font>
-
-<font color=#FF0000>枚举类型在作为集合中的元素时 需要生成Extension 否则会导致找不到解析函数问题</font>
 
 GF中实现了GenericDataProcessor的类型有22中 为Boolean,Byte,Char,Color,Color32,DateTime,Decimal,Double,Single,Int32,Int64,Quaternion,Rect,SByte,Int16,String,UInt32,UInt64,UInt16,Vector2,Vector3,Vector4 
 自定义类型可以自行扩展。
