@@ -36,16 +36,6 @@ namespace DE
 			}
 			return list;
 		}
-		public static List<Color> ReadColorList(this BinaryReader binaryReader)
-		{
-			int count = binaryReader.Read7BitEncodedInt32();
-			List<Color> list = new List<Color>(count);
-			for (int i = 0; i < count; i++)
-			{
-				list.Add(ReadColor(binaryReader));
-			}
-			return list;
-		}
 		public static List<Color32> ReadColor32List(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
@@ -53,6 +43,16 @@ namespace DE
 			for (int i = 0; i < count; i++)
 			{
 				list.Add(ReadColor32(binaryReader));
+			}
+			return list;
+		}
+		public static List<Color> ReadColorList(this BinaryReader binaryReader)
+		{
+			int count = binaryReader.Read7BitEncodedInt32();
+			List<Color> list = new List<Color>(count);
+			for (int i = 0; i < count; i++)
+			{
+				list.Add(ReadColor(binaryReader));
 			}
 			return list;
 		}
@@ -166,16 +166,6 @@ namespace DE
 			}
 			return list;
 		}
-		public static List<Test.TestEnum> ReadTestTestEnumList(this BinaryReader binaryReader)
-		{
-			int count = binaryReader.Read7BitEncodedInt32();
-			List<Test.TestEnum> list = new List<Test.TestEnum>(count);
-			for (int i = 0; i < count; i++)
-			{
-				list.Add((Test.TestEnum)binaryReader.Read7BitEncodedInt32());
-			}
-			return list;
-		}
 		public static List<uint> ReadUInt32List(this BinaryReader binaryReader)
 		{
 			int count = binaryReader.Read7BitEncodedInt32();
@@ -233,6 +223,16 @@ namespace DE
 			for (int i = 0; i < count; i++)
 			{
 				list.Add(ReadVector4(binaryReader));
+			}
+			return list;
+		}
+		public static List<Test.TestEnum> ReadTestTestEnumList(this BinaryReader binaryReader)
+		{
+			int count = binaryReader.Read7BitEncodedInt32();
+			List<Test.TestEnum> list = new List<Test.TestEnum>(count);
+			for (int i = 0; i < count; i++)
+			{
+				list.Add((Test.TestEnum)binaryReader.Read7BitEncodedInt32());
 			}
 			return list;
 		}
