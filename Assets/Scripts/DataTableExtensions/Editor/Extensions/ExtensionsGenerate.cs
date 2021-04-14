@@ -84,71 +84,70 @@ namespace DE.Editor.DataTableTools
                         };
                     }
                 ).ToList();
-            GenerateDataTableExtensionArray(dataProcessorsArray);
-            GenerateDataTableExtensionList(dataProcessorsList);
-            GenerateBinaryReaderExtensionList(dataProcessorsList);
-            GenerateBinaryReaderExtensionArray(dataProcessorsArray);
-            GenerateDataTableExtensionDictionary(dataProcessorsDictionary);
-            GenerateBinaryReaderExtensionDictionary(dataProcessorsDictionary);
+            if (dataProcessorsArray.Count > 0)
+            {
+                GenerateDataTableExtensionArray(dataProcessorsArray);
+                GenerateBinaryReaderExtensionArray(dataProcessorsArray);
+            }
+            if (dataProcessorsList.Count>0)
+            {
+                GenerateDataTableExtensionList(dataProcessorsList);
+                GenerateBinaryReaderExtensionList(dataProcessorsList);
+            }
+
+            if (dataProcessorsDictionary.Count > 0)
+            {
+                GenerateDataTableExtensionDictionary(dataProcessorsDictionary);
+                GenerateBinaryReaderExtensionDictionary(dataProcessorsDictionary);
+            }
             AssetDatabase.Refresh();
         }
 
-        static string ListToString<T>(List<T> array)
-        {
-            var stringBuilder = new StringBuilder();
-            var comma = ",";
-            for (var i = 0; i < array.Count; i++)
-            {
-                var separator = i < array.Count - 1 ? comma : string.Empty;
-                stringBuilder.Append($"{array[i].ToString()}{separator}");
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        [MenuItem("DataTable/GenerateAllExtension")]
-        private static void GenerateAllExtension()
-        {
-            IDictionary<string, DataTableProcessor.DataProcessor> datableDataProcessors =
-                new SortedDictionary<string, DataTableProcessor.DataProcessor>();
-            var dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
-            var types = GetTypeNames(dataProcessorBaseType);
-            for (var i = 0; i < types.Count; i++)
-            {
-                if (!types[i].IsClass || types[i].IsAbstract || types[i].ContainsGenericParameters) continue;
-
-                if (dataProcessorBaseType.IsAssignableFrom(types[i]))
-                {
-                    DataTableProcessor.DataProcessor dataProcessor = null;
-                    dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
-                    if (dataProcessor.IsComment || dataProcessor.IsId || dataProcessor.IsEnum) continue;
-                    datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
-                }
-            }
-
-            AddEnumType(datableDataProcessors);
-            NameSpaces.Add("System");
-            NameSpaces.Add("System.IO");
-            NameSpaces.Add("System.Collections.Generic");
-            NameSpaces.Add("UnityEngine");
-            NameSpaces = NameSpaces.Distinct().ToList();
-            GenerateDataTableExtensionArray(datableDataProcessors);
-            GenerateDataTableExtensionList(datableDataProcessors);
-            GenerateBinaryReaderExtensionList(datableDataProcessors);
-            GenerateBinaryReaderExtensionArray(datableDataProcessors);
-
-            List<DataTableProcessor.DataProcessor[]> keyValueList =
-                PermutationAndCombination<DataTableProcessor.DataProcessor>
-                    .GetCombination(datableDataProcessors.Values.ToArray(), 2).ToList();
-            List<DataTableProcessor.DataProcessor[]> reverseList =
-                keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
-            keyValueList.AddRange(reverseList);
-            foreach (var dataProcessor in datableDataProcessors.Values)
-                keyValueList.Add(new[] {dataProcessor, dataProcessor});
-            GenerateDataTableExtensionDictionary(keyValueList);
-            GenerateBinaryReaderExtensionDictionary(keyValueList);
-            AssetDatabase.Refresh();
-        }
+        //不推荐使用 请使用 GenerateExtensionByAnalysis
+        
+        // [MenuItem("DataTable/GenerateAllExtension")]
+        // private static void GenerateAllExtension()
+        // {
+        //     IDictionary<string, DataTableProcessor.DataProcessor> datableDataProcessors =
+        //         new SortedDictionary<string, DataTableProcessor.DataProcessor>();
+        //     var dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
+        //     var types = GetTypeNames(dataProcessorBaseType);
+        //     for (var i = 0; i < types.Count; i++)
+        //     {
+        //         if (!types[i].IsClass || types[i].IsAbstract || types[i].ContainsGenericParameters) continue;
+        //
+        //         if (dataProcessorBaseType.IsAssignableFrom(types[i]))
+        //         {
+        //             DataTableProcessor.DataProcessor dataProcessor = null;
+        //             dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
+        //             if (dataProcessor.IsComment || dataProcessor.IsId || dataProcessor.IsEnum) continue;
+        //             datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
+        //         }
+        //     }
+        //
+        //     AddEnumType(datableDataProcessors);
+        //     NameSpaces.Add("System");
+        //     NameSpaces.Add("System.IO");
+        //     NameSpaces.Add("System.Collections.Generic");
+        //     NameSpaces.Add("UnityEngine");
+        //     NameSpaces = NameSpaces.Distinct().ToList();
+        //     GenerateDataTableExtensionArray(datableDataProcessors);
+        //     GenerateDataTableExtensionList(datableDataProcessors);
+        //     GenerateBinaryReaderExtensionList(datableDataProcessors);
+        //     GenerateBinaryReaderExtensionArray(datableDataProcessors);
+        //
+        //     List<DataTableProcessor.DataProcessor[]> keyValueList =
+        //         PermutationAndCombination<DataTableProcessor.DataProcessor>
+        //             .GetCombination(datableDataProcessors.Values.ToArray(), 2).ToList();
+        //     List<DataTableProcessor.DataProcessor[]> reverseList =
+        //         keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
+        //     keyValueList.AddRange(reverseList);
+        //     foreach (var dataProcessor in datableDataProcessors.Values)
+        //         keyValueList.Add(new[] {dataProcessor, dataProcessor});
+        //     GenerateDataTableExtensionDictionary(keyValueList);
+        //     GenerateBinaryReaderExtensionDictionary(keyValueList);
+        //     AssetDatabase.Refresh();
+        // }
 
 
         private static void GenerateDataTableExtensionArray(
