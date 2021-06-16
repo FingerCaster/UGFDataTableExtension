@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using GameFramework;
 using UnityEditor;
@@ -12,14 +11,13 @@ namespace DE.Editor.DataTableTools
 {
     public static class ExtensionsGenerate
     {
-        private static readonly string ExtensionDirectoryPath = "Assets/Scripts/DataTableExtensions/Runtime/Extensions";
-        private static readonly string NameSpace = "DE";
+
 
         [MenuItem("DataTable/GenerateExtensionByAnalysis")]
         private static void GenerateExtensionByAnalysis()
         {
             List<string> types = new List<string>(32);
-            foreach (var dataTableFileName in DataTableProcessorExtensions.DataTablePaths)
+            foreach (var dataTableFileName in DataTableConfig.DataTablePaths)
             {
                 var lines = File.ReadAllLines(dataTableFileName, Encoding.UTF8);
                 var rawRowCount = lines.Length;
@@ -102,60 +100,13 @@ namespace DE.Editor.DataTableTools
             }
             AssetDatabase.Refresh();
         }
-
-        //不推荐使用 请使用 GenerateExtensionByAnalysis
         
-        // [MenuItem("DataTable/GenerateAllExtension")]
-        // private static void GenerateAllExtension()
-        // {
-        //     IDictionary<string, DataTableProcessor.DataProcessor> datableDataProcessors =
-        //         new SortedDictionary<string, DataTableProcessor.DataProcessor>();
-        //     var dataProcessorBaseType = typeof(DataTableProcessor.DataProcessor);
-        //     var types = GetTypeNames(dataProcessorBaseType);
-        //     for (var i = 0; i < types.Count; i++)
-        //     {
-        //         if (!types[i].IsClass || types[i].IsAbstract || types[i].ContainsGenericParameters) continue;
-        //
-        //         if (dataProcessorBaseType.IsAssignableFrom(types[i]))
-        //         {
-        //             DataTableProcessor.DataProcessor dataProcessor = null;
-        //             dataProcessor = (DataTableProcessor.DataProcessor) Activator.CreateInstance(types[i]);
-        //             if (dataProcessor.IsComment || dataProcessor.IsId || dataProcessor.IsEnum) continue;
-        //             datableDataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
-        //         }
-        //     }
-        //
-        //     AddEnumType(datableDataProcessors);
-        //     NameSpaces.Add("System");
-        //     NameSpaces.Add("System.IO");
-        //     NameSpaces.Add("System.Collections.Generic");
-        //     NameSpaces.Add("UnityEngine");
-        //     NameSpaces = NameSpaces.Distinct().ToList();
-        //     GenerateDataTableExtensionArray(datableDataProcessors);
-        //     GenerateDataTableExtensionList(datableDataProcessors);
-        //     GenerateBinaryReaderExtensionList(datableDataProcessors);
-        //     GenerateBinaryReaderExtensionArray(datableDataProcessors);
-        //
-        //     List<DataTableProcessor.DataProcessor[]> keyValueList =
-        //         PermutationAndCombination<DataTableProcessor.DataProcessor>
-        //             .GetCombination(datableDataProcessors.Values.ToArray(), 2).ToList();
-        //     List<DataTableProcessor.DataProcessor[]> reverseList =
-        //         keyValueList.Select(types => new[] {types[1], types[0]}).ToList();
-        //     keyValueList.AddRange(reverseList);
-        //     foreach (var dataProcessor in datableDataProcessors.Values)
-        //         keyValueList.Add(new[] {dataProcessor, dataProcessor});
-        //     GenerateDataTableExtensionDictionary(keyValueList);
-        //     GenerateBinaryReaderExtensionDictionary(keyValueList);
-        //     AssetDatabase.Refresh();
-        // }
-
-
         private static void GenerateDataTableExtensionArray(
             IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -235,7 +186,7 @@ namespace DE.Editor.DataTableTools
         {
             var sb = new StringBuilder();
             AddNameSpaces(sb);
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -310,7 +261,7 @@ namespace DE.Editor.DataTableTools
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -372,7 +323,7 @@ namespace DE.Editor.DataTableTools
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -430,7 +381,7 @@ namespace DE.Editor.DataTableTools
 
         private static void GenerateCodeFile(string fileName, string value)
         {
-            var filePath = Utility.Path.GetRegularPath(Path.Combine(ExtensionDirectoryPath, fileName + ".cs"));
+            var filePath = Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.ExtensionDirectoryPath, fileName + ".cs"));
             if (File.Exists(filePath)) File.Delete(filePath);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -447,7 +398,7 @@ namespace DE.Editor.DataTableTools
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class DataTableExtension");
             sb.AppendLine("\t{");
@@ -569,7 +520,7 @@ namespace DE.Editor.DataTableTools
             var sb = new StringBuilder();
             AddNameSpaces(sb);
 
-            sb.AppendLine($"namespace {NameSpace}");
+            sb.AppendLine($"namespace {DataTableConfig.NameSpace}");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic static partial class BinaryReaderExtension");
             sb.AppendLine("\t{");
@@ -695,33 +646,7 @@ namespace DE.Editor.DataTableTools
             GenerateCodeFile("BinaryReaderExtension.Dictionary", sb.ToString());
         }
 
-        public static List<Type> GetTypeNames(Type typeBase)
-        {
-            var typeNames = new List<Type>();
-            foreach (var assemblyName in DataTableProcessorExtensions.EditorAssemblyNames)
-            {
-                Assembly assembly = null;
-                try
-                {
-                    assembly = Assembly.Load(assemblyName);
-                }
-                catch
-                {
-                    continue;
-                }
-
-                if (assembly == null) continue;
-
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                    if (type.IsClass && !type.IsAbstract && typeBase.IsAssignableFrom(type))
-                        typeNames.Add(type);
-            }
-
-            return typeNames;
-        }
-
-        public static bool IsCustomType(Type type)
+        private static bool IsCustomType(Type type)
         {
             return type != typeof(object) && Type.GetTypeCode(type) == TypeCode.Object;
         }
@@ -733,74 +658,6 @@ namespace DE.Editor.DataTableTools
             foreach (var nameSpace in NameSpaces)
             {
                 stringBuilder.AppendLine($"using {nameSpace};");
-            }
-        }
-
-        private static void AddEnumType(IDictionary<string, DataTableProcessor.DataProcessor> dataProcessors)
-        {
-            Type enumProcessorTypeBase = Type.GetType("DE.Editor.DataTableTools.DataTableProcessor+EnumProcessor`1");
-            List<Type> enumTypes = new List<Type>();
-            foreach (var assemblyName in DataTableProcessorExtensions.AssemblyNames)
-            {
-                Assembly assembly = null;
-                try
-                {
-                    assembly = Assembly.Load(assemblyName);
-                }
-                catch
-                {
-                    continue;
-                }
-
-                if (assembly == null) continue;
-
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                {
-                    if (!type.IsEnum) continue;
-                    enumTypes.Add(type);
-                }
-            }
-            var equalElements = enumTypes.GroupBy(_ => _.FullName)
-                .Where(_ => _.Count() > 1).SelectMany(_ => _).ToArray();
-            if (equalElements.Length > 0)
-            {
-                StringBuilder stringBuilder = new StringBuilder(256);
-                foreach (var type in equalElements)
-                {
-                    stringBuilder.AppendLine($"程序集:{type.Assembly.GetName().Name} 存在同名枚举:{type.FullName}");
-                }
-
-                throw new Exception("不同程序集中存在同名枚举,请修改后重试.\n" + stringBuilder);
-            }
-
-            foreach (var assemblyName in DataTableProcessorExtensions.AssemblyNames)
-            {
-                Assembly assembly = null;
-                try
-                {
-                    assembly = Assembly.Load(assemblyName);
-                }
-                catch
-                {
-                    continue;
-                }
-
-                if (assembly == null) continue;
-
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                {
-                    if (type.IsEnum)
-                    {
-                        Type enumProcessorType = enumProcessorTypeBase.MakeGenericType(type);
-                        DataTableProcessor.DataProcessor dataProcessor =
-                            (DataTableProcessor.DataProcessor) Activator.CreateInstance(enumProcessorType);
-                        dataProcessors.Add(dataProcessor.LanguageKeyword, dataProcessor);
-                        string nameSpace = dataProcessor.GetType().GetProperty("NameSpace")
-                            ?.GetValue(dataProcessor) as string;
-                    }
-                }
             }
         }
     }

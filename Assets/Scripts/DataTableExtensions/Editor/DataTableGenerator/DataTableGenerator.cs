@@ -11,16 +11,13 @@ namespace DE.Editor.DataTableTools
 {
     public sealed class DataTableGenerator
     {
-        private const string DataTablePath = "Assets/Res/DataTables";
-        private const string CSharpCodePath = "Assets/Scripts/DataTableExtensions/Runtime/DataTable";
-        private const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
         private static readonly Regex NameRegex = new Regex(@"^[A-Z][A-Za-z0-9_]*$");
         private static List<string> _nameSpace = new List<string>();
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
             return new DataTableProcessor(
-                Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2,
+                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2,
                 null, 3, 4, 1);
         }
 
@@ -45,18 +42,18 @@ namespace DE.Editor.DataTableTools
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
             var binaryDataFileName =
-                Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
+                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTablePath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
                 File.Delete(binaryDataFileName);
         }
 
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            dataTableProcessor.SetCodeTemplate(CSharpCodeTemplateFileName, Encoding.UTF8);
+            dataTableProcessor.SetCodeTemplate(DataTableConfig.CSharpCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
             var csharpCodeFileName =
-                Utility.Path.GetRegularPath(Path.Combine(CSharpCodePath, "DR" + dataTableName + ".cs"));
+                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.CSharpCodePath, "DR" + dataTableName + ".cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) &&
                 File.Exists(csharpCodeFileName))
                 File.Delete(csharpCodeFileName);
@@ -68,7 +65,7 @@ namespace DE.Editor.DataTableTools
             var dataTableName = (string) userData;
             
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "DE");
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", DataTableConfig.NameSpace);
             codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using GameFramework;
 using UnityEngine;
 
@@ -38,23 +39,16 @@ namespace DE.Editor.DataTableTools
                         addList.Add(dataProcessor);
                     }
                 }
-                AddEnumType(ref addList);
+                AddEnumType(addList);
                 AddListType(addList);
                 AddArrayType(addList);
                 AddDictionary(addList);
+                
             }
-
-            private static readonly string[] AssemblyNames =
+            
+            private static void AddEnumType(List<DataProcessor> addList)
             {
-#if UNITY_2017_3_OR_NEWER
-                //asmdef
-#endif
-                "Assembly-CSharp"
-            };
-
-            private static void AddEnumType(ref List<DataProcessor> addList)
-            {
-                foreach (var assemblyName in AssemblyNames)
+                foreach (var assemblyName in DataTableConfig.AssemblyNames)
                 {
                     Assembly assembly = null;
                     try
@@ -76,8 +70,19 @@ namespace DE.Editor.DataTableTools
                             Type enumProcessorType = typeof(EnumProcessor<>).MakeGenericType(type);
                             DataProcessor dataProcessor =  (DataProcessor) Activator.CreateInstance(enumProcessorType);
                             foreach (var typeString in dataProcessor.GetTypeStrings())
+                            {
+                                if (s_DataProcessors.ContainsKey(typeString))
+                                {
+                                    StringBuilder stringBuilder = new StringBuilder(256);
+                                    stringBuilder.AppendLine($"程序集:{type.Assembly.GetName().Name} 存在同名枚举:{type.FullName}");
+                                    DataProcessor repeatProcessor = s_DataProcessors[typeString];
+                                    if (repeatProcessor.GetType().GetProperty("EnumType")?.GetValue(repeatProcessor) is Type repeatType)
+                                        stringBuilder.AppendLine($"程序集:{repeatType.Assembly.GetName().Name} 存在同名枚举:{type.FullName}");
+                                    throw new Exception("不同程序集中存在同名枚举,请修改后重试.\n" + stringBuilder);
+                                    
+                                }
                                 s_DataProcessors.Add(typeString.ToLower(), dataProcessor);
-
+                            }
                             addList.Add(dataProcessor);
                         }
                     }
@@ -210,59 +215,7 @@ namespace DE.Editor.DataTableTools
                     }
                 }
             }
-            private static void AddDictionary(List<Type> addList)
-            {
-                var dataProcessorBaseType = typeof(DataProcessor);
-                var type = typeof(DictionaryProcessor<,,,>);
-                var list = new List<Type>();
-                for (var i = 0; i < addList.Count; i++)
-                {
-                    if (!addList[i].HasImplementedRawGeneric(typeof(GenericDataProcessor<>))) continue;
 
-                    var memberInfo = addList[i].BaseType;
-
-                    if (memberInfo != null) list.Add(addList[i]);
-                }
-
-
-                var keyValueList = PermutationAndCombination<Type>.GetCombination(list.ToArray(), 2).ToList();
-                var reverseList = keyValueList.Select(types => new [] {types[1], types[0]}).ToList();
-                keyValueList.AddRange(reverseList);
-                foreach (var value in list) keyValueList.Add(new[] {value, value});
-
-                foreach (var keyValue in keyValueList)
-                {
-                    var keyType = keyValue[0].BaseType;
-                    var valueType = keyValue[1].BaseType;
-                    if (keyType != null && valueType != null)
-                    {
-                        Type[] typeArgs =
-                        {
-                            keyValue[0],
-                            keyValue[1],
-                            keyType.GenericTypeArguments[0],
-                            valueType.GenericTypeArguments[0]
-                        };
-                        var dictionaryType = type.MakeGenericType(typeArgs);
-                        if (dataProcessorBaseType.IsAssignableFrom(dictionaryType))
-                        {
-                            var dataProcessor =
-                                (DataProcessor) Activator.CreateInstance(dictionaryType);
-                            var keyDataProcessor =
-                                (DataProcessor) Activator.CreateInstance(keyValue[0]);
-                            var valueDataProcessor =
-                                (DataProcessor) Activator.CreateInstance(keyValue[1]);
-                            foreach (var typeString in dataProcessor.GetTypeStrings())
-                            foreach (var key in keyDataProcessor.GetTypeStrings())
-                            foreach (var value in valueDataProcessor.GetTypeStrings())
-                            {
-                                var str = Utility.Text.Format(typeString.ToLower(), key, value);
-                                s_DataProcessors.Add(str, dataProcessor);
-                            }
-                        }
-                    }
-                }
-            }
             public static DataProcessor GetDataProcessor(string type)
             {
                 if (type == null) type = string.Empty;

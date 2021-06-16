@@ -8,20 +8,11 @@ namespace DE.Editor.DataTableTools
 {
     public sealed class DataTableGeneratorMenu
     {
-        private const string DataTablePath = "Assets/Res/DataTables";
-        private static readonly string[] DataTableNames;
-
-        static DataTableGeneratorMenu()
-        {
-            var folder = new DirectoryInfo(DataTablePath);
-            DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name))
-                .ToArray();
-        }
 
         [MenuItem("DataTable/Generate DataTables")]
         private static void GenerateDataTables()
         {
-            foreach (var dataTableName in DataTableNames)
+            foreach (var dataTableName in DataTableConfig.DataTableNames)
             {
                 var dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);
                 if (!DataTableGenerator.CheckRawData(dataTableProcessor, dataTableName))

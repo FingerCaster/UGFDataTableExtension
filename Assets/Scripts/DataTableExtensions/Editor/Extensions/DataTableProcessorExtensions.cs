@@ -8,32 +8,7 @@ namespace DE.Editor
 {
     public static class DataTableProcessorExtensions
     {
-        public static readonly string[] AssemblyNames =
-        {
-#if UNITY_2017_3_OR_NEWER
-            //asmdef
-             "Test",
-#endif
-            "Assembly-CSharp"
-        };
-        public static readonly string[] EditorAssemblyNames =
-        {
-#if UNITY_2017_3_OR_NEWER
-            "UnityGameFramework.Editor",
-            "DE.Editor",
-#endif
-            "Assembly-CSharp-Editor"
-        };
-        
-        private const string DataTablePath = "Assets/Res/DataTables";
-        public static readonly string[] DataTablePaths;
-
-        static DataTableProcessorExtensions()
-        {
-            var folder = new DirectoryInfo(DataTablePath);
-            DataTablePaths = folder.GetFiles("*.txt").Select(_ => Utility.Path.GetRegularPath(_.FullName))
-                .ToArray();
-        }
+      
 
         /// <summary>
         ///     判断指定的类型 <paramref name="type" /> 是否是指定泛型类型的子类型，或实现了指定泛型接口。

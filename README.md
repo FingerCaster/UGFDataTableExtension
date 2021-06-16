@@ -50,24 +50,29 @@ GF中实现了GenericDataProcessor的类型有22中 为Boolean,Byte,Char,Color,C
 自定义类型可以自行扩展。
 
 ## 生成数据实体类
-配置好的数据表放入Assets/Res/DataTables 文件夹中   文件夹路径定义再[DataTableGeneratorMenu.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGeneratorMenu.cs) 和 [DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGenerator.cs) 中DataTablePath字段 可自行修改。
+关于数据表用到的配置存放在 [DataTableConfig.cs](./Assets/Scripts/DataTableExtensions/Editor/Extensions/DataTableConfig.cs) 中
+
+|               注释                |           变量名           |
+| :-------------------------------: | :------------------------: |
+|       数据表存放文件夹路径        |       DataTablePath        |
+|   数据表C#实体类生成文件夹路径    |       CSharpCodePath       |
+|    数据表C#实体类模板存放路径     | CSharpCodeTemplateFileName |
+|      数据表扩展类文件夹路径       |   ExtensionDirectoryPath   |
+|          数据表命名空间           |         NameSpace          |
+| 数据表中使用类型 所在的所有程序集 |       AssemblyNames        |
+|      编辑器中使用到的程序集       |    EditorAssemblyNames     |
+|          数据表文件路径           |       DataTablePaths       |
+|           数据表文件名            |       DataTableNames       |
 
 如果添加了自定义类型Processor 需要先执行Unity菜单栏中 
 
-~~DataTable/GenerateAllExtension~~ [^生成全部类型扩展]
-
-[^生成全部类型扩展]: 生成所有类型扩展 会有大量冗余代码 不推荐使用
-
- DataTable/GenerateExtensionByAnalysis [^自动分析生成扩展]
-
-[^自动分析生成扩展]: 根据数据表自动分析生成扩展 推荐使用
+`DataTable/GenerateExtensionByAnalysis `
 
 生成解析扩展类否则无法解析自定义类型. 
 
-扩展类存放位置[DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/Extensions/ExtensionsGenerate.cs) ExtensionDirectoryPath字段。
-其中 [BinaryReaderExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/BinaryReaderExtension.cs) 和 [DataTableExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/DataTableExtension.cs) 为默认解析类 不会自动生成 如更改扩展类路径 请自行拷贝。
+扩展类中 [BinaryReaderExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/BinaryReaderExtension.cs) 和 [DataTableExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/DataTableExtension.cs) 为默认解析类 不会自动生成 如更改扩展类路径 请自行拷贝。
 
-使用Unity菜单栏中 DataTable/Generate DataTables 生成数据实体类 数据实体类存放路径为[DataTableGenerator.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableGenerator.cs) CSharpCodePath字段。
+使用Unity菜单栏中 DataTable/Generate DataTables 生成数据实体类
 
 ## 加载使用 
 请自行查看[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework) 中DataTable模块使用方法
