@@ -10,7 +10,7 @@ namespace DE.Editor.DataTableTools
     {
 
         [MenuItem("DataTable/Generate DataTables")]
-        private static void GenerateDataTables()
+        public static void GenerateDataTables()
         {
             foreach (var dataTableName in DataTableConfig.DataTableNames)
             {

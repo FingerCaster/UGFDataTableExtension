@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using GameFramework;
+using UnityEngine;
 
 namespace DE.Editor
 {
@@ -12,7 +13,10 @@ namespace DE.Editor
         /// <summary>
         /// 数据表存放文件夹路径
         /// </summary>
-        public const string DataTablePath = "Assets/Res/DataTables";
+        public const string DataTableFolderPath = "Assets/Res/DataTables";
+
+        public static readonly string ExcelsFolder = $"{Application.dataPath}/../Excels/";
+
         /// <summary>
         /// 数据表C#实体类生成文件夹路径
         /// </summary>
@@ -61,7 +65,7 @@ namespace DE.Editor
         public static readonly string[] DataTableNames;
         static DataTableConfig()
         {
-            var folder = new DirectoryInfo(DataTablePath);
+            var folder = new DirectoryInfo(DataTableFolderPath);
             DataTablePaths = folder.GetFiles("*.txt").Select(_ => Utility.Path.GetRegularPath(_.FullName))
                 .ToArray();
             DataTableNames = folder.GetFiles("*.txt").Select(file => Path.GetFileNameWithoutExtension(file.Name))

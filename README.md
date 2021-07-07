@@ -7,6 +7,8 @@
 ## 配置数据表
 使用如(Microsoft Excel,Wps)等工具编辑表格 保存时文件类型选择 文本文件(制表符分隔)(*.txt) 格式也可以自定义 如使用自定义分隔符分隔 需修改 [DataTableProcessor.cs](./Assets/Scripts/DataTableExtensions/Editor/DataTableGenerator/DataTableProcessor.cs)文件中的DataSplitSeparators。
 
+或使用自带Unity菜单栏中 `DataTable/DataTableEditor `  编辑表格。
+
 List在数据表中的类型为配置  ` list<type>` （不区分大小写）。 type为实现了GenericDataProcessor的类型 
 List内置类型使用` ,`进行分割   其他类型使用 `| `进行分割
 
@@ -86,7 +88,18 @@ GF中实现了GenericDataProcessor的类型有22中 为Boolean,Byte,Char,Color,C
 
 扩展类中 [BinaryReaderExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/BinaryReaderExtension.cs) 和 [DataTableExtension.cs](./Assets/Scripts/DataTableExtensions/Runtime/Extensions/DataTableExtension.cs) 为默认解析类 不会自动生成 如更改扩展类路径 请自行拷贝。
 
-使用Unity菜单栏中 DataTable/Generate DataTables 生成数据实体类
+1. 使用Unity菜单栏中 `DataTable/Generate DataTables` 生成数据实体类
+2. 使用Unity菜单栏中 `DataTable/ExcelToTxt` `DataTable/ExcelToBytes` 通过excel生成对应 Txt 或BytesAndCode
+
+
 
 ## 加载使用 
+
 请自行查看[UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework) 中DataTable模块使用方法
+
+# 引用库
+
+[EllanJiang/UnityGameFramework](https://github.com/EllanJiang/GameFramework)
+
+[shaun-he/DataTableEditor: 一个Unity的数据表编辑器工具](https://github.com/shaun-he/DataTableEditor)
+

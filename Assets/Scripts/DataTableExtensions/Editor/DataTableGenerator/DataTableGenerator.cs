@@ -17,7 +17,7 @@ namespace DE.Editor.DataTableTools
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
             return new DataTableProcessor(
-                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTablePath, dataTableName + ".txt")), Encoding.UTF8, 1, 2,
+                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTableFolderPath, dataTableName + ".txt")), Encoding.UTF8, 1, 2,
                 null, 3, 4, 1);
         }
 
@@ -42,7 +42,7 @@ namespace DE.Editor.DataTableTools
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
             var binaryDataFileName =
-                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTablePath, dataTableName + ".bytes"));
+                Utility.Path.GetRegularPath(Path.Combine(DataTableConfig.DataTableFolderPath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
                 File.Delete(binaryDataFileName);
         }

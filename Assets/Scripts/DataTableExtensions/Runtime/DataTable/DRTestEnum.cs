@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-06-16 21:49:08.206
+// 生成时间：2021-07-07 23:15:55.355
 //------------------------------------------------------------
 
 using GameFramework;
@@ -83,6 +83,7 @@ namespace DE
 			TestEnumList = DataTableExtension.ParseTestTestEnumList(columnStrings[index++]);
 			TestEnumArray = DataTableExtension.ParseTestTestEnumArray(columnStrings[index++]);
 			TestEnumDic = DataTableExtension.ParseTestTestEnumInt32Dictionary(columnStrings[index++]);
+            index++;
             GeneratePropertyArray();
             return true;
         }
