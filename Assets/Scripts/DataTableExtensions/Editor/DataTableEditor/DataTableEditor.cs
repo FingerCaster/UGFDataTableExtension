@@ -203,12 +203,16 @@ namespace DE.Editor
         public static DataTableEditingWindow Instance { get; private set; }
         public static List<DataTableRowData> RowDatas { get; private set; }
         private static List<DataTableRowData> RowDatasTemp;
+#if UNITY_2020_1_OR_NEWER
         private UnityInternalBridge.ReorderableList reorderableList;
+#else
+        private ReorderableList reorderableList;
+#endif
         public static string FilePath { get; private set; }
         public static int LightMode = 0;
         public string Theme = "LODCameraLine";
         private Vector2 m_scrollViewPos;
-        
+
         public static void OpenWindow(string path)
         {
             FilePath = path;
@@ -243,9 +247,8 @@ namespace DE.Editor
 
         private void OnGUI()
         {
-            
             m_scrollViewPos = GUILayout.BeginScrollView(m_scrollViewPos);
-            
+
             if (RowDatas == null || RowDatas.Count == 0)
             {
                 Close();
@@ -265,8 +268,16 @@ namespace DE.Editor
 
             if (reorderableList == null)
             {
+#if UNITY_2020_1_OR_NEWER
+                 reorderableList =
+                    new UnityInternalBridge.ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true,
+                        true);
+#else
                 reorderableList =
-                    new UnityInternalBridge.ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true, true);
+                    new ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true,
+                        true);
+#endif
+
 
                 reorderableList.drawHeaderCallback = (Rect rect) =>
                 {
@@ -300,7 +311,7 @@ namespace DE.Editor
                     }
                 };
 
-                reorderableList.onAddCallback = (UnityInternalBridge.ReorderableList list) =>
+                reorderableList.onAddCallback = (list) =>
                 {
                     bool result =
                         EditorUtility.DisplayDialog("提示", "添加 行 或 列", "行", "列");
@@ -311,7 +322,7 @@ namespace DE.Editor
                         {
                             RowDatas.Add(new DataTableRowData()
                             {
-                                Data = new List<string>() { "", "", "", "" }
+                                Data = new List<string>() {"", "", "", ""}
                             });
                         }
                         else
@@ -333,7 +344,7 @@ namespace DE.Editor
                     }
                 };
 
-                reorderableList.onRemoveCallback = (UnityInternalBridge.ReorderableList list) =>
+                reorderableList.onRemoveCallback = (list) =>
                 {
                     bool result =
                         EditorUtility.DisplayDialog("提示", "移除 行 或 列", "行", "列");
@@ -350,12 +361,10 @@ namespace DE.Editor
                         }
                     }
                 };
-
-                
             }
 
             reorderableList.DoLayoutList();
-            
+
             GUILayout.EndScrollView();
         }
 

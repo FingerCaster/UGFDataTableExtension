@@ -14,7 +14,7 @@ namespace DE.Editor.DataTableTools
 
 
         [MenuItem("DataTable/GenerateExtensionByAnalysis")]
-        private static void GenerateExtensionByAnalysis()
+        public static void GenerateExtensionByAnalysis()
         {
             List<string> types = new List<string>(32);
             foreach (var dataTableFileName in DataTableConfig.DataTablePaths)
