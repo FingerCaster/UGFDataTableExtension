@@ -172,7 +172,7 @@ namespace DE.Editor
                 return;
             }
 
-            Instance = DataTableEditor.CreateWindow<DataTableEditor>("数据表编辑器");
+            Instance = GetWindow<DataTableEditor>("数据表编辑器");
             Instance.Show();
         }
 
@@ -239,7 +239,7 @@ namespace DE.Editor
                 return;
 
             FileInfo fileInfo = new FileInfo(path);
-            Instance = DataTableEditingWindow.CreateWindow<DataTableEditingWindow>(fileInfo.Name);
+            Instance = GetWindow<DataTableEditingWindow>(fileInfo.Name);
             Instance.Show();
 
             LightMode = EditorPrefs.GetInt("DataTableEditor_" + Application.productName + "_LightMode", 0);
