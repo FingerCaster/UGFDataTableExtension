@@ -8,7 +8,7 @@ using System;
 using System.Reflection;
 using UnityEditor;
 
-namespace DE.Editor
+namespace DataTableEditor
 {
     public class DataTableUtility
     {
@@ -100,7 +100,7 @@ namespace DE.Editor
                 }
             }
 
-            EditorUtility.DisplayDialog("提示", "保存成功!", "ojbk");
+            //EditorUtility.DisplayDialog("提示", "保存成功!", "ojbk");
 
             AssetDatabase.Refresh();
 
@@ -121,11 +121,12 @@ namespace DE.Editor
             }
 
             List<DataTableRowData> data = new List<DataTableRowData>();
-            UTF8Encoding utf8 = new UTF8Encoding();
-            using (StreamReader sr = new StreamReader(path, utf8))
+
+            using (StreamReader sr = new StreamReader(path, new UnicodeEncoding()))
             {
                 while (sr.EndOfStream == false)
                 {
+                   // UTF8Encoding utf8 = new UTF8Encoding();
                     string line = sr.ReadLine();
                     string[] splited = line.Split('\t');
                     DataTableRowData row = new DataTableRowData();
@@ -143,6 +144,7 @@ namespace DE.Editor
         }
     }
 
+    [Serializable]
     public class DataTableRowData
     {
         public List<string> Data { get; set; }
@@ -161,21 +163,19 @@ namespace DE.Editor
         [MenuItem("DataTable/DataTableEditor &1", priority = 2)]
         public static void OpenWindow()
         {
-            if (DataTableEditingWindow.Instance != null)
-            {
-                DataTableEditingWindow.Instance.Close();
-            }
-
             if (Instance != null)
             {
                 Instance.Close();
                 return;
             }
 
-            Instance = GetWindow<DataTableEditor>("数据表编辑器");
+#if UNITY_2019_1_OR_NEWER
+            Instance = DataTableEditor.CreateWindow<DataTableEditor>("数据表编辑器");
+#endif
+            Instance = EditorWindowUtility.CreateWindow<DataTableEditor>("数据表编辑器");
             Instance.Show();
         }
-
+     
         private void OnGUI()
         {
             if (GUILayout.Button("新建", GUILayout.Height(ButtonHeight)))
@@ -187,33 +187,56 @@ namespace DE.Editor
 
         private void ButtonNew()
         {
-            DataTableEditingWindow.OpenWindow(DataTableUtility.NewDataTableFile());
+            var m_DataTableEditingWindow = new ZHONGJ();
+            m_DataTableEditingWindow.SetData(DataTableUtility.NewDataTableFile());
             this.Close();
         }
 
         private void ButtonLoad()
         {
-            DataTableEditingWindow.OpenWindow(EditorUtility.OpenFilePanel("加载数据表格文件", "", "txt"));
+            var m_DataTableEditingWindow = new ZHONGJ();
+            m_DataTableEditingWindow.SetData(EditorUtility.OpenFilePanel("加载数据表格文件", Application.dataPath, "txt"));
             this.Close();
+        }
+    }
+
+    public class ZHONGJ
+    {
+        public DataTableEditingWindow Instance { get; private set; }
+
+        public void SetData(string path)
+        {
+            FileInfo fileInfo = new FileInfo(path);
+            // Instance = DataTableEditingWindow.CreateWindow<DataTableEditingWindow>(fileInfo.Name);
+#if UNITY_2019_1_OR_NEWER
+            Instance = DataTableEditor.CreateWindow<DataTableEditingWindow>(fileInfo.Name);
+#endif
+            Instance = EditorWindowUtility.CreateWindow<DataTableEditingWindow>(fileInfo.Name);
+            Instance.OpenWindow(path);
+            Instance.Show();
         }
     }
 
     public class DataTableEditingWindow : EditorWindow
     {
-        public static DataTableEditingWindow Instance { get; private set; }
-        public static List<DataTableRowData> RowDatas { get; private set; }
-        private static List<DataTableRowData> RowDatasTemp;
-#if UNITY_2020_1_OR_NEWER
-        private UnityInternalBridge.ReorderableList reorderableList;
-#else
-        private ReorderableList reorderableList;
-#endif
-        public static string FilePath { get; private set; }
-        public static int LightMode = 0;
-        public string Theme = "LODCameraLine";
-        private Vector2 m_scrollViewPos;
+        public DataTableEditingWindow Instance { get; private set; }
 
-        public static void OpenWindow(string path)
+        public List<DataTableRowData> RowDatas { get; private set; }
+
+        private List<DataTableRowData> RowDatasTemp;
+
+        private ReorderableList reorderableList;
+
+        public string FilePath { get; private set; }
+
+        public int LightMode = 0;
+
+        public string Theme = "LODCameraLine";
+
+        private Vector2 m_scrollViewPos;
+        
+        
+        public void OpenWindow(string path)
         {
             FilePath = path;
             RowDatas = DataTableUtility.LoadDataTableFile(FilePath);
@@ -237,10 +260,6 @@ namespace DE.Editor
 
             if (RowDatas == null)
                 return;
-
-            FileInfo fileInfo = new FileInfo(path);
-            Instance = GetWindow<DataTableEditingWindow>(fileInfo.Name);
-            Instance.Show();
 
             LightMode = EditorPrefs.GetInt("DataTableEditor_" + Application.productName + "_LightMode", 0);
         }
@@ -268,50 +287,26 @@ namespace DE.Editor
 
             if (reorderableList == null)
             {
-#if UNITY_2020_1_OR_NEWER
-                 reorderableList =
-                    new UnityInternalBridge.ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true,
-                        true);
-#else
                 reorderableList =
-                    new ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true,
-                        true);
-#endif
+                    new ReorderableList(RowDatas, typeof(List<DataTableRowData>), true, false, true, true);
 
-
-                reorderableList.drawHeaderCallback = (Rect rect) =>
-                {
-                    EditorGUI.LabelField(rect, FilePath);
-                    rect.x = rect.width - 70;
-                    EditorGUI.LabelField(rect, "高亮模式");
-                    rect.x = rect.width - 20;
-
-                    LightMode =
-                        EditorGUI.Toggle(rect, LightMode == 0 ? true : false)
-                            ? 0
-                            : 1;
-
-                    EditorPrefs
-                        .SetInt("DataTableEditor_" + Application.productName + "_LightMode",
-                            LightMode);
-                };
                 reorderableList.drawElementCallback = (Rect rect, int index, bool selected, bool focused) =>
                 {
                     for (int i = 0; i < RowDatas[index].Data.Count; i++)
                     {
                         rect.width =
-                            (Instance.position.width - 20) /
+                            (this.position.width - 20) /
                             RowDatas[index].Data.Count;
 
                         rect.x = rect.width * i + 20;
 
                         RowDatas[index].Data[i] =
                             EditorGUI.TextField(rect, "", RowDatas[index].Data[i],
-                                Instance.Theme);
+                                this.Theme);
                     }
                 };
 
-                reorderableList.onAddCallback = (list) =>
+                reorderableList.onAddCallback = (ReorderableList list) =>
                 {
                     bool result =
                         EditorUtility.DisplayDialog("提示", "添加 行 或 列", "行", "列");
@@ -344,7 +339,7 @@ namespace DE.Editor
                     }
                 };
 
-                reorderableList.onRemoveCallback = (list) =>
+                reorderableList.onRemoveCallback = (ReorderableList list) =>
                 {
                     bool result =
                         EditorUtility.DisplayDialog("提示", "移除 行 或 列", "行", "列");
@@ -360,6 +355,23 @@ namespace DE.Editor
                             RowDatas[i].Data.RemoveAt(RowDatas[i].Data.Count - 1);
                         }
                     }
+                };
+
+                reorderableList.drawHeaderCallback = (Rect rect) =>
+                {
+                    EditorGUI.LabelField(rect, FilePath);
+                    rect.x = rect.width - 70;
+                    EditorGUI.LabelField(rect, "高亮模式");
+                    rect.x = rect.width - 20;
+
+                    LightMode =
+                        EditorGUI.Toggle(rect, LightMode == 0 ? true : false)
+                            ? 0
+                            : 1;
+
+                    EditorPrefs
+                        .SetInt("DataTableEditor_" + Application.productName + "_LightMode",
+                            LightMode);
                 };
             }
 
@@ -386,7 +398,7 @@ namespace DE.Editor
         /// </summary>
         private void CheckColumnCount()
         {
-            if (RowDatas.Count == 0)
+            if (RowDatas == null || RowDatas.Count == 0)
                 return;
 
             int count = RowDatas[0].Data.Count;
@@ -410,6 +422,8 @@ namespace DE.Editor
         /// <returns></returns>
         private bool CheckDirty()
         {
+            Debug.Log("执行清理");
+
             if (RowDatasTemp.Count != RowDatas.Count)
                 return true;
 
